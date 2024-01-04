@@ -11,6 +11,7 @@ module.exports = {
         sm: '2rem',
         lg: '4rem',
         xl: '7.62rem',
+        '2xl': '14.06rem'
       },
     },
     screens: {
@@ -18,8 +19,9 @@ module.exports = {
       sm: '480px',
       md: '768px',
       lg: '1024px',
-      xl: '1440px',
-      '2xl': '1920px'
+      xl: '1280px',
+      '2xl': '1440px',
+      '3xl' : '1920px'
     },
     fontFamily: {
       avantGarde: ['AvantGarde Bk BT'],

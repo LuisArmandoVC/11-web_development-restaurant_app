@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 .btn-cta{
-    @apply rounded-[6.25rem] bg-primary text-white py-3 px-4
+    @apply rounded-[6.25rem] bg-primary text-white py-3 px-4 font-roboto
 }
 .container{
     @apply max-w-[1920px]
