@@ -1,0 +1,58 @@
+<header class="container bg-white font-avantGarde py-8 hidden min-[768px]:block sticky top-0 z-20">
+    <nav class="flex justify-between items-center">
+        <div class="uppercase text-secondary text-4xl font-bold">
+            Logo
+        </div>
+        <div>
+            <ul class="flex md:gap-10 lg:gap-20">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li> <a href="{% url 'about' %}">Sobre Nosotros</a></li>
+                <li> <a href="{% url 'contact' %}">Contáctanos</a></li>
+            </ul>
+        </div>
+        <div class="flex md:gap-6 lg:gap-12 justify-center items-center">
+            <span>
+                <a href="/">
+                    <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.9167 21.0833C16.7031 21.0833 20.5833 17.2031 20.5833 12.4167C20.5833 7.6302 16.7031 3.75 11.9167 3.75C7.1302 3.75 3.25 7.6302 3.25 12.4167C3.25 17.2031 7.1302 21.0833 11.9167 21.0833Z" stroke="#030229" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22.75 23.25L18.0917 18.5917" stroke="#030229" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>                    
+                </a>
+            </span>
+            <span>
+                <a href="/">
+                    <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.01053 22.2209C8.54793 22.2209 8.98358 21.7832 8.98358 21.2434C8.98358 20.7036 8.54793 20.266 8.01053 20.266C7.47313 20.266 7.03748 20.7036 7.03748 21.2434C7.03748 21.7832 7.47313 22.2209 8.01053 22.2209Z" stroke="#030229" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M18.7139 22.2209C19.2513 22.2209 19.687 21.7832 19.687 21.2434C19.687 20.7036 19.2513 20.266 18.7139 20.266C18.1765 20.266 17.7408 20.7036 17.7408 21.2434C17.7408 21.7832 18.1765 22.2209 18.7139 22.2209Z" stroke="#030229" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2.22083 2.72084H4.16693L6.75526 14.8607C6.85021 15.3053 7.09648 15.7027 7.45168 15.9846C7.80689 16.2665 8.2488 16.4152 8.70136 16.405H18.2178C18.6607 16.4043 19.0902 16.2519 19.4351 15.9729C19.7801 15.6938 20.0201 15.305 20.1153 14.8705L21.7208 7.60806H5.2081" stroke="#030229" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </span>
+            <button class="btn-cta">
+                <a href="/">+ Pide aquí</a>
+            </button>
+        </div>
+    </nav>
+</header>
+
+<header class="font-avantGarde bg-white block sticky top-0 z-20 md:hidden">
+    <nav class="flex justify-between items-center px-8 pt-5">
+        <div class="uppercase text-secondary text-3xl font-bold">
+            Logo
+        </div>
+        {# TODO: Cambiar el diseno del header en vista mobile para incluir buscador y carrito tal vez? Consultar con Caro  #}
+        <button class="hamburger hamburger--squeeze" type="button">
+            <span class="hamburger-box">
+                <span class="hamburger-inner">
+                </span>
+            </span>
+        </button>
+    </nav>
+    <div class="bg-secondary h-0 overflow-hidden transition-height duration-500 ease-in-out" id="menu_content">
+        <ul class="flex flex-col justify-center items-center gap-20 py-20 text-white font-bold">
+            <li class=""><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">Sobre Nosotros</a></li>
+            <li><a href="{% url 'contact' %}">Contáctanos</a></li>
+        </ul>
+    </div>
+</header>

@@ -10,6 +10,8 @@
         Creation info: Luis Veliz - 27/12/2023
         Pending: adjust layout after 1280px + make content variable through admin + investigate about html raw helper on Django
     {% endcomment %}
+
+    {% comment %}
     <section class="font-avantGarde py-10 xl:py-[12.5rem] xl:px-10">
         <div class="xl:flex xl:items-center xl:gap-7">
             <article class="container" id="service_text">
@@ -70,8 +72,7 @@
             <a class="block text-center btn-cta md:w-1/2 md:mx-auto xl:mx-0 xl:w-1/5" href="/">+ Ver más</a>
         </article>
     </section>
-
-
+    {% endcomment %}
 
 
 
@@ -91,7 +92,6 @@
         Creation info: Luis Veliz - 27/12/2023
         Pending: adjust it to swiper on mobile view
     {% endcomment %}
-
 
     {% comment %}
     <section class="container font-avantGarde bg-gray-figma-100 py-[4.12rem]">
@@ -138,8 +138,8 @@
     </section>
     {% endcomment %}
 
-    <script>
 
+    <script>
         var userWidth = window.screen.width;
         if (userWidth >= 1280) {
             let service_text = document.querySelector('#service_text');

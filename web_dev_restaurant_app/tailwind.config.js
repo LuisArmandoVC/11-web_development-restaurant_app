@@ -29,8 +29,12 @@ module.exports = {
       inter: ['Inter']
     },
     extend: {
+      transitionProperty: {
+        'height': 'height'
+      },
       boxShadow: {
-        'figmaShadows': '5px 7px 31.6px 0px rgba(0, 0, 0, 0.25)'
+        'figmaShadows': '5px 7px 31.6px 0px rgba(0, 0, 0, 0.25)',
+        'whiteShadowCTAs': '-2px 7px 20.3px 0px rgba(255, 255, 255, 0.50)'
       },
       spacing: {
         'figmaMargins' : '7.62rem'
