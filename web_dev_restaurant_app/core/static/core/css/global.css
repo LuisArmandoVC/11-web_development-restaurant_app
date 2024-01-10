@@ -636,6 +636,11 @@ video {
   z-index: 20;
 }
 
+.mx-auto{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .mb-12{
   margin-bottom: 3rem;
 }
@@ -718,6 +723,10 @@ video {
 
 .max-w-\[31\.46rem\]{
   max-width: 31.46rem;
+}
+
+.max-w-\[600px\]{
+  max-width: 600px;
 }
 
 .basis-1\/2{
@@ -807,12 +816,21 @@ video {
   border-radius: 9999px;
 }
 
+.border{
+  border-width: 1px;
+}
+
 .border-2{
   border-width: 2px;
 }
 
 .border-t{
   border-top-width: 1px;
+}
+
+.border-gray-figma-300{
+  --tw-border-opacity: 1;
+  border-color: rgb(73 69 79 / var(--tw-border-opacity));
 }
 
 .border-white{
@@ -984,6 +1002,11 @@ video {
   color: rgb(74 74 74 / var(--tw-text-opacity));
 }
 
+.text-gray-figma-300{
+  --tw-text-opacity: 1;
+  color: rgb(73 69 79 / var(--tw-text-opacity));
+}
+
 .text-primary{
   --tw-text-opacity: 1;
   color: rgb(63 60 188 / var(--tw-text-opacity));
@@ -1012,6 +1035,12 @@ video {
 
 .shadow-whiteShadowCTAs{
   --tw-shadow: -2px 7px 20.3px 0px rgba(255, 255, 255, 0.50);
+  --tw-shadow-colored: -2px 7px 20.3px 0px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-primaryShadowForm{
+  --tw-shadow: -2px 7px 20.3px 0px rgba(96, 91, 255, 0.50);
   --tw-shadow-colored: -2px 7px 20.3px 0px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
@@ -1059,6 +1088,27 @@ body{
   height: 100vh;
 }
 
+.is-active_mobileMenu{
+  position: static;
+}
+
+.after\:text-red-500::after{
+  content: var(--tw-content);
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.after\:content-\[\'\*\'\]::after{
+  --tw-content: '*';
+  content: var(--tw-content);
+}
+
+@media (min-width: 320px){
+  .xs\:tracking-\[0\.175rem\]{
+    letter-spacing: 0.175rem;
+  }
+}
+
 @media (min-width: 768px){
   .md\:order-1{
     order: 1;
@@ -1083,6 +1133,14 @@ body{
 
   .md\:w-1\/2{
     width: 50%;
+  }
+
+  .md\:max-w-\[768px\]{
+    max-width: 768px;
+  }
+
+  .md\:max-w-\[600px\]{
+    max-width: 600px;
   }
 
   .md\:basis-1\/2{
@@ -1135,6 +1193,16 @@ body{
   .lg\:text-xl{
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+
+  .lg\:text-2xl{
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .lg\:text-5xl{
+    font-size: 3rem;
+    line-height: 1;
   }
 
   .lg\:leading-10{

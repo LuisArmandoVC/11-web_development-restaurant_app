@@ -17,3 +17,6 @@ body{
 .is-active_content{
     @apply h-screen
 }
+.is-active_mobileMenu{
+    @apply static
+}

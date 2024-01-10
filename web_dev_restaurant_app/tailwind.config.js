@@ -34,7 +34,8 @@ module.exports = {
       },
       boxShadow: {
         'figmaShadows': '5px 7px 31.6px 0px rgba(0, 0, 0, 0.25)',
-        'whiteShadowCTAs': '-2px 7px 20.3px 0px rgba(255, 255, 255, 0.50)'
+        'whiteShadowCTAs': '-2px 7px 20.3px 0px rgba(255, 255, 255, 0.50)',
+        'primaryShadowForm': '-2px 7px 20.3px 0px rgba(96, 91, 255, 0.50)'
       },
       spacing: {
         'figmaMargins' : '7.62rem'
@@ -45,7 +46,8 @@ module.exports = {
         tertiary: '#030229',
         'gray-figma': {
           100: '#F4F4F4',
-          200: '#4A4A4A'
+          200: '#4A4A4A',
+          300: '#49454F'
         } 
       }
     },
