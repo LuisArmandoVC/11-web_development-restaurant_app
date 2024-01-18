@@ -21,6 +21,7 @@ module.exports = {
       lg: '1024px',
       xl: '1280px',
       '2xl': '1440px',
+      'screen-1720': '1720px',
       '3xl' : '1920px'
     },
     fontFamily: {
@@ -35,7 +36,8 @@ module.exports = {
       boxShadow: {
         'figmaShadows': '5px 7px 31.6px 0px rgba(0, 0, 0, 0.25)',
         'whiteShadowCTAs': '-2px 7px 20.3px 0px rgba(255, 255, 255, 0.50)',
-        'primaryShadowForm': '-2px 7px 20.3px 0px rgba(96, 91, 255, 0.50)'
+        'primaryShadowForm': '-2px 7px 20.3px 0px rgba(96, 91, 255, 0.50)',
+        'videoCTA': '0px 5px 38px 0px rgba(96, 91, 255, 0.50)'
       },
       spacing: {
         'figmaMargins' : '7.62rem'

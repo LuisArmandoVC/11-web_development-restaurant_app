@@ -3,7 +3,7 @@ var enablingMenu = document.querySelector('#menu_content');
 var navbar_mobile = document.querySelector('#navbar_mobile');
 
 hamburger.addEventListener("click", function() {
-
+    window.scrollTo(0, 0);
 
 
 

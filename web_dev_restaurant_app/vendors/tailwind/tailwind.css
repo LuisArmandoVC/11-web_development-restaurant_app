@@ -20,3 +20,15 @@ body{
 .is-active_mobileMenu{
     @apply static
 }
+
+
+.swiper-pagination{
+    position: static !important;
+}
+.swiper-pagination-bullet {
+    width: 0.75rem !important;
+    height: 0.75rem !important;
+}
+.swiper-pagination-bullet-active{
+    background-color: #605BFF !important;
+}

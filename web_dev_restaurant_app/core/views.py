@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
-from .models import sections, user_review
+from .models import sections, user_review, hero_banner
 
 # Create your views here.
 
@@ -8,7 +8,9 @@ def home(request):
     review_section_content = sections.objects.get(
         section_name="clientes_felices")
     reviews = user_review.objects.all()
-    return render(request, "core/home.html", {'review_section_content': review_section_content, 'reviews': reviews})
+    hero_banner_content = hero_banner.objects.all()
+    hero_banner_amount = len(hero_banner_content)
+    return render(request, "core/home.html", {'review_section_content': review_section_content, 'reviews': reviews, 'hero_banner_content': hero_banner_content, 'hero_banner_amount': hero_banner_amount})
 
 
 def about(request):

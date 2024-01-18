@@ -1,64 +1,125 @@
 {% extends 'core/master.html' %}
 
 
+
 {% block content %}
-    {% comment %}
-        Section: Our services
-        Model: not defined yet
-        Content relation: not defined yet
-        Description: elements mixed. Left side static text with CTA while right side is built with a swiper to show all services
-        Creation info: Luis Veliz - 27/12/2023
-        Pending: adjust layout after 1280px + make content variable through admin + investigate about html raw helper on Django
-    {% endcomment %}
 
     {% comment %}
-    <section class="font-avantGarde py-10 xl:py-[12.5rem] xl:px-10">
-        <div class="xl:flex xl:items-center xl:gap-7">
-            <article class="container" id="service_text">
+        Section: Hero banner
+        Model: hero_banner
+        Content administrator relation: this section is fed by Contenido del main banner swiper 
+        Description: Hero banner (main banner) swiper. Allowed to display dinamically the following items - image, title, description & CTAs 
+        Creation info: Luis Veliz - 11/01/2024
+        Pending: Upload a youtube video then insert within iframe
+    {% endcomment %}
+    <section>
+        <article class="swiper heroBannerSwiper">
+            <div class="swiper-wrapper">
+                {% for hero_banner in hero_banner_content %}
+                    <div class="swiper-slide">
+                        <div class="container py-10 lg:py-[3.75rem] xl:pb-[2.88rem] overflow-hidden">
+                            <div class="xl:flex xl:gap-20 3xl:gap-48">
+                                <div class="relative flex justify-center items-center flex-col xl:order-1 xl:basis-2/4">
+                                    <div class="bg-secondary w-[20rem] xl:w-[30rem] 3xl:w-[36.125rem] h-[20rem] xl:h-[32rem] 3xl:h-[35.687rem] rounded-[31.25rem] xl:rounded-full translate-x-14 xl:translate-x-12 xl:-translate-y-4 3xl:translate-y-4"></div>
+                                    <div class="absolute top-[15px] xl:h-full xl:flex xl:justify-center xl:items-center">
+                                        <img class="rounded-[31.25rem] xl:rounded-full w-[330px] xl:w-[30rem] 3xl:w-[36.125rem] h-[320px] xl:h-[32rem] 3xl:h-[35.687rem]" src="{{ hero_banner.hero_banner_image.url }}" alt="{{ hero_banner.hero_banner_image_alt }}">
+                                    </div>
+                                </div>
+                                <div class="text-center xl:text-left mt-12  xl:order-0 xl:basis-2/4">
+                                    <h3 class="text-4xl xl:text-5xl font-bold">{{ hero_banner.hero_banner_title }}</h3>
+                                    {% if hero_banner.hero_banner_description  %}
+                                        <p class="mt-10 xl:mt-16 lg:text-xl leading-9 lg:leading-10">
+                                            {{ hero_banner.hero_banner_description }}
+                                        </p>
+                                    {% endif %}
+                                    <div class="md:flex md:justify-center xl:justify-start md:items-center xl:mt-16 xl:gap-12">
+                                        <div class="w-full md:w-1/3 xl:w-5/12 mt-10 xl:mt-0">
+                                            <a class="btn-cta w-full block text-center" href="{{ hero_banner.hero_banner_cta }}">+ Pide aquí</a>
+                                        </div>
+                                        <div class="flex flex-col mt-10 xl:mt-0 md:w-1/3 ">
+                                            <button class="flex justify-center items-center gap-5 showModal" onclick='callPopup( {{ forloop.counter }} )'>Como pedir
+                                                <div class="bg-white w-10 h-10 rounded-full flex justify-center items-center shadow-videoCTA">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                                        <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+                                                    </svg>
+                                                </div>
+                                            </button>
+                                            <dialog>
+                                                hola mundo <br>
+                                                Aqui va el video
+                                            </dialog >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if hero_banner_amount > 1 %}
+                <div class="swiper-pagination"></div>
+            {% endif %}
+        </article>
+    </section>
+
+
+
+    {% comment %}
+        Section: Our services
+        Model: not required
+        Content relation: not required
+        Description: elements mixed. Left side static text with CTA while right side is built with a swiper to show all services
+        Creation info: Luis Veliz - 27/12/2023
+        Pending: DONE - 11/01/2024
+    {% endcomment %}
+
+    <section class="font-avantGarde py-10 xl:py-[12.5rem] xl:px-[7.62rem] 2xl:px-[14.06rem] xl:relative">
+        <div class="xl:flex xl:items-center xl:gap-8">
+            <article class="container xl:max-w-none xl:p-0" id="service_text">
                 <h4 class="text-base xl:text-xl text-center xl:text-left font-bold text-primary uppercase tracking-[0.175rem] lg:tracking-normal">Nuestra historia y servicios</h4>
-                <h2 class="mt-5 text-3xl xl:text-6xl text-center xl:text-left font-bold text-tertiary">Nuestros servicios</h2>
+                <h2 class="mt-5 text-3xl xl:text-5xl text-center xl:text-left font-bold text-tertiary">Nuestros servicios</h2>
                 <p class="mt-10 text-base xl:text-2xl text-center xl:text-left text-gray-figma-200 font-bold"> Lorem ipsum, Lorem ipsum, Lorem ipsum, Lorem </p>
             </article>
             <article>
-                <div class="swiper">
+                <div class="swiper ourServicesSwiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide py-10 px-5">
-                            <div class="px-5 py-[3.38rem] w-max-[17.3rem] flex flex-col items-center justify-center rounded-[1.25rem] shadow-figmaShadows">
+                        <div class="swiper-slide py-10 px-5 xl:max-w-[296px]">
+                            <div class="px-5 xl:px-0 py-[3.38rem] w-max-[17.3rem] xl:max-w-none flex flex-col items-center justify-center rounded-[1.25rem] shadow-figmaShadows">
                                 <svg width="62" height="45" viewBox="0 0 62 45" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10 37.5H4C2.2 37.5 1 36.3 1 34.5V4.5C1 2.7 2.2 1.5 4 1.5H34C35.8 1.5 37 2.7 37 4.5V37.5M37 10.5H49L61 22.5V34.5C61 36.3 59.8 37.5 58 37.5H52" stroke="#605BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M16 43.5C19.3137 43.5 22 40.8137 22 37.5C22 34.1863 19.3137 31.5 16 31.5C12.6863 31.5 10 34.1863 10 37.5C10 40.8137 12.6863 43.5 16 43.5Z" stroke="#605BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M40 37.5H22" stroke="#605BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M46 43.5C49.3137 43.5 52 40.8137 52 37.5C52 34.1863 49.3137 31.5 46 31.5C42.6863 31.5 40 34.1863 40 37.5C40 40.8137 42.6863 43.5 46 43.5Z" stroke="#605BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <div class="w-[14.6876rem] text-center">
+                                <div class="w-[14.6876rem] xl:w-auto xl:px-12 text-center">
                                     <h3 class="mt-8 uppercase text-2xl text-secondary font-bold">DOMICILIO</h3>
                                     <p class="mt-12 text-xl">Lorem ipsum, Lorem ipsum, Lorem ipsum, </p>
                                 </div>
                             </div>
                         </div>
                         <div class="swiper-slide py-10 px-5">
-                            <div class="px-5 py-[3.38rem] w-max-[17.3rem] flex flex-col items-center justify-center rounded-[1.25rem] shadow-figmaShadows">
+                            <div class="px-5 xl:px-0 py-[3.38rem] w-max-[17.3rem] xl:max-w-none flex flex-col items-center justify-center rounded-[1.25rem] shadow-figmaShadows">
                                 <svg width="62" height="45" viewBox="0 0 62 45" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10 37.5H4C2.2 37.5 1 36.3 1 34.5V4.5C1 2.7 2.2 1.5 4 1.5H34C35.8 1.5 37 2.7 37 4.5V37.5M37 10.5H49L61 22.5V34.5C61 36.3 59.8 37.5 58 37.5H52" stroke="#605BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M16 43.5C19.3137 43.5 22 40.8137 22 37.5C22 34.1863 19.3137 31.5 16 31.5C12.6863 31.5 10 34.1863 10 37.5C10 40.8137 12.6863 43.5 16 43.5Z" stroke="#605BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M40 37.5H22" stroke="#605BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M46 43.5C49.3137 43.5 52 40.8137 52 37.5C52 34.1863 49.3137 31.5 46 31.5C42.6863 31.5 40 34.1863 40 37.5C40 40.8137 42.6863 43.5 46 43.5Z" stroke="#605BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <div class="w-[14.6876rem] text-center">
+                                <div class="w-[14.6876rem] xl:w-auto xl:px-12 text-center">
                                     <h3 class="mt-8 uppercase text-2xl text-secondary font-bold">DOMICILIO</h3>
                                     <p class="mt-12 text-xl">Lorem ipsum, Lorem ipsum, Lorem ipsum, </p>
                                 </div>
                             </div>
                         </div>
                         <div class="swiper-slide py-10 px-5">
-                            <div class="px-5 py-[3.38rem] w-max-[17.3rem] flex flex-col items-center justify-center rounded-[1.25rem] shadow-figmaShadows">
+                            <div class="px-5 xl:px-0 py-[3.38rem] w-max-[17.3rem] xl:max-w-none flex flex-col items-center justify-center rounded-[1.25rem] shadow-figmaShadows">
                                 <svg width="62" height="45" viewBox="0 0 62 45" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10 37.5H4C2.2 37.5 1 36.3 1 34.5V4.5C1 2.7 2.2 1.5 4 1.5H34C35.8 1.5 37 2.7 37 4.5V37.5M37 10.5H49L61 22.5V34.5C61 36.3 59.8 37.5 58 37.5H52" stroke="#605BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M16 43.5C19.3137 43.5 22 40.8137 22 37.5C22 34.1863 19.3137 31.5 16 31.5C12.6863 31.5 10 34.1863 10 37.5C10 40.8137 12.6863 43.5 16 43.5Z" stroke="#605BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M40 37.5H22" stroke="#605BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M46 43.5C49.3137 43.5 52 40.8137 52 37.5C52 34.1863 49.3137 31.5 46 31.5C42.6863 31.5 40 34.1863 40 37.5C40 40.8137 42.6863 43.5 46 43.5Z" stroke="#605BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <div class="w-[14.6876rem] text-center">
+                                <div class="w-[14.6876rem] xl:w-auto xl:px-12 text-center">
                                     <h3 class="mt-8 uppercase text-2xl text-secondary font-bold">DOMICILIO</h3>
                                     <p class="mt-12 text-xl">Lorem ipsum, Lorem ipsum, Lorem ipsum, </p>
                                 </div>
@@ -68,21 +129,10 @@
                 </div>
             </article>
         </div>
-        <article class="container" id="service_btn">
+        <article class="px-5 sm:px-8 xl:px-0 2xl:-translate-y-15 screen-1720:-translate-y-20">
             <a class="block text-center btn-cta md:w-1/2 md:mx-auto xl:mx-0 xl:w-1/5" href="/">+ Ver más</a>
         </article>
     </section>
-    {% endcomment %}
-
-
-
-
-
-
-
-
-
-
 
     {% comment %}
         Section: Reviews by customers
@@ -90,77 +140,101 @@
         Content relation: this section is fed by "comentarios de clientes"
         Description: cards with feedback information dynamically change through Django admin
         Creation info: Luis Veliz - 27/12/2023
-        Pending: adjust it to swiper on mobile view
+        Pending: none - 10/01/2023
     {% endcomment %}
 
-    {% comment %}
     <section class="container font-avantGarde bg-gray-figma-100 py-[4.12rem]">
-        <div>
+        <article>
             <h4 class="text-xl text-center font-bold text-primary uppercase">{{ review_section_content.small_title }}</h4>
-            <h2 class="mt-[20px] text-6xl text-center font-bold text-tertiary">{{ review_section_content.title }}</h2>
+            <h2 class="mt-5 text-3xl lg:text-6xl text-center font-bold text-tertiary">{{ review_section_content.title }}</h2>
+        </article>
+        <div class="swiper reviewSwiper">
+            <div class="swiper-wrapper">
+                {% for review in reviews %}
+                    <div class="swiper-slide">
+                        <article class="relative rounded-3xl max-w-[31.46rem] bg-white py-[3.75rem] mt-40">
+                            <div class="w-full absolute top-[-100px] left-0 flex justify-center">
+                                {% if review.user_image %}
+                                    <img class="rounded-full bg-orange-200" width="130px" height="126px" src="{{ review.user_image.url }}" alt="user image profile">
+                                {% else %}
+                                    <img class="rounded-full bg-orange-200" width="130px" height="126px" src="/media/client_reviews/default_user.png" alt="user image profile - default icon">
+                                {% endif %}
+                            </div>
+                            <div class="mb-12 flex justify-center gap-2">
+                                {% for _ in "xxxxx" %}
+                                    {% if forloop.counter <= review.review %}
+                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_868_1857)">
+                                                <path d="M1.38453 8.26696L3.75787 10.0003L2.85653 12.7916C2.71087 13.2246 2.70903 13.693 2.85127 14.127C2.99352 14.5611 3.27223 14.9375 3.64587 15.2003C4.0131 15.4715 4.45813 15.6168 4.91463 15.6145C5.37114 15.6122 5.81469 15.4625 6.1792 15.1876L8.49987 13.4796L10.8212 15.1856C11.1878 15.4553 11.6304 15.6017 12.0854 15.6039C12.5405 15.6062 12.9845 15.464 13.3537 15.198C13.7229 14.9319 13.9982 14.5557 14.1401 14.1233C14.2819 13.6909 14.283 13.2247 14.1432 12.7916L13.2419 10.0003L15.6152 8.26696C15.9813 7.9993 16.2534 7.6228 16.3928 7.19122C16.5321 6.75965 16.5315 6.29509 16.391 5.86389C16.2505 5.43269 15.9774 5.05691 15.6105 4.79023C15.2437 4.52355 14.802 4.37961 14.3485 4.37896H11.4332L10.5485 1.62163C10.4094 1.1876 10.136 0.808971 9.76785 0.540339C9.39965 0.271706 8.95564 0.126953 8.49987 0.126953C8.04409 0.126953 7.60009 0.271706 7.23189 0.540339C6.86369 0.808971 6.59032 1.1876 6.4512 1.62163L5.56653 4.37896H2.65387C2.20036 4.37961 1.75866 4.52355 1.39185 4.79023C1.02504 5.05691 0.751893 5.43269 0.611413 5.86389C0.470933 6.29509 0.470312 6.75965 0.609636 7.19122C0.748961 7.6228 1.02111 7.9993 1.3872 8.26696H1.38453Z" fill="#FFE605"/>
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_868_1857">
+                                                    <rect width="16" height="16" fill="white" transform="translate(0.5)"/>
+                                                </clipPath>
+                                            </defs>
+                                        </svg> 
+                                    {% else %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <blockquote class="mb-5">
+                                <p class="px-8 min-h-[325px] sm:min-h-[300px]">{{ review.comment }}</p>
+                            </blockquote>
+                            <cite class="block text-center not-italic">
+                                <strong>{{ review.user_name }}</strong>
+                            </cite>
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-        <section class="flex justify-center gap-14 font-inter">
-            {% for review in reviews %}
-                <article class="relative rounded-3xl max-w-[31.46rem] bg-white p-[3.12rem] py-[3.75rem] mt-40">
-                    <div class="w-full absolute top-[-100px] left-0 flex justify-center">
-                        {% if review.user_image %}
-                            <img class="rounded-full bg-orange-200" width="130px" height="126px" src="{{ review.user_image.url }}" alt="user image profile">
-                        {% else %}
-                            <img class="rounded-full bg-orange-200" width="130px" height="126px" src="/media/client_reviews/default_user.png" alt="user image profile - default icon">
-                        {% endif %}
-                    </div>
-                    <div class="mb-12 flex justify-center gap-2">
-                        {% for _ in "xxxxx" %}
-                            {% if forloop.counter <= review.review %}
-                                <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_868_1857)">
-                                        <path d="M1.38453 8.26696L3.75787 10.0003L2.85653 12.7916C2.71087 13.2246 2.70903 13.693 2.85127 14.127C2.99352 14.5611 3.27223 14.9375 3.64587 15.2003C4.0131 15.4715 4.45813 15.6168 4.91463 15.6145C5.37114 15.6122 5.81469 15.4625 6.1792 15.1876L8.49987 13.4796L10.8212 15.1856C11.1878 15.4553 11.6304 15.6017 12.0854 15.6039C12.5405 15.6062 12.9845 15.464 13.3537 15.198C13.7229 14.9319 13.9982 14.5557 14.1401 14.1233C14.2819 13.6909 14.283 13.2247 14.1432 12.7916L13.2419 10.0003L15.6152 8.26696C15.9813 7.9993 16.2534 7.6228 16.3928 7.19122C16.5321 6.75965 16.5315 6.29509 16.391 5.86389C16.2505 5.43269 15.9774 5.05691 15.6105 4.79023C15.2437 4.52355 14.802 4.37961 14.3485 4.37896H11.4332L10.5485 1.62163C10.4094 1.1876 10.136 0.808971 9.76785 0.540339C9.39965 0.271706 8.95564 0.126953 8.49987 0.126953C8.04409 0.126953 7.60009 0.271706 7.23189 0.540339C6.86369 0.808971 6.59032 1.1876 6.4512 1.62163L5.56653 4.37896H2.65387C2.20036 4.37961 1.75866 4.52355 1.39185 4.79023C1.02504 5.05691 0.751893 5.43269 0.611413 5.86389C0.470933 6.29509 0.470312 6.75965 0.609636 7.19122C0.748961 7.6228 1.02111 7.9993 1.3872 8.26696H1.38453Z" fill="#FFE605"/>
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_868_1857">
-                                            <rect width="16" height="16" fill="white" transform="translate(0.5)"/>
-                                        </clipPath>
-                                    </defs>
-                                </svg> 
-                            {% else %}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                    <blockquote class="mb-5 min-h-[200px]">
-                        <p>{{ review.comment }}</p>
-                    </blockquote>
-                    <cite class="block text-center not-italic">
-                        <strong>{{ review.user_name }}</strong>
-                    </cite>
-                </article>
-            {% endfor %}
-        </section>
     </section>
-    {% endcomment %}
+{% endblock %}
 
 
+{% block scripts %}
     <script>
-        var userWidth = window.screen.width;
-        if (userWidth >= 1280) {
-            let service_text = document.querySelector('#service_text');
-            let service_btn = document.querySelector('#service_btn');
-            service_text.classList.remove('container');
-            service_btn.classList.remove('container');
+        // Hero banner swiper
+        const heroBannerSwiper = new Swiper('.heroBannerSwiper', {
+            direction: 'horizontal',
+            loop: true,
+            autoplay: {
+                delay: 5000,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            },
+        });
+
+        // Video popup
+        const dialog = document.querySelector("dialog");
+        const callPopup = (i) => {
+            dialog.showModal();
         }
 
-        window.addEventListener("resize", () => {
-            userWidth = window.screen.width;
-            if (userWidth >= 1280) {
-                let service_text = document.querySelector('#service_text');
-                let service_btn = document.querySelector('#service_btn');
-                service_text.classList.remove('container');
-                service_btn.classList.remove('container');
+        // Our service section swiper
+        const ourServicesSwiper = new Swiper('.ourServicesSwiper', {
+        direction: 'horizontal',
+        slidesPerView: 1.15,
+        loop: true,
+        autoplay: {
+            delay: 5000,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 2.15,
+                },
+            1024: {
+                slidesPerView: 3,
+                }
             }
         });
 
-
-        const swiper = new Swiper('.swiper', {
+        // User review swiper
+        const reviewSwiper = new Swiper('.reviewSwiper', {
         direction: 'horizontal',
+        spaceBetween: 15,
         slidesPerView: 1.15,
         loop: true,
         autoplay: {
@@ -177,5 +251,8 @@
         });
     </script>
 
+{% endblock  %}
 
-{% endblock %}
+
+
+
