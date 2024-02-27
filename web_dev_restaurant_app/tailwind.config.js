@@ -29,6 +29,14 @@ module.exports = {
       roboto: ['Roboto'],
       inter: ['Inter']
     },
+    fontSize: {
+      'notificacion': '14px',
+      'parrafo': '16px',
+      'subtitulo': '18px',
+      'tituloParrafo': '22px',
+      'tituloMob': '32px',
+      'titulo': '48px',
+    },
     extend: {
       transitionProperty: {
         'height': 'height'
@@ -49,7 +57,8 @@ module.exports = {
         'gray-figma': {
           100: '#F4F4F4',
           200: '#4A4A4A',
-          300: '#49454F'
+          300: '#49454F',
+          400: '#555555'
         } 
       }
     },

@@ -1,0 +1,51 @@
+{% extends 'core/master.html' %}
+{% block content %}
+    <section class="container  ">
+        <article class="pt-16">
+            <h1 class="lg:text-subtitulo text-secondary font-bold uppercase tracking-[1.25px]">NUESTRO MENÚ</h1>
+            <h3 class="text-tituloMob mt-5 lg:mt-0 lg:text-titulo font-bold">Platos Destacados</h3>
+        </article>
+        <article class="overflow-hidden overflow-x-scroll md:overflow-x-hidden">
+            <div class="w-[500px] xs:w-[600px] sm:w-[800px] md:w-auto mt-16 flex lg:justify-between flex-nowrap">
+                <button class="cursor-pointer w-1/2 md:w-3/12 border-b-2 focus:border-b-2 border-secondary text-secondary font-bold focus:text-secondary focus:border-secondary" id="initialCategory">Todos</button>
+                <button class="cursor-pointer w-1/2 md:w-3/12 border-b-[1px] focus:border-b-2 border-black font-bold focus:text-secondary focus:border-secondary" onclick="platesManipulationDOM('especiales')"> Especiales</button>
+                <button class="cursor-pointer w-1/2 md:w-3/12 border-b-[1px] focus:border-b-2 border-black font-bold focus:text-secondary focus:border-secondary" onclick="platesManipulationDOM('corrientazos')">Corrientazos</button>
+                <button class="cursor-pointer w-1/2 md:w-3/12 border-b-[1px] focus:border-b-2 border-black font-bold focus:text-secondary focus:border-secondary" onclick="platesManipulationDOM('postres')">Postres</button>
+                <button class="cursor-pointer w-1/2 md:w-3/12 border-b-[1px] focus:border-b-2 border-black font-bold focus:text-secondary focus:border-secondary" onclick="platesManipulationDOM('bebidas')">Bebidas</button>
+            </div>
+        </article>
+        <article>
+            <menu class="md:flex md:flex-wrap md:justify-between">
+                {% for dish in dishes_products %}
+                <li class="rounded-[40px] shadow-figmaShadows p-5 xs:px-10 my-10 md:basis-[48%]" data-category="{{ dish.dish_category }}" data-label="{{dish.dish_name}}">
+                    <a href="" class="xl:flex xl:gap-5 xl:items-center xl:justify-center screen-1720:my-10">
+                        <img class="mx-auto aspect-square object-cover xl:object-contain" width="184" height="184" src="{{ dish.dish_image_preview.url }}" alt="imagen de previsualizacion - vista superior: {{ dish.dish_name }}">
+                        <div class="xl:py-5 xl:px-2 screen-1720:px-16">
+                            <h4 class="text-primary text-tituloParrafo font-bold text-center xl:text-left mt-6">{{ dish.dish_name }}</h4>
+                            <p class="font-bold text-gray-figma-400 text-center xl:text-left mt-4 mb-7">{{ dish.dish_description }}</p>
+                            {% if dish.dish_discounted_price is not 0 and dish.dish_discounted_price < dish.dish_regular_price %}
+                            <em class="not-italic font-bold xs:text-tituloParrafo">COP {{ dish.dish_discounted_price }}</em> <br class="hidden xl:inline-block"> <s class="ml-6 xl:ml-0 xs:ml-0 sm:ml-7 xs:text-tituloParrafo">COP {{ dish.dish_regular_price }}</s>
+                            <div class="flex items-center gap-3 mt-7"> 
+                                <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20.3749 12.1251L11.6249 20.8751M11.6249 12.1251H11.6395M20.3749 20.8751H20.3895M4.1145 11.5709C3.90164 10.6121 3.93433 9.61504 4.20952 8.67222C4.48471 7.7294 4.9935 6.87133 5.68872 6.17757C6.38394 5.48381 7.24308 4.97681 8.18647 4.70359C9.12986 4.43038 10.127 4.39978 11.0853 4.61464C11.6128 3.78967 12.3395 3.11075 13.1984 2.64048C14.0573 2.1702 15.0207 1.92371 15.9999 1.92371C16.9791 1.92371 17.9426 2.1702 18.8014 2.64048C19.6603 3.11075 20.387 3.78967 20.9145 4.61464C21.8743 4.39885 22.8731 4.4293 23.818 4.70319C24.7629 4.97707 25.6232 5.48547 26.3189 6.18112C27.0145 6.87676 27.5229 7.73704 27.7968 8.68194C28.0707 9.62683 28.1011 10.6256 27.8853 11.5855C28.7103 12.113 29.3892 12.8396 29.8595 13.6985C30.3298 14.5574 30.5763 15.5209 30.5763 16.5001C30.5763 17.4793 30.3298 18.4427 29.8595 19.3016C29.3892 20.1605 28.7103 20.8872 27.8853 21.4146C28.1002 22.373 28.0696 23.3701 27.7964 24.3135C27.5232 25.2569 27.0162 26.116 26.3224 26.8113C25.6286 27.5065 24.7706 28.0153 23.8278 28.2905C22.8849 28.5657 21.8879 28.5983 20.9291 28.3855C20.4023 29.2136 19.675 29.8954 18.8147 30.3678C17.9543 30.8402 16.9887 31.0878 16.0072 31.0878C15.0257 31.0878 14.0601 30.8402 13.1997 30.3678C12.3394 29.8954 11.6121 29.2136 11.0853 28.3855C10.127 28.6003 9.12986 28.5697 8.18647 28.2965C7.24308 28.0233 6.38394 27.5163 5.68872 26.8226C4.9935 26.1288 4.48471 25.2707 4.20952 24.3279C3.93433 23.3851 3.90164 22.388 4.1145 21.4292C3.28319 20.9031 2.59844 20.1753 2.12394 19.3135C1.64945 18.4517 1.40063 17.4839 1.40063 16.5001C1.40063 15.5163 1.64945 14.5484 2.12394 13.6866C2.59844 12.8248 3.28319 12.097 4.1145 11.5709Z" stroke="#605BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <p class="text-secondary font-bold text-tituloParrafo">
+                                    {{ dish.discount|floatformat:"0" }} %
+                                </p>
+                            </div>
+                            {% else %}
+                            <em class="not-italic font-bold text-tituloParrafo">COP {{ dish.dish_regular_price }}</em>
+                            {% endif %}
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </menu>
+        </article>
+    </section>
+{% endblock  %}
+
+{% block scripts %}
+    {% load static %}
+    <script src="{% static '/core/js/menu.js' %}"></script>
+{% endblock  %}
