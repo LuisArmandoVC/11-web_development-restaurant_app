@@ -5,29 +5,36 @@
 {% block content %}
     <section class="container  py-10">
         <article class="text-center">
-            <p class="uppercase text-primary lg:text-2xl xs:tracking-[0.175rem] font-bold">Queremos saber mas de ti</p>
-            <h3 class="font-bold text-3xl lg:text-5xl mt-5">Contáctanos</h3>
+            <p class="uppercase text-primary text-parrafo lg:text-subtitulo xs:tracking-[0.175rem] font-bold">Queremos saber mas de ti</p>
+            <h3 class="font-bold text-tituloMob lg:text-titulo mt-5">Contáctanos</h3>
         </article>
-        <form class="max-w-[600px] mx-auto" action="">
+
+        <form class="max-w-[600px] mx-auto" action="" method="POST">
+            {% csrf_token %}
             <div class="relative mt-10">
                 <label for="name" class="absolute top-0 z-10 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Nombres </label>
-                <input required type="text" id="name" name="name" class="w-full border border-gray-figma-300 bg-white text-gray-figma-300 rounded py-4 px-2 outline-0" pattern="^[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]{4,30}$" title="Ingrese entre 4 y 30 caracteres">
+                {{ form.name }}
+                {{ form.name.errors }}
             </div>
             <div class="relative mt-10">
-                <label for="lastname" class="absolute top-0 z-10 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Apellidos </label>
-                <input required type="text" id="lastname" name="lastname" class="w-full border border-gray-figma-300 bg-white text-gray-figma-300 rounded py-4 px-2 outline-0" pattern="^[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]{4,30}$" title="Ingrese entre 4 y 30 caracteres">
+                <label for="last_name" class="absolute top-0 z-10 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Apellidos </label>
+                {{ form.last_name }}
+                {{ form.last_name.errors }}
             </div>
             <div class="relative mt-10">
                 <label for="email" class="absolute top-0 z-10 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Correo electronico registrado </label>
-                <input required type="email" id="email" name="email" class="w-full border border-gray-figma-300 bg-white text-gray-figma-300 rounded py-4 px-2 outline-0">
+                {{ form.email }}
+                {{ form.email.errors }}
             </div>
             <div class="relative mt-10">
                 <label for="phone_number" class="absolute top-0 z-10 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Numero telefonico registrado </label>
-                <input required type="text" id="phone_number" name="phone_number" class="w-full border border-gray-figma-300 bg-white text-gray-figma-300 rounded py-4 px-2 outline-0" pattern="^\d{7,10}$" title="Ingrese un número de teléfono válido">
+                {{ form.phone_number }}
+                {{ form.phone_number.errors }}
             </div>
             <div class="relative mt-10">
                 <label for="comment" class="absolute top-0 z-10 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Comentario </label>
-                <textarea required rows="3.5" id="comment" name="comment" class="w-full border border-gray-figma-300 bg-white text-gray-figma-300 rounded py-4 px-2 outline-0" pattern="^.{1,250}$"></textarea>
+                {{ form.comment }}
+                {{ form.comment.errors }}
             </div>
             <div class="mt-10">
                 <button type="submit" class="btn-cta w-full shadow-primaryShadowForm">
