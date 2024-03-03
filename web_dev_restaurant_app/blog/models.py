@@ -1,9 +1,11 @@
+from email.policy import default
 from django.db import models
 from django.utils.timezone import now
 from ckeditor_uploader.fields  import RichTextUploadingField
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100, verbose_name='Categoria')
+    slug = models.SlugField(default="", unique=True, help_text="La URL se completa de manera automatica, por favor modificalo solamente si deseas que este post de tu blog tenga una URL distinta a la creada", verbose_name="URL")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Fecha de última actualización")
 
