@@ -1,0 +1,67 @@
+{% extends 'core/master.html' %}
+
+
+
+
+{% comment %}
+    Section: blog
+    Model: Post[]
+    Content relation: Publicaciones
+    Description: post list displayed in grid
+    Creation info: Luis Veliz - 07/03/2024
+    Pending: pagination buttons
+{% endcomment %}
+{% block content %}
+    <section>
+        <img class="w-full max-w-[1920px] mx-auto  object-cover object-right-bottom brightness-50 xl:object-center h-52 md:h-[350px] xl:h-[510px]" src="/media/blog/banner_img/cooking-banner-7166200_1280.jpg" alt="Imagen de banner promocional del blog - Juan Sabrosuras">
+    </section>
+    <section class="mt-16 container">
+        <div class="md:flex md:flex-wrap md:justify-start md:gap-8 xl:gap-12">
+            {% for post in posts %}
+                {% if  forloop.last %}
+                    <article class="my-8 md:basis-[48%] xl:basis-[31%]">
+                        <img class="w-full h-[220px] sm:h-[350px] md:h-[220px]  object-cover" src="{{post.image.url}}" alt="Post de blog Juan Sabrosuras - titulo: {{ post.title }}">
+                        <div class="pt-16 pb-8 px-8 shadow-blog_post-shadow">
+                            <h2 class="text-tituloParrafo font-bold text-secondary md:min-h-[70px]">{{ post.title|capfirst }}</h2>
+                            {% if  post.description %}
+                                <p class="my-[30px] md:text-justify md:min-h-[150px]">{{ post.description|capfirst|truncatewords:25 }}</p>
+                            {% endif %}
+                            <a class="btn-cta" href="{% url "post" post.slug %}">Leer mas</a>
+                            <div class="flex flex-wrap mt-8">
+                                {% for category in post.categories.all %}
+                                    {% if not forloop.last  %}
+                                        <h3 class="bg-gray-200 text-gray-figma-400 py-2 px-4 rounded-[6.25rem] mr-2 mb-2">{{ category|lower }}</h3>
+                                    {% else %}
+                                        <h3 class="bg-gray-200 text-gray-figma-400 py-2 px-4 rounded-[6.25rem] mb-2">{{ category|lower }}</h3>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <h4 class="mt-2">{{ post.published|date:"SHORT_DATE_FORMAT" }}</h4>
+                        </div>
+                    </article>
+                {% else %}
+                    <article class="mt-8 md:basis-[48%] xl:basis-[31%]">
+                        <img class="w-full h-[220px] sm:h-[350px] md:h-[220px]  object-cover" src="{{post.image.url}}" alt="Post de blog Juan Sabrosuras - titulo: {{ post.title }}">
+                        <div class="pt-16 pb-8 px-8 shadow-blog_post-shadow">
+                            <h2 class="text-tituloParrafo font-bold text-secondary md:min-h-[70px]">{{ post.title|capfirst }}</h2>
+                            {% if  post.description %}
+                                <p class="my-[30px] md:text-justify md:min-h-[150px]">{{ post.description|capfirst|truncatewords:25 }}</p>
+                            {% endif %}
+                            <a class="btn-cta" href="{% url "post" post.slug %}">Leer mas</a>
+                            <div class="flex flex-wrap mt-8">
+                                {% for category in post.categories.all %}
+                                    {% if not forloop.last  %}
+                                        <h3 class="bg-gray-200 text-gray-figma-400 py-2 px-4 rounded-[6.25rem] mr-2 mb-2">{{ category|lower }}</h3>
+                                    {% else %}
+                                        <h3 class="bg-gray-200 text-gray-figma-400 py-2 px-4 rounded-[6.25rem] mb-2">{{ category|lower }}</h3>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <h4 class="mt-2">{{ post.published|date:"SHORT_DATE_FORMAT" }}</h4>
+                        </div>
+                    </article>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %} 

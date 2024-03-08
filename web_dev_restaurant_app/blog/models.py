@@ -19,6 +19,7 @@ class Category(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=200, verbose_name='Titulo')
     slug = models.SlugField(unique=True, help_text="La URL se completa de manera automatica, por favor modificalo solamente si deseas que este post de tu blog tenga una URL distinta a la creada", verbose_name="URL")
+    description = models.TextField(verbose_name='Descripcion corta', max_length=250)
     content = RichTextUploadingField(verbose_name='Contenido')
     published = models.DateTimeField(verbose_name='Fecha de publicacion', default=now)
     image = models.ImageField(upload_to='blog', verbose_name='Imagen preview de la publicacion')

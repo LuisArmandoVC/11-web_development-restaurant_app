@@ -16,18 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from core import views
-
 from django.conf import settings
 
 urlpatterns = [
-    path('', views.home, name="home"),
-    path('about/', views.about, name="about"),
-    path('contact/', views.contact, name="contact"),
-    path('pide-aqui/', views.menu, name="menu"),
+    #Core app
+    path('', include('core.urls')),
 
+    #Blog app
+    path('blog/', include('blog.urls')),
+
+    #Admin path
     path('admin/', admin.site.urls),
 
+    #CkEditor images upload
     path('ckeditor', include('ckeditor_uploader.urls'))
 ]
 

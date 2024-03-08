@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     './core/templates/**/*.{html,js}',
+    './blog/templates/**/*.{html,js}',
   ],
   theme: {
     container: {
@@ -42,6 +43,7 @@ module.exports = {
         'height': 'height'
       },
       boxShadow: {
+        'blog_post-shadow': '0px 8px 14px 0px #00000026',
         'figmaShadows': '5px 7px 31.6px 0px rgba(0, 0, 0, 0.25)',
         'whiteShadowCTAs': '-2px 7px 20.3px 0px rgba(255, 255, 255, 0.50)',
         'primaryShadowForm': '-2px 7px 20.3px 0px rgba(96, 91, 255, 0.50)',
