@@ -1,26 +1,30 @@
-<header class="container bg-white font-avantGarde py-8 hidden min-[768px]:block sticky top-0 z-20">
+<header class="container bg-white font-avantGarde py-8 hidden min-[1024px]:block sticky top-0 z-20">
     <nav class="flex justify-between items-center">
-        <div class="uppercase text-secondary text-4xl font-bold">
-            Logo
-        </div>
+        <button>
+            <a href="{% url 'home' %}">
+                <img class="w-[150px] h-[50px]" src="/media/header/juanSabro_header.png" alt="Juan sabrosuras logo">
+            </a>
+        </button>
         <div>
-            <ul class="flex md:gap-10 lg:gap-20">
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li> <a href="{% url 'about' %}">Sobre Nosotros</a></li>
-                <li> <a href="{% url 'contact' %}">Contáctanos</a></li>
+            <ul class="flex md:gap-10 screen-1720:gap-20">
+                <li><a class="text-notificacion xl:parrafo" href="{% url 'home' %}">Home</a></li>
+                <li> <a class="text-notificacion xl:parrafo" href="{% url 'about' %}">Servicios</a></li>
+                <li> <a class="text-notificacion xl:parrafo" href="{% url 'contact' %}">Ofertas</a></li>
+                <li> <a class="text-notificacion xl:parrafo" href="{% url 'blog' %}">Recetas</a></li>
+                <li> <a class="text-notificacion xl:parrafo" href="{% url 'contact' %}">Contáctanos</a></li>
             </ul>
         </div>
-        <div class="flex md:gap-6 lg:gap-12 justify-center items-center">
-            <span>
-                <a href="/">
+        <div class="flex md:gap-6 screen-1720:gap-12 justify-center items-center">
+            <span class="lg:mt-2">
+                <button onclick="searching()">
                     <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11.9167 21.0833C16.7031 21.0833 20.5833 17.2031 20.5833 12.4167C20.5833 7.6302 16.7031 3.75 11.9167 3.75C7.1302 3.75 3.25 7.6302 3.25 12.4167C3.25 17.2031 7.1302 21.0833 11.9167 21.0833Z" stroke="#030229" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M22.75 23.25L18.0917 18.5917" stroke="#030229" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>                    
-                </a>
+                </button>
             </span>
             <span>
-                <a href="/">
+                <a href="/carrito-compra">
                     <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8.01053 22.2209C8.54793 22.2209 8.98358 21.7832 8.98358 21.2434C8.98358 20.7036 8.54793 20.266 8.01053 20.266C7.47313 20.266 7.03748 20.7036 7.03748 21.2434C7.03748 21.7832 7.47313 22.2209 8.01053 22.2209Z" stroke="#030229" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M18.7139 22.2209C19.2513 22.2209 19.687 21.7832 19.687 21.2434C19.687 20.7036 19.2513 20.266 18.7139 20.266C18.1765 20.266 17.7408 20.7036 17.7408 21.2434C17.7408 21.7832 18.1765 22.2209 18.7139 22.2209Z" stroke="#030229" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -35,12 +39,33 @@
     </nav>
 </header>
 
-<header class="font-avantGarde bg-white block sticky top-0 z-20 md:hidden" id="navbar_mobile">
-    <nav class="flex justify-between items-center px-8 pt-5">
-        <div class="uppercase text-secondary text-3xl font-bold">
-            Logo
+<header class="font-avantGarde bg-white block sticky top-0 z-20 lg:hidden" id="navbar_mobile">
+    <nav class="flex justify-between items-center px-4 xs:px-8 pt-5">
+        <button>
+            <a href="/">
+                <img width="52" height="47" src="/media/header/logo_mobile.png" alt="Juan sabrosuras logo mobile">
+            </a>
+        </button>
+        <div class="hidden xs:flex gap-5">
+            <button onclick="searching()">
+                <span>
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.91667 18.5833C14.7031 18.5833 18.5833 14.7031 18.5833 9.91667C18.5833 5.1302 14.7031 1.25 9.91667 1.25C5.1302 1.25 1.25 5.1302 1.25 9.91667C1.25 14.7031 5.1302 18.5833 9.91667 18.5833Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20.7501 20.7501L16.0918 16.0918" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <span>
+                {% comment %} TODO - create shopping car page and change URL tag {% endcomment %}
+                <a href="/carrito-compra">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.01016 20.7205C7.54757 20.7205 7.98322 20.2829 7.98322 19.7431C7.98322 19.2032 7.54757 18.7656 7.01016 18.7656C6.47276 18.7656 6.03711 19.2032 6.03711 19.7431C6.03711 20.2829 6.47276 20.7205 7.01016 20.7205Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M17.7138 20.7205C18.2512 20.7205 18.6868 20.2829 18.6868 19.7431C18.6868 19.2032 18.2512 18.7656 17.7138 18.7656C17.1764 18.7656 16.7407 19.2032 16.7407 19.7431C16.7407 20.2829 17.1764 20.7205 17.7138 20.7205Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M1.2207 1.2207H3.16681L5.75513 13.3606C5.85008 13.8052 6.09636 14.2026 6.45156 14.4845C6.80676 14.7664 7.24868 14.915 7.70124 14.9049H17.2177C17.6606 14.9042 18.09 14.7517 18.435 14.4727C18.78 14.1937 19.0199 13.8048 19.1152 13.3703L20.7207 6.10792H4.20798" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>                    
+                </a>
+            </span>
         </div>
-        {# TODO: Cambiar el diseno del header en vista mobile para incluir buscador y carrito tal vez? Consultar con Caro  #}
         <button class="hamburger hamburger--squeeze" type="button">
             <span class="hamburger-box">
                 <span class="hamburger-inner">
@@ -50,9 +75,11 @@
     </nav>
     <div class="bg-secondary h-0 overflow-hidden transition-height duration-500 ease-in-out" id="menu_content">
         <ul class="flex flex-col justify-center items-center gap-20 py-20 text-white font-bold">
-            <li class=""><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'about' %}">Sobre Nosotros</a></li>
-            <li><a href="{% url 'contact' %}">Contáctanos</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li> <a href="{% url 'about' %}">Servicios</a></li>
+            <li> <a href="{% url 'contact' %}">Ofertas</a></li>
+            <li> <a href="{% url 'blog' %}">Recetas</a></li>
+            <li> <a href="{% url 'contact' %}">Contáctanos</a></li>
         </ul>
     </div>
 </header>

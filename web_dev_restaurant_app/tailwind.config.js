@@ -53,14 +53,15 @@ module.exports = {
         'figmaMargins' : '7.62rem'
       },
       colors: {
-        primary: '#3F3CBC',
-        secondary: '#605BFF',
-        tertiary: '#030229',
+        primary: '#FD7400',
+        secondary: '#AC010F',
+        tertiary: '#AC010F',
         'gray-figma': {
           100: '#F4F4F4',
           200: '#4A4A4A',
           300: '#49454F',
-          400: '#555555'
+          400: '#555555',
+          500: '#575756'
         } 
       }
     },

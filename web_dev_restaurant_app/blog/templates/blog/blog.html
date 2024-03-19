@@ -1,8 +1,5 @@
 {% extends 'core/master.html' %}
 
-
-
-
 {% comment %}
     Section: blog
     Model: Post[]
@@ -30,9 +27,9 @@
                             <div class="flex flex-wrap mt-8">
                                 {% for category in post.categories.all %}
                                     {% if not forloop.last  %}
-                                        <h3 class="bg-gray-200 text-gray-figma-400 py-2 px-4 rounded-[6.25rem] mr-2 mb-2">{{ category|lower }}</h3>
+                                        <h3 class="text-notificacion bg-gray-200 text-gray-figma-400 py-2 px-2 rounded-xl mr-2 mb-2">{{ category|capfirst  }}</h3>
                                     {% else %}
-                                        <h3 class="bg-gray-200 text-gray-figma-400 py-2 px-4 rounded-[6.25rem] mb-2">{{ category|lower }}</h3>
+                                        <h3 class="text-notificacion bg-gray-200 text-gray-figma-400 py-2 px-2 rounded-xl mb-2">{{ category|capfirst  }}</h3>
                                     {% endif %}
                                 {% endfor %}
                             </div>
@@ -51,9 +48,9 @@
                             <div class="flex flex-wrap mt-8">
                                 {% for category in post.categories.all %}
                                     {% if not forloop.last  %}
-                                        <h3 class="bg-gray-200 text-gray-figma-400 py-2 px-4 rounded-[6.25rem] mr-2 mb-2">{{ category|lower }}</h3>
+                                        <h3 class="text-notificacion bg-gray-200 text-gray-figma-400 py-2 px-2 rounded-xl mr-2 mb-2">{{ category|capfirst  }}</h3>
                                     {% else %}
-                                        <h3 class="bg-gray-200 text-gray-figma-400 py-2 px-4 rounded-[6.25rem] mb-2">{{ category|lower }}</h3>
+                                        <h3 class="text-notificacion bg-gray-200 text-gray-figma-400 py-2 px-2 rounded-xl mb-2">{{ category|capfirst  }}</h3>
                                     {% endif %}
                                 {% endfor %}
                             </div>
@@ -63,5 +60,8 @@
                 {% endif %}
             {% endfor %}
         </div>
+    </section>
+    <section class="my-16 container">
+        {% include "blog/paginator.html" %}
     </section>
 {% endblock %} 

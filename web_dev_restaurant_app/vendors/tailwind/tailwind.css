@@ -20,7 +20,12 @@ body{
 .is-active_mobileMenu{
     @apply static
 }
-
+.active-post{
+    @apply bg-secondary border-secondary
+}
+.active-post > a{
+    @apply text-white
+}
 
 .swiper-pagination{
     position: static !important;
