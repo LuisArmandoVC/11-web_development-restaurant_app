@@ -2,53 +2,6 @@ from email.policy import default
 from tabnanny import verbose
 from django.db import models
 
-
-class dishes(models.Model):
-    dish_id = models.BigAutoField(primary_key=True)
-    dish_name = models.CharField(max_length=25, verbose_name='Nombre del plato')
-    OPTIONS = [
-        ('', 'Selecciona una opcion'),
-        ('especiales', 'Platos especiales'),
-        ('corrientazos', 'Platos corrientazos'),
-        ('postres', 'Postres'),
-        ('bebidas', 'Bebidas')
-    ]
-    dish_category = models.CharField(
-        verbose_name='Categoria del plato',
-        max_length=50,
-        choices=OPTIONS,
-        default=''
-    )
-    dish_description = models.TextField(verbose_name='Descripcion del plato')
-    dish_regular_price = models.IntegerField(verbose_name='Precio regular del plato')
-    dish_discounted_price = models.IntegerField(verbose_name='Precio oferta del plato')
-    dish_special = models.BooleanField(verbose_name='Es un plato especial?')
-    dish_image_preview = models.ImageField(upload_to='dishes_preview', verbose_name='Imagen vista superior')
-    dish_image_complete = models.ImageField(upload_to='dishes_complete', verbose_name='Imagen vista frontal')
-    dish_side_1 = models.CharField(max_length=25, verbose_name='Acompañante 1')
-    dish_side_2 = models.CharField(max_length=25, verbose_name='Acompañante 2')
-    dish_side_3 = models.CharField(max_length=25, verbose_name='Acompañante 3', null=True, blank=True)
-    dish_side_4 = models.CharField(max_length=25, verbose_name='Acompañante 4', null=True, blank=True)
-
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="Fecha de última actualización")
-    class Meta:
-        verbose_name = 'Plato'
-        verbose_name_plural = 'Platos del menu'
-        ordering = ["-created_at"]
-    def __str__(self):
-        return self.dish_name
-
-def discount(self):
-    if self.dish_discounted_price < self.dish_regular_price:
-        discount_amount = self.dish_regular_price - self.dish_discounted_price
-        discount_percentaje = discount_amount / self.dish_regular_price
-        discount_final = discount_percentaje * 100
-        return discount_final
-    else:
-        return 0
-dishes.add_to_class('discount', property(discount))
-
 class hero_banner(models.Model):
     hero_banner_image = models.ImageField(upload_to='hero_banner', verbose_name="Imagen principal del carrusel del home")
     hero_banner_image_alt = models.CharField(max_length=255, verbose_name='Descripcion ALT de la imagen')

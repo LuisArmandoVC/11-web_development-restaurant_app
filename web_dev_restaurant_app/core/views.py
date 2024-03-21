@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.core.mail import EmailMessage
-from .models import sections, user_review, hero_banner, dishes
+from .models import sections, user_review, hero_banner
 from .forms import ContactForm
 
 # Create your views here.
@@ -45,7 +45,3 @@ def contact(request):
             return redirect(reverse('contact')+"?ok")
 
     return render(request, "core/contact.html", {'form': contact_form})
-
-def menu(request):
-    dishes_products = dishes.objects.all()
-    return render(request, "core/menu.html", {'dishes_products': dishes_products})

@@ -23,7 +23,10 @@ urlpatterns = [
     path('', include('core.urls')),
 
     #Blog app
-    path('blog/', include('blog.urls')),
+    path('recetas-y-variedades/', include('blog.urls')),
+
+    #Catalog app
+    path('catalogo/', include('products.urls')),
 
     #Admin path
     path('admin/', admin.site.urls),

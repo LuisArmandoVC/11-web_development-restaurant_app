@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #custom apps
     'core.apps.CoreConfig',
     'blog.apps.BlogConfig',
+    'products.apps.ProductsConfig',
     #widgets
     'ckeditor',
     'ckeditor_uploader',
