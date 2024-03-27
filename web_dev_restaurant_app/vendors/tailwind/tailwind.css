@@ -26,14 +26,30 @@ body{
 .active-post > a{
     @apply text-white
 }
-
-.swiper-pagination{
-    position: static !important;
+.hero_banner-custom__gradient{
+    background: linear-gradient(0deg, #AC010F -0.06%, rgba(253, 116, 0, 0.48) 60.86%, rgba(255, 173, 31, 0.16) 100%);
+}
+@media only screen and (min-width: 1024px) {
+    .hero_banner-custom__gradient{
+        background: linear-gradient(90deg, #AC010F 15.5%, rgba(253, 116, 0, 0.99) 46.5%, rgba(255, 173, 31, 0) 61.56%);
+    }
+}
+.swiper-pagination-heroBanner{
+    @apply absolute top-0 z-10 flex justify-center gap-5 mb-5
 }
 .swiper-pagination-bullet {
+    margin: 0 !important;
+    background-color: #B9B9B9 !important;
     width: 0.75rem !important;
     height: 0.75rem !important;
 }
 .swiper-pagination-bullet-active{
-    background-color: #605BFF !important;
+    scale: 1.3;
+    background-color: #FFAD1F !important;
 }
+@media only screen and (min-width: 1024px) {
+    .swiper-pagination-bullet-active{
+        scale: 1.3;
+        background-color: #AC010F !important;
+    }
+} 

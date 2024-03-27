@@ -1,12 +1,10 @@
-from email.policy import default
-from tabnanny import verbose
 from django.db import models
 
 class hero_banner(models.Model):
     hero_banner_image = models.ImageField(upload_to='hero_banner', verbose_name="Imagen principal del carrusel del home")
     hero_banner_image_alt = models.CharField(max_length=255, verbose_name='Descripcion ALT de la imagen')
-    hero_banner_title = models.CharField(max_length=25, verbose_name='Titulo del banner principal')
-    hero_banner_description = models.CharField(max_length=100, verbose_name="Descripción del banner principal", null=True, blank=True)
+    hero_banner_title = models.CharField(max_length=100, verbose_name='Titulo del banner principal')
+    hero_banner_description = models.CharField(max_length=250, verbose_name="Descripción del banner principal", null=True, blank=True)
     hero_banner_cta = models.CharField(max_length=255, verbose_name='Link del CTA del banner principal')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Fecha de última actualización")

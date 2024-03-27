@@ -31,12 +31,41 @@ module.exports = {
       inter: ['Inter']
     },
     fontSize: {
-      'notificacion': '14px',
-      'parrafo': '16px',
-      'subtitulo': '18px',
-      'tituloParrafo': '22px',
-      'tituloMob': '32px',
-      'titulo': '48px',
+
+      // Desktop font sizes
+
+      //Headings
+      'desktop-heading-large': '38px',
+      'desktop-heading-medium': '28px',
+      'desktop-heading-small': ['20px', {
+        letterSpacing: '0.07em',
+        fontWeight: '700',
+      }],
+      'desktop-heading-block': '22px',
+      //Paragraph
+      'desktop-paragraph-large': '16px',
+      'desktop-paragraph-standard': '14px',
+      //Notifications
+      'desktop-notification': '11px',
+
+
+
+
+      // Mobile font sizes
+
+      //Headings
+      'mobile-heading-large': '28px',
+      'mobile-heading-medium': '22px',
+      'mobile-heading-small': ['18px', {
+        letterSpacing: '0.07em',
+        fontWeight: '700',
+      }],
+      'mobile-heading-block': '20px',
+      //Paragraph
+      'mobile-paragraph-large': '14px',
+      'mobile-paragraph-standard': '13px',
+      //Notifications
+      'mobile-notification': '10px',
     },
     extend: {
       transitionProperty: {
@@ -53,9 +82,12 @@ module.exports = {
         'figmaMargins' : '7.62rem'
       },
       colors: {
+        // ORANGE
         primary: '#FD7400',
+        // RED
         secondary: '#AC010F',
-        tertiary: '#AC010F',
+        //YELLOW
+        tertiary: '#FFAD1F',
         'gray-figma': {
           100: '#F4F4F4',
           200: '#4A4A4A',
