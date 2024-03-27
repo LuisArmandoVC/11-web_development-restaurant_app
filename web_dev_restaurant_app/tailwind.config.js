@@ -88,6 +88,7 @@ module.exports = {
         secondary: '#AC010F',
         //YELLOW
         tertiary: '#FFAD1F',
+        specialBg: '#CB8721',
         'gray-figma': {
           100: '#F4F4F4',
           200: '#4A4A4A',
