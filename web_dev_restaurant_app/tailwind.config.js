@@ -3,6 +3,7 @@ module.exports = {
   content: [
     './core/templates/**/*.{html,js}',
     './blog/templates/**/*.{html,js}',
+    './products/templates/**/*.{html,js}',
   ],
   theme: {
     container: {
