@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.core.mail import EmailMessage
 from .models import sections, user_review, hero_banner
+from products.models import dishes
 from .forms import ContactForm
 
 # Create your views here.
@@ -13,7 +14,8 @@ def home(request):
     reviews = user_review.objects.all()
     hero_banner_content = hero_banner.objects.all()
     hero_banner_amount = len(hero_banner_content)
-    return render(request, "core/home.html", {'review_section_content': review_section_content, 'reviews': reviews, 'hero_banner_content': hero_banner_content, 'hero_banner_amount': hero_banner_amount})
+    specialDishes = dishes.objects.filter(dish_special = True)
+    return render(request, "core/home.html", {'review_section_content': review_section_content, 'reviews': reviews, 'hero_banner_content': hero_banner_content, 'hero_banner_amount': hero_banner_amount, 'dishes': specialDishes})
 
 def about(request):
     return render(request, "core/about.html")

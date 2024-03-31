@@ -17,6 +17,7 @@ module.exports = {
     },
     screens: {
       xs: '320px',
+      'screen-360' : '360px',
       sm: '480px',
       md: '768px',
       lg: '1024px',
@@ -88,7 +89,7 @@ module.exports = {
         secondary: '#AC010F',
         //YELLOW
         tertiary: '#FFAD1F',
-        specialBg: '#CB8721',
+        specialBg: '#fe8e0e',
         'gray-figma': {
           100: '#F4F4F4',
           200: '#4A4A4A',
@@ -96,6 +97,8 @@ module.exports = {
           400: '#555555',
           500: '#575756',
           600: '#B9B9B9',
+          700: '#D9D9D9',
+          800: '#6F6E6E'
         } 
       }
     },

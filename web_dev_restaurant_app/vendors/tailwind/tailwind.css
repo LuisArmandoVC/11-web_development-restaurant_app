@@ -8,8 +8,23 @@
 body{
     @apply font-avantGarde
 }
+.footer-gradiente{
+    background: linear-gradient(180deg, #FFAD1F 0.1%, #FD7400 100.1%);
+}
 .btn-cta{
     @apply rounded-[6.25rem] bg-primary text-white py-3 px-4 font-roboto
+}
+.specialPlates-swiper-arrow-btn{
+    @apply text-primary
+}
+.specialPlates-swiper-arrow-btn > path{
+    @apply text-white
+}
+.specialPlates-swiper-arrow-btn_disabled{
+    @apply text-gray-figma-700
+}
+.specialPlates-swiper-arrow-btn_disabled > path{
+    @apply text-gray-figma-800
 }
 .container{
     @apply max-w-[1920px]
