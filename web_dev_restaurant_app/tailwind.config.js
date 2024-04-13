@@ -71,7 +71,8 @@ module.exports = {
     },
     extend: {
       transitionProperty: {
-        'height': 'height'
+        'height': 'height',
+        'max-height': 'max-height'
       },
       boxShadow: {
         'blog_post-shadow': '0px 8px 14px 0px #00000026',
@@ -99,7 +100,8 @@ module.exports = {
           500: '#575756',
           600: '#B9B9B9',
           700: '#D9D9D9',
-          800: '#6F6E6E'
+          800: '#6F6E6E',
+          900: '#6F6F6F'
         } 
       }
     },

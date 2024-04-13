@@ -68,3 +68,42 @@ body{
         background-color: #AC010F !important;
     }
 } 
+
+
+
+/* Product detail view */
+.sideDishArrow{
+    transform: rotate(180deg);
+    transition: all 0.2s ease-in-out;
+}
+.dish__side{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-in-out;
+}
+.dish__side-active{
+    max-height: 2000px;
+}
+.radio-btn__side-dish input {
+    display: none;
+}
+.radio-btn__side-dish{
+    margin-right: 4px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #FD7400;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.radio-btn__side-dish input:checked + .checkmark{
+    display: inline-block;
+} 
+.checkmark{
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    border-radius: 50%;
+    background-color: #FD7400;
+    display: none;
+}

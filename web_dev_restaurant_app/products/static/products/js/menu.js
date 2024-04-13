@@ -2,6 +2,7 @@ const initialCategory = document.querySelector('#initialCategory');
 const allPlates = document.querySelectorAll('[data-category]');
 
 platesManipulationDOM = (category) => {
+    // console.log(category);
     if (initialCategory.classList.contains('text-secondary')) {
         initialCategory.classList.remove('text-secondary');
 
