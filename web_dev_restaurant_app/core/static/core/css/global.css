@@ -2223,10 +2223,6 @@ body{
        object-position: center;
   }
 
-  .xl\:p-5{
-    padding: 1.25rem;
-  }
-
   .xl\:px-0{
     padding-left: 0px;
     padding-right: 0px;

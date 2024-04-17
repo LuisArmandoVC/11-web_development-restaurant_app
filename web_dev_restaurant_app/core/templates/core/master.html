@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="{% static 'vendors/swiperjs/swiper-bundle.min.css' %}">
     <link rel="preload" href="{% static '/vendors/swiperjs/swiper-bundle.min.js' %}" as="script">
     <script src="{% static '/vendors/swiperjs/swiper-bundle.min.js' %}"></script>
+
+    {% block vendors %}
+    {% endblock %}
+
 </head>
 <body>
     {% include 'core/header.html' %}

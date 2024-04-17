@@ -1,11 +1,14 @@
 {% extends 'core/master.html' %}
 
+{% comment %} {% block vendors %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+{% endblock %} {% endcomment %}
 
 {% block content %}
     <section class="container relative xl:flex xl:my-16 xl:items-center xl:justify-end xl:flex-wrap">
         <img width="305" height="278" class="w-[305px] lg:w-[610px] h-[278px] lg:h-[556px] object-cover 2xl:object-contain mx-auto xl:w-1/2" src="{{ dish.dish_image_preview.url }}" alt=" {{ dish.dish_name }}">
         <article class="xl:w-1/2 xl:px-20">
-            <h1 class="mt-10 text-left text-mobile-heading-block lg:text-desktop-heading-block font-bold">{{ dish.dish_name }}</h1>
+            <h1 onclick="plateName()" class="plateName mt-10 text-left text-mobile-heading-block lg:text-desktop-heading-block font-bold">{{ dish.dish_name }}</h1>
             <p class="mt-5 mb-7 text-left text-mobile-paragraph-large lg:text-desktop-paragraph-large text-gray-figma-900">{{ dish.dish_description }}</p>
             {% if dish.dish_discounted_price is not 0 and dish.dish_discounted_price < dish.dish_regular_price %}
                 <em class="not-italic font-bold xs:text-mobile-heading-block lg:text-desktop-heading-block text-primary">${{ dish.dish_discounted_price }}</em>
@@ -87,8 +90,8 @@
                     </div>
                 </div>
                 <div class="md:flex md:gap-5">
-                    <a class="mt-8 xl:mt-0 font-roboto md:w-1/2 block border-[1px] border-primary text-primary text-center py-2 xl:px-6  rounded-3xl" href="">Agregar y seguir comprando</a>               
-                    <a class="mt-8 xl:mt-0 font-roboto md:w-1/2 block bg-primary text-white text-center py-2 xl:px-6 screen-1720:px-10 rounded-3xl" href="">Agregar e ir a pagar <br class="hidden xl:block">
+                    <a onclick="checkout(event)" class="mt-8 xl:mt-0 font-roboto md:w-1/2 block border-[1px] border-primary text-primary text-center py-2 xl:px-6  rounded-3xl" href="{% url 'catalog' %}">Agregar y seguir comprando</a>               
+                    <a onclick="checkout(event)" class="mt-8 xl:mt-0 font-roboto md:w-1/2 block bg-primary text-white text-center py-2 xl:px-6 screen-1720:px-10 rounded-3xl" href="{% url 'checkout' %}">Agregar e ir a pagar <br class="hidden xl:block">
                         {% if dish.dish_discounted_price is not 0 and dish.dish_discounted_price < dish.dish_regular_price %}
                             ${{ dish.dish_discounted_price }}
                         {% else %}
@@ -104,6 +107,7 @@
 
 
 {% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     {% load static %}
     <script src="{% static '/products/js/detailProduct.js' %}"></script>
 {% endblock  %}

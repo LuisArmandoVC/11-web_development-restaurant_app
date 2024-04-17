@@ -68,7 +68,7 @@
                     {% for dish in dishes %}
                         <div class="swiper-slide lg:max-w-[355px]">
                             <li class="rounded-[40px] shadow-figmaShadows my-10 p-5">
-                                <a href="">
+                                <a href="{% url 'dish' dish.dish_slug %}">
                                     <img class="mx-auto aspect-square object-cover xl:object-contain" width="184" height="184" src="{{ dish.dish_image_preview.url }}" loading="lazy" alt="imagen de previsualizacion - vista superior: {{ dish.dish_name }}">
                                     <div class="swiper-lazy-preloader"></div>
                                     <div>
