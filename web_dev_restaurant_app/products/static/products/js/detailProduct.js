@@ -124,3 +124,4 @@ function savingData(plate, encryptOrder) {
     return true;
 }
 
+// TODO: CAMBIAR BIBLIOTECAS CDNs QUEMADAS POR BIBLIOTECAS DE VENDOR (INTERNAS)

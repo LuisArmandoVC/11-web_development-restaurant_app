@@ -75,6 +75,7 @@ module.exports = {
         'max-height': 'max-height'
       },
       boxShadow: {
+        'checkoutSections': '0px 4px 4px 0px #00000040',
         'blog_post-shadow': '0px 8px 14px 0px #00000026',
         'figmaShadows': '5px 7px 31.6px 0px rgba(0, 0, 0, 0.25)',
         'whiteShadowCTAs': '-2px 7px 20.3px 0px rgba(255, 255, 255, 0.50)',
@@ -101,7 +102,8 @@ module.exports = {
           600: '#B9B9B9',
           700: '#D9D9D9',
           800: '#6F6E6E',
-          900: '#6F6F6F'
+          900: '#6F6F6F',
+          1000: '#313131'
         } 
       }
     },
