@@ -3,10 +3,12 @@ from django.core.serializers import serialize
 from django.http import JsonResponse
 
 from .models import dishes
+from .forms import RedeemCuponForm
 
 # Create your views here.
 def checkout(request):
-    return render(request, "products/checkout.html")
+    form = RedeemCuponForm()
+    return render(request, "products/checkout.html", {'form': form})
 
 def catalog(request):
     dishes_products = dishes.objects.all()

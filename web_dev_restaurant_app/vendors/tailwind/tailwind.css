@@ -44,6 +44,9 @@ body{
 .hero_banner-custom__gradient{
     background: linear-gradient(0deg, #AC010F -0.06%, rgba(253, 116, 0, 0.48) 60.86%, rgba(255, 173, 31, 0.16) 100%);
 }
+.contact-custom__gradient{
+    background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.87) 50%);
+}
 @media only screen and (min-width: 1024px) {
     .hero_banner-custom__gradient{
         background: linear-gradient(90deg, #AC010F 15.5%, rgba(253, 116, 0, 0.99) 46.5%, rgba(255, 173, 31, 0) 61.56%);
@@ -106,4 +109,8 @@ body{
     border-radius: 50%;
     background-color: #FD7400;
     display: none;
+}
+/* Form styles */
+.form__input-JuanSabrosuras{
+    @apply w-full border border-gray-figma-300 bg-white text-gray-figma-300 rounded py-4 px-2 outline-0
 }
