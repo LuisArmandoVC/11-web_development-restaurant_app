@@ -1,7 +1,7 @@
 {% if paginator.num_pages > 1%}
-<ul class="flex justify-center items-center gap-7">
+<ul class="flex justify-center items-center gap-2 lg:gap-7">
     {% if posts.has_previous %}
-        <li class="mr-7">
+        <li class="mr-2 lg:mr-7">
             <a href="?pagina={{ posts.previous_page_number }}">
                 <svg transform="scale(-1 1)" width="13" height="25" viewBox="0 0 8 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M0.646447 1.14645C0.841709 0.951184 1.15829 0.951184 1.35355 1.14645L7.35355 7.14645C7.54882 7.34171 7.54882 7.65829 7.35355 7.85355L1.35355 13.8536C1.15829 14.0488 0.841709 14.0488 0.646447 13.8536C0.451184 13.6583 0.451184 13.3417 0.646447 13.1464L6.29289 7.5L0.646447 1.85355C0.451184 1.65829 0.451184 1.34171 0.646447 1.14645Z" fill="#FD7400" stroke="#FD7400" stroke-linecap="round" stroke-linejoin="round"/>
@@ -48,7 +48,7 @@
         </a>
     </li>
     {% else %}
-    <li class="ml-7">
+    <li class="ml-2 lg:ml-7">
         <svg transform="scale(-1 1)" width="13" height="25" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M7.35355 0.146447C7.54882 0.341709 7.54882 0.658291 7.35355 0.853553L1.70711 6.5L7.35355 12.1464C7.54882 12.3417 7.54882 12.6583 7.35355 12.8536C7.15829 13.0488 6.84171 13.0488 6.64645 12.8536L0.646447 6.85355C0.451184 6.65829 0.451184 6.34171 0.646447 6.14645L6.64645 0.146447C6.84171 -0.0488155 7.15829 -0.0488155 7.35355 0.146447Z" fill="#575756"/>
         </svg>

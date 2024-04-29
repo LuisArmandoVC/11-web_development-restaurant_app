@@ -4,7 +4,7 @@
 // 1. Definitions
     const KEY = '57e826694a4fc7b42aa4797ac13fbe28';
     products = [];
-    paymentType = "";
+    paymentType = "online";
 // 2. Read localstorage and decrypt content
 function decryptData() {
     try {
@@ -23,7 +23,7 @@ function validationProducts(productsLength) {
         document.querySelector('h1').innerHTML = 'Ups, parece que no hay productos en tu carrito. Te vamos a redireccionar a nuestro catalogo de comidas';
         setTimeout( () => {
             window.location.href = '/catalogo/'
-        } , 3000)
+        } , 5000)
     }
 }
 // 4. Check all items + calculate shipping car total
@@ -58,7 +58,22 @@ function listenPaymentMethod() {
         })
     });
 }
-
+// 7.
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 // 8. Global function for checkout page. It will execute step by step all functions above
 const checkoutFunction = () => {
     decryptData();
@@ -71,19 +86,45 @@ document.addEventListener("DOMContentLoaded", checkoutFunction());
 
 
 const clickingPayment = () => {
-    let checkout = new WidgetCheckout({
-        currency: 'COP',
-        amountInCents: calculateTotal(products)*100,
-        reference: 'AD002901221',
-        publicKey: 'pub_test_EIhIc63dgvz2lfsuTHPYc2nrvQ1w99yS',
-        signature: {
-            integrity : 'AD0029012211900000COPtest_integrity_7rD2EF8lMk9jtW8hJHViyzOLNjNf4Vqd'
-        },
-        redirectUrl: 'https://transaction-redirect.wompi.co/check', 
-    })
-    checkout.open(function (result) {
-        var transaction = result.transaction;
-        console.log("Transaction ID: ", transaction.id);
-        console.log("Transaction object: ", transaction);
-    });
+
+    if (paymentType == 'cash') {
+        fetch('/catalogo/confirmacion-c', {
+            method: "POST",
+            // redirect: 'manual',
+            body: JSON.stringify({
+                "products": products,
+                "purchaseAmount": calculateTotal(products) + 4000
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                "X-CSRFToken": getCookie('csrftoken')
+            }
+        }).then(
+            function(response) {
+                if (response.status == 200 ) {
+                    window.location.href = response.url;
+                }
+            }
+        )
+    }
+    else
+    {
+        let checkout = new WidgetCheckout({
+            currency: 'COP',
+            amountInCents: (calculateTotal(products)+4000)*100,
+            reference: 'AD002901221',
+            publicKey: 'pub_test_EIhIc63dgvz2lfsuTHPYc2nrvQ1w99yS',
+            signature: {
+                integrity : 'AD0029012211900000COPtest_integrity_7rD2EF8lMk9jtW8hJHViyzOLNjNf4Vqd'
+            },
+            redirectUrl: 'https://transaction-redirect.wompi.co/check', 
+        })
+        checkout.open(function (result) {
+            var transaction = result.transaction;
+            console.log("Transaction ID: ", transaction.id);
+            console.log("Transaction object: ", transaction);
+        });
+    }
+
+
 }

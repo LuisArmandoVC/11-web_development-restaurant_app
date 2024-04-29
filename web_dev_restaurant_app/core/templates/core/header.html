@@ -9,7 +9,7 @@
             <ul class="flex md:gap-10 screen-3xl:gap-20">
                 <li><a class="text-desktop-paragraph-large {% if request.path == '/' %}text-primary font-bold{% endif %}" href="{% url 'home' %}">Home</a></li>
                 <li> <a class="text-desktop-paragraph-large {% if request.path == '/servicios/' %}text-primary font-bold{% endif %}" href="{% url 'about' %}">Servicios</a></li>
-                <li> <a class="text-desktop-paragraph-large {% if request.path == '/ofertas' %}text-primary font-bold{% endif %}" href="{% url 'contact' %}">Ofertas</a></li>
+                <li> <a class="text-desktop-paragraph-large {% if request.path == '/ofertas' %}text-primary font-bold{% endif %}" href="{% url 'offers' %}">Ofertas</a></li>
                 <li> <a class="text-desktop-paragraph-large {% if request.path == '/recetas-y-variedades/' %}text-primary font-bold{% endif %}" href="{% url 'blog' %}">Recetas</a></li>
                 <li> <a class="text-desktop-paragraph-large {% if request.path == '/contacto/' %}text-primary font-bold{% endif %}" href="{% url 'contact' %}">Contáctanos</a></li>
             </ul>

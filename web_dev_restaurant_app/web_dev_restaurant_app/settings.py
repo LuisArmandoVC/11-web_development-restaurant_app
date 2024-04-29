@@ -141,10 +141,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # SMTP config
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = '7a01965519028f'
-EMAIL_HOST_PASSWORD = '81aa399e975641'
-EMAIL_PORT = '2525'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.juansabrosuras.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'noreply@juansabrosuras.com'
+EMAIL_HOST_PASSWORD = 'R(c(EEHMigt{'
+EMAIL_USE_SSL = True
 
 #CKEditor
 CKEDITOR_CONFIGS = {

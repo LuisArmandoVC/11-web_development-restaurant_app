@@ -1,0 +1,8 @@
+{% load static %}
+
+<h1>A ponerse las pilas que Juan Sabrosuras esta <strong>ACTIVOOO</strong></h1>
+<h2>Pedido:</h2>
+<h3>Total de elementos: </h3>
+{% for product in products %}
+    <p>{{ product.name }}</p>
+{% endfor %}

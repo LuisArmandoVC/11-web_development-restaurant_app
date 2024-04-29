@@ -36,7 +36,7 @@ body{
     @apply static
 }
 .active-post{
-    @apply bg-secondary border-secondary
+    @apply bg-primary border-primary
 }
 .active-post > a{
     @apply text-white

@@ -1,8 +1,7 @@
 {% extends 'core/master.html' %}
 {% block content %}
     <section class="relative overflow-hidden h-[600px] lg:h-[380px] max-w-[1920px] mx-auto">
-        {% comment %} TODO: redireccionar a ofertas {% endcomment %}
-        <a href="/">
+        <a href="{% url "offers" %}">
             <div class="h-full w-full absolute top-0 hero_banner-custom__gradient"></div>
             <article class="h-full w-full absolute top-0 flex flex-col lg:flex-row gap-y-10 lg:gap-y-0 lg:gap-5 justify-center lg:justify-start items-center lg:pl-16 xl:pl-figmaMargins 2xl:pl-[14.06rem]">
                 <svg width="179" height="178" viewBox="0 0 179 178" fill="none" xmlns="http://www.w3.org/2000/svg">
