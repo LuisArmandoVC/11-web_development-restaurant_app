@@ -986,10 +986,6 @@ video {
   gap: 1.25rem;
 }
 
-.gap-10{
-  gap: 2.5rem;
-}
-
 .gap-y-10{
   row-gap: 2.5rem;
 }
@@ -1460,6 +1456,22 @@ body{
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.shopping-notification{
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  display: flex;
+  height: 1.75rem;
+  width: 1.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(253 116 0 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
 .specialPlates-swiper-arrow-btn{
   --tw-text-opacity: 1;
   color: rgb(253 116 0 / var(--tw-text-opacity));
@@ -1780,19 +1792,14 @@ body{
     margin-right: auto;
   }
 
-  .md\:my-10{
-    margin-top: 2.5rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .md\:my-8{
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
-
   .md\:my-0{
     margin-top: 0px;
     margin-bottom: 0px;
+  }
+
+  .md\:my-10{
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
   }
 
   .md\:mb-10{
@@ -1801,10 +1808,6 @@ body{
 
   .md\:mt-0{
     margin-top: 0px;
-  }
-
-  .md\:mb-8{
-    margin-bottom: 2rem;
   }
 
   .md\:mt-8{
@@ -1819,14 +1822,6 @@ body{
     display: flex;
   }
 
-  .md\:h-\[220px\]{
-    height: 220px;
-  }
-
-  .md\:h-\[150px\]{
-    height: 150px;
-  }
-
   .md\:h-\[100px\]{
     height: 100px;
   }
@@ -1835,16 +1830,8 @@ body{
     height: 250px;
   }
 
-  .md\:min-h-\[150px\]{
-    min-height: 150px;
-  }
-
   .md\:min-h-\[70px\]{
     min-height: 70px;
-  }
-
-  .md\:min-h-\[200px\]{
-    min-height: 200px;
   }
 
   .md\:w-1\/2{
@@ -1863,24 +1850,12 @@ body{
     flex-basis: 50%;
   }
 
-  .md\:basis-\[48\%\]{
-    flex-basis: 48%;
-  }
-
-  .md\:basis-\[45\%\]{
-    flex-basis: 45%;
-  }
-
-  .md\:basis-\[20\%\]{
-    flex-basis: 20%;
-  }
-
-  .md\:basis-\[46\%\]{
-    flex-basis: 46%;
-  }
-
   .md\:basis-\[47\%\]{
     flex-basis: 47%;
+  }
+
+  .md\:basis-\[48\%\]{
+    flex-basis: 48%;
   }
 
   .md\:flex-wrap{
@@ -2296,14 +2271,6 @@ body{
     flex-basis: 66.666667%;
   }
 
-  .xl\:basis-\[31\%\]{
-    flex-basis: 31%;
-  }
-
-  .xl\:basis-\[30\%\]{
-    flex-basis: 30%;
-  }
-
   .xl\:basis-\[30\.5\%\]{
     flex-basis: 30.5%;
   }
@@ -2333,12 +2300,12 @@ body{
     justify-content: space-around;
   }
 
-  .xl\:gap-11{
-    gap: 2.75rem;
+  .xl\:gap-10{
+    gap: 2.5rem;
   }
 
-  .xl\:gap-12{
-    gap: 3rem;
+  .xl\:gap-11{
+    gap: 2.75rem;
   }
 
   .xl\:gap-3{
@@ -2347,10 +2314,6 @@ body{
 
   .xl\:gap-5{
     gap: 1.25rem;
-  }
-
-  .xl\:gap-10{
-    gap: 2.5rem;
   }
 
   .xl\:overflow-hidden{
@@ -2441,12 +2404,12 @@ body{
     margin-right: 14.06rem;
   }
 
-  .\32xl\:h-\[150px\]{
-    height: 150px;
-  }
-
   .\32xl\:h-\[120px\]{
     height: 120px;
+  }
+
+  .\32xl\:h-\[150px\]{
+    height: 150px;
   }
 
   .\32xl\:w-1\/5{

@@ -120,10 +120,9 @@
 
 {% block vendors %}
     <script type="text/javascript" src="https://checkout.wompi.co/widget.js"></script>
-    {% load static %}
-    <script src="{% static 'vendors/cryptojs/crypto-js.min.js' %}"></script>
 {% endblock  %}
 
 {% block scripts %}
+    {% load static %}
     <script src="{% static '/products/js/checkout.js' %}"></script>
 {% endblock  %}
