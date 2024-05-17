@@ -24,19 +24,115 @@
 
     <script src="{% static '/vendors/swiperjs/swiper-bundle.min.js' %}"></script>
     <script src="{% static '/vendors/cryptojs/crypto-js.min.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm7duhLPL5kqqtkOHH1qWEmaX0oU9a2NQ&libraries=places&callback=initAutocomplete" async defer></script>
+
 
     {% block vendors %}
     {% endblock %}
 
 </head>
 <body>
+    <div class="hidden popup__background"></div>
     {% include 'core/header.html' %}
     <main>
         {% block content %}
         {% endblock %}
     </main>
     {% include 'core/footer.html' %}
+    <div class="dialog popup popupClosed">
+        <div class="popup__window">
 
+            {% comment %} 
+                Close popup form button
+            {% endcomment %}
+            <div class="float-right">
+                <svg class="cursor-pointer" onclick="closePopup()" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 29C22.732 29 29 22.732 29 15C29 7.26801 22.732 1 15 1C7.26801 1 1 7.26801 1 15C1 22.732 7.26801 29 15 29Z" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19.1998 10.8L10.7998 19.2M10.7998 10.8L19.1998 19.2" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+
+            {% comment %} 
+                Initial stage popup location
+                User will introduce either autocomplete input or will use geolocation google service
+            {% endcomment %}
+            <section aria-label="Stage 1 - location popup" id="stage__1">
+                <h6 class="mt-14 text-center text-mobile-heading-block lg:text-desktop-heading-block font-bold">Agrega o escoge una dirección</h6>
+                <p class="mt-10 text-center text-mobile-paragraph-large lg:text-desktop-paragraph-large">Comida casera, entregas rápidas y precios increíbles</p>
+                <div class="rounded-3xl px-4 py-4 mt-20 w-full flex items-center justify-between bg-gray-figma-1100">
+                    <svg class="mr-5" width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 9C17 15 9 21 9 21C9 21 1 15 1 9C1 6.87827 1.84285 4.84344 3.34315 3.34315C4.84344 1.84285 6.87827 1 9 1C11.1217 1 13.1566 1.84285 14.6569 3.34315C16.1571 4.84344 17 6.87827 17 9Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 12C10.6569 12 12 10.6569 12 9C12 7.34315 10.6569 6 9 6C7.34315 6 6 7.34315 6 9C6 10.6569 7.34315 12 9 12Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>                    
+                    <input class="w-full pl-5 bg-gray-figma-1100 outline-0 font-roboto font-bold" type="text" id="autocomplete" placeholder="Escribe la dirección de entrega">
+                    <svg onclick='lookForLocation("autoComplete")' class="ml-5 cursor-pointer" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z" fill="#49454F"/>
+                    </svg>
+                </div>
+                <div onclick='lookForLocation("currentLocation")' class="mt-14 flex items-center justify-center text-primary cursor-pointer">
+                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.5 10C20.5 16 12.5 22 12.5 22C12.5 22 4.5 16 4.5 10C4.5 7.87827 5.34285 5.84344 6.84315 4.34315C8.34344 2.84285 10.3783 2 12.5 2C14.6217 2 16.6566 2.84285 18.1569 4.34315C19.6571 5.84344 20.5 7.87827 20.5 10Z" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12.5 13C14.1569 13 15.5 11.6569 15.5 10C15.5 8.34315 14.1569 7 12.5 7C10.8431 7 9.5 8.34315 9.5 10C9.5 11.6569 10.8431 13 12.5 13Z" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <p class="text-mobile-paragraph-large lg:text-desktop-paragraph-large font-bold cursor-pointer">Usar mi ubicación actual</p>
+                </div>
+            </section>
+
+            {% comment %} 
+                Second stage popup location
+                app will print a map with user coords. User should confirm location
+            {% endcomment %}
+            <section class="hidden" aria-label="Stage 2 - location" id="stage__2">
+                <div onclick='goBack()' class="w-full mt-14 flex items-center gap-5 cursor-pointer">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.0002 18.1666L1.8335 9.99998M1.8335 9.99998L10.0002 1.83331M1.8335 9.99998H18.1668" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>                        
+                    <h6 class="text-left text-mobile-heading-block lg:text-desktop-heading-block font-bold">Verifica la ubicación</h6>
+                </div>
+                <div class="mt-12 w-full h-[400px]" id="map"></div>
+                <div class="mt-12 flex items-center justify-center gap-5">
+                    <p class="text-mobile-paragraph-large lg:text-desktop-paragraph-large font-bold text-black" id="location__name"></p>
+                    <svg class="cursor-pointer" onclick='goBack()' width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 20.5H21M16.5 4C16.8978 3.60217 17.4374 3.37868 18 3.37868C18.2786 3.37868 18.5544 3.43355 18.8118 3.54015C19.0692 3.64676 19.303 3.80301 19.5 4C19.697 4.19698 19.8532 4.43083 19.9598 4.6882C20.0665 4.94557 20.1213 5.22142 20.1213 5.5C20.1213 5.77857 20.0665 6.05442 19.9598 6.31179C19.8532 6.56916 19.697 6.80301 19.5 7L7 19.5L3 20.5L4 16.5L16.5 4Z" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>                        
+                </div>
+                <div class="mt-12">
+                    <button onclick="saveAddress()" class="confirmAddressBtn btn-cta w-full">Confirmar dirección</button>
+                </div>
+            </section>
+
+            {% comment %} 
+                Final stage of location popup
+                User location is contained within delivery area, user needs to add extra details about their address
+            {% endcomment %}
+
+            <section class="hidden" aria-label="Stage 3 - confirm address" id="stage__3">
+                <div onclick="goBackSt3()" class="flex gap-3 items-center cursor-pointer">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.99968 18.1666L1.83301 9.99998M1.83301 9.99998L9.99968 1.83331M1.83301 9.99998H18.1663" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <p class="text-mobile-heading-block lg:text-desktop-heading-block font-bold">Agregar dirección</p>
+                </div>
+                <div class="mt-12">
+                    <label class="text-mobile-paragraph-standard lg:text-desktop-paragraph-standard text-gray-figma-1000">Dirección</label>
+                    <div class="flex items-center gap-5 mt-3">
+                        <p id="location__name_stage3"></p>
+                        <svg class="cursor-pointer" onclick="goBackSt3()" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 20H21M16.5 3.49998C16.8978 3.10216 17.4374 2.87866 18 2.87866C18.2786 2.87866 18.5544 2.93353 18.8118 3.04014C19.0692 3.14674 19.303 3.303 19.5 3.49998C19.697 3.69697 19.8532 3.93082 19.9598 4.18819C20.0665 4.44556 20.1213 4.72141 20.1213 4.99998C20.1213 5.27856 20.0665 5.55441 19.9598 5.81178C19.8532 6.06915 19.697 6.303 19.5 6.49998L7 19L3 20L4 16L16.5 3.49998Z" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="relative mt-12">
+                    <label for="addressDescription" class="absolute top-0 z-10 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Piso / Oficina / Apto / Casa o comentario</label>
+                    <textarea class="form__input-JuanSabrosuras" name="addressDescription" id="addressDescription" rows="3.5" placeholder="Conjunto Bogotá - Apto 1010"></textarea>
+                </div>
+                <div class="mt-12">
+                    <button onclick="completeAddressProcess()" class="btn-cta w-full">Guardar datos</button>
+                </div>
+            </section>
+
+        </div>
+    </div>
     {% load static %}
     <script src="{% static '/core/js/header.js' %}"></script>
     {% block scripts %}

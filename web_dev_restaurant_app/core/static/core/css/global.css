@@ -652,6 +652,10 @@ video {
   z-index: 20;
 }
 
+.float-right{
+  float: right;
+}
+
 .mx-5{
   margin-left: 1.25rem;
   margin-right: 1.25rem;
@@ -740,6 +744,10 @@ video {
   margin-right: 0.5rem;
 }
 
+.mr-5{
+  margin-right: 1.25rem;
+}
+
 .mr-7{
   margin-right: 1.75rem;
 }
@@ -752,6 +760,10 @@ video {
   margin-top: 3rem;
 }
 
+.mt-14{
+  margin-top: 3.5rem;
+}
+
 .mt-16{
   margin-top: 4rem;
 }
@@ -762,6 +774,10 @@ video {
 
 .mt-20{
   margin-top: 5rem;
+}
+
+.mt-3{
+  margin-top: 0.75rem;
 }
 
 .mt-4{
@@ -846,6 +862,10 @@ video {
 
 .h-\[35px\]{
   height: 35px;
+}
+
+.h-\[400px\]{
+  height: 400px;
 }
 
 .h-\[50px\]{
@@ -1115,6 +1135,11 @@ video {
   background-color: rgb(244 244 244 / var(--tw-bg-opacity));
 }
 
+.bg-gray-figma-1100{
+  --tw-bg-opacity: 1;
+  background-color: rgb(238 238 238 / var(--tw-bg-opacity));
+}
+
 .bg-inherit{
   background-color: inherit;
 }
@@ -1234,6 +1259,10 @@ video {
 
 .pb-8{
   padding-bottom: 2rem;
+}
+
+.pl-5{
+  padding-left: 1.25rem;
 }
 
 .pt-10{
@@ -1437,6 +1466,53 @@ video {
 
 body{
   font-family: AvantGarde Bk BT;
+}
+
+.popup__background{
+  background-color: #000;
+  opacity: 0.7;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+}
+
+.popup{
+  width: 100%;
+  height: 100dvh;
+  position: fixed;
+  top: 0;
+  z-index: 25;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+
+.popupClosed{
+  position: static !important;
+  display: none !important;
+}
+
+.popup__window{
+  width: 60%;
+  background-color: #fff;
+  color: #000;
+  padding: 24px 40px 40px 40px;
+}
+
+.btn-not-allowed{
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.pac-container {
+  z-index: 99999 !important;
+}
+
+.pac-container:after {
+  background-image: none !important;
 }
 
 .footer-gradiente{
