@@ -296,6 +296,7 @@ function completeAddressProcess(){
     }
 
     localStorage.setItem("userLocation", JSON.stringify(userLocation));
+    checkUserLocation();
 
     closePopup();
 }
@@ -324,7 +325,9 @@ function openPopup() {
     }
 }
 
+// document.addEventListener("itemInserted", checkUserLocation, false);
 document.addEventListener('DOMContentLoaded', checkUserLocation());
+
 function checkUserLocation() {
     const headerLocation = document.querySelectorAll('.headerLocation');
     let userLocation = localStorage.getItem('userLocation');
