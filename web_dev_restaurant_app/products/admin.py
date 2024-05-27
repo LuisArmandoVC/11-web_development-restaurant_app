@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import dishes, Category
+from .models import dishes, Category, discount_coupon
 
 # Register your models here.
 
@@ -21,8 +21,12 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("category_name",)}
     readonly_fields = ('created_at', 'updated_at')
 
+class DiscountCuponAdmin(admin.ModelAdmin):
+    readonly_fields = ('created_at', 'updated_at')
 
 
 admin.site.register(dishes, DishesAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(discount_coupon, DiscountCuponAdmin)
+
 

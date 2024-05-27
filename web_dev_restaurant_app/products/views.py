@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.core.serializers import serialize
@@ -6,13 +7,37 @@ from django.http import JsonResponse
 from django.db.models import Q,F
 import json
 
-from .models import dishes
+
+from .models import dishes, discount_coupon
 from .forms import RedeemCuponForm
 
 # Create your views here.
 def checkout(request):
-    form = RedeemCuponForm()
-    return render(request, "products/checkout.html", {'form': form})
+    if request.method == 'POST':
+        form = RedeemCuponForm(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data['cupon_value']
+            try:
+                coupon = discount_coupon.objects.get(discount_coupon_code=code, discount_coupon_enablement=True)
+                message = f"Descuento aplicado correctamente"
+                success = True
+                is_get_request = False
+            except discount_coupon.DoesNotExist:
+                message = "Cupón inválido o inactivo"
+                success = False
+                is_get_request = False
+        else:
+            message = "Formulario no válido."
+            success = False
+            is_get_request = False
+            code = 'Cupón inválido'
+    else:
+        form = RedeemCuponForm()
+        message = ''
+        success = None
+        is_get_request = True
+        code = 'Cupón inválido'    
+    return render(request, "products/checkout.html", {'form': form, 'message': message, 'success': success, 'is_get_request': is_get_request, 'code': code})
 
 def confirmation_cash(request):
     if request.method == 'POST':

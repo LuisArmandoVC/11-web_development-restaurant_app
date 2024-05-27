@@ -49,3 +49,17 @@ def discount(self):
     else:
         return 0
 dishes.add_to_class('discount', property(discount))
+
+
+class discount_coupon(models.Model):
+    discount_coupon_code = models.CharField(max_length=15, help_text="En este campo tienes que agregar el codigo que quieres que represente un cupon de descuento", verbose_name='Codigo de descuento (Obligatorio)')
+    discount_coupon_enablement = models.BooleanField(verbose_name='El cupon de descuento esta activo?', help_text="Marque la casilla si desea habilitar este codigo de descuento")
+
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Fecha de última actualización")
+    class Meta:
+        verbose_name = 'Cupon de descuento'
+        verbose_name_plural = 'Cupones de descuento'
+        ordering = ["-created_at"]
+    def __str__(self):
+        return self.discount_coupon_code

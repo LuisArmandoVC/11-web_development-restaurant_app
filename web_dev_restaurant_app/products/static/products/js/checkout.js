@@ -128,3 +128,22 @@ const clickingPayment = () => {
 
 
 }
+
+
+
+// 9. Click functions 
+    // 9.1 Display tooltip if user want to change address in checkout page
+const addressTooltip = () => {
+    let infoSvg = document.querySelector('.infoAddress');
+    if(infoSvg.classList.contains('hidden'))
+    {
+        infoSvg.classList.remove('hidden');
+        infoSvg.classList.add('flex');
+    }
+    else
+    {
+        infoSvg.classList.add('hidden');
+        infoSvg.classList.remove('flex');
+    }
+
+}
