@@ -88,7 +88,7 @@
                 <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15.7082 6.04102V8.45768M15.7082 20.541V22.9577M15.7082 13.291V15.7077M2.4165 10.8743C3.37791 10.8743 4.29995 11.2563 4.97977 11.9361C5.65959 12.6159 6.0415 13.5379 6.0415 14.4993C6.0415 15.4608 5.65959 16.3828 4.97977 17.0626C4.29995 17.7424 3.37791 18.1243 2.4165 18.1243V20.541C2.4165 21.182 2.67112 21.7966 3.12433 22.2499C3.57754 22.7031 4.19223 22.9577 4.83317 22.9577H24.1665C24.8074 22.9577 25.4221 22.7031 25.8753 22.2499C26.3286 21.7966 26.5832 21.182 26.5832 20.541V18.1243C25.6218 18.1243 24.6997 17.7424 24.0199 17.0626C23.3401 16.3828 22.9582 15.4608 22.9582 14.4993C22.9582 13.5379 23.3401 12.6159 24.0199 11.9361C24.6997 11.2563 25.6218 10.8743 26.5832 10.8743V8.45768C26.5832 7.81674 26.3286 7.20205 25.8753 6.74884C25.4221 6.29563 24.8074 6.04102 24.1665 6.04102H4.83317C4.19223 6.04102 3.57754 6.29563 3.12433 6.74884C2.67112 7.20205 2.4165 7.81674 2.4165 8.45768V10.8743Z" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <h2 class="text-mobile-heading-block font-bold">Cupón</h2>
+                <h2 class="cuponLabel text-mobile-heading-block font-bold">Cupón</h2>
             </div>
             <form class="mx-auto xl:mx-0 xl:flex xl:items-center xl:w-3/4 xl:gap-3"  method="POST">
                 {% csrf_token %}
@@ -136,6 +136,10 @@
                     <p>Propina</p>
                     <p class="summaryTip">Calculando...</p>
                 </div>
+                <div class="discountSummaryBlock mt-5 items-center justify-between hidden">
+                    <p>Descuento</p>
+                    <p class="discountSummary">Calculando...</p>
+                </div>
                 <div class="mt-5 flex items-center justify-between">
                     <em class="not-italic font-bold">Total</em>
                     <em class="not-italic font-bold orderTotal">Calculando...</em>
@@ -174,9 +178,20 @@
     <script>
         if( '{{success}}' ==  'True' && '{{is_get_request}}' == 'False' && '{{code}}' != 'Cupón inválido')
         {
-            // TODO: AJUSTAR LOGICA DE JS
             document.addEventListener('DOMContentLoaded', function() {
-                discount('TESTCOUPON');
+                const scrollPosition = localStorage.getItem("scrollPosition");
+                if (scrollPosition) {
+                    window.scrollTo(0, parseInt(scrollPosition));
+                    localStorage.removeItem("scrollPosition"); 
+                }
+                discount(
+                    '{{ coupon.discount_coupon_code }}', 
+                    '{{ coupon.discount_coupon_enablement }}',
+                    '{{ coupon.discout_value }}',
+                    '{{ coupon.discout_maximum }}',
+                    '{{ coupon.discount_unit }}',
+                    '{{ coupon.created_at }}',
+                );
             });
             couponSection = document.querySelector('#couponSection');
             couponSection.innerHTML = 
@@ -203,6 +218,13 @@
         }
         else if('{{success}}' ==  'False' && '{{is_get_request}}' == 'False')
         {
+            document.addEventListener('DOMContentLoaded', function() {
+                const scrollPosition = localStorage.getItem("scrollPosition");
+                if (scrollPosition) {
+                    window.scrollTo(0, parseInt(scrollPosition));
+                    localStorage.removeItem("scrollPosition"); 
+                }
+            });
             couponInput = document.querySelector('#id_cupon_value');
             invalidCoupon = document.querySelector('.invalid_coupon');
 

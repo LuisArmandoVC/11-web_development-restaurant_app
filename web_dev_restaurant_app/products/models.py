@@ -54,7 +54,19 @@ dishes.add_to_class('discount', property(discount))
 class discount_coupon(models.Model):
     discount_coupon_code = models.CharField(max_length=15, help_text="En este campo tienes que agregar el codigo que quieres que represente un cupon de descuento", verbose_name='Codigo de descuento (Obligatorio)')
     discount_coupon_enablement = models.BooleanField(verbose_name='El cupon de descuento esta activo?', help_text="Marque la casilla si desea habilitar este codigo de descuento")
-
+    discout_value = models.IntegerField(default=0, verbose_name='Valor de descuento del cupon', help_text="Agregue el valor que desea descontar, tenga en cuenta que si elije la opcion de envio gratis como unidad, se aplicara descuento al 100 por ciento del valor del envio")
+    discout_maximum = models.IntegerField(default=0, verbose_name='Maximo valor posible a descontar', help_text="Ajuste este como valor maximo que podra descontar del cupon, no valido para envio gratuito")
+    OPTIONS = [
+        ('', 'Selecciona una opcion'),
+        ('pesos_colombianos', 'Pesos'),
+        ('porcentaje', 'Porcentaje'),
+        ('envio_gratuito', 'Envio gratis')
+    ]
+    discount_unit = models.CharField(
+        max_length=50,        
+        choices=OPTIONS,
+        default=''
+    )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Fecha de última actualización")
     class Meta:

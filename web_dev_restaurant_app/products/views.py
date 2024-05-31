@@ -26,18 +26,21 @@ def checkout(request):
                 message = "Cupón inválido o inactivo"
                 success = False
                 is_get_request = False
+                coupon = 'does not exists'
         else:
             message = "Formulario no válido."
             success = False
             is_get_request = False
             code = 'Cupón inválido'
+            coupon = 'does not exists'
     else:
         form = RedeemCuponForm()
         message = ''
         success = None
         is_get_request = True
-        code = 'Cupón inválido'    
-    return render(request, "products/checkout.html", {'form': form, 'message': message, 'success': success, 'is_get_request': is_get_request, 'code': code})
+        code = 'Cupón inválido'
+        coupon = 'does not exists'
+    return render(request, "products/checkout.html", {'form': form, 'message': message, 'success': success, 'is_get_request': is_get_request, 'code': code, 'coupon': coupon})
 
 def confirmation_cash(request):
     if request.method == 'POST':

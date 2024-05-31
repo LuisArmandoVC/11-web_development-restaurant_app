@@ -22,6 +22,7 @@ class CategoryAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'updated_at')
 
 class DiscountCuponAdmin(admin.ModelAdmin):
+    list_display = ('discount_coupon_code', 'discount_coupon_enablement', 'discout_value', 'discount_unit', 'created_at')
     readonly_fields = ('created_at', 'updated_at')
 
 
