@@ -1,0 +1,22 @@
+<section class="tippingDialog popup popupClosed">
+    <div class="popup__window">
+        <article>
+            <div class="flex items-center justify-between">
+                <h3 class="font-bold text-mobile-heading-block lg:text-desktop-heading-block">Añade tu propina</h3>
+                <svg class="cursor-pointer" onclick='closeCheckoutPopup("tippingDialog")' width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 29C22.732 29 29 22.732 29 15C29 7.26801 22.732 1 15 1C7.26801 1 1 7.26801 1 15C1 22.732 7.26801 29 15 29Z" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19.1998 10.8008L10.7998 19.2008M10.7998 10.8008L19.1998 19.2008" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="relative mt-10 lg:w-full">
+                <label for="email" class="absolute top-0 z-2 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Ingresa el monto</label>
+                <input required type="text" class="tipCustomValue form__input-JuanSabrosuras" placeholder="$5000">
+            </div>
+            <div class="mt-10">
+                <button class="saveCustomTip btn-cta w-full block">Guardar</button>
+                <button class="noTip mt-5 w-full block text-primary outline-0 border-[1px] border-primary rounded-[6.25rem] py-3 px-4 font-roboto">Sin propina</button>
+            </div>
+        </article>
+    </div>
+</section>
+

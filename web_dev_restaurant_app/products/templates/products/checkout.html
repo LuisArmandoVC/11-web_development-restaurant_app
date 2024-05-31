@@ -3,7 +3,6 @@
 {% block content %}
     <h1 class="container bg-gray-figma-100 py-10 text-mobile-heading-large font-bold">Estas a un paso de completar tu pedido </h1>
     <section class="bg-gray-figma-100 container lg:relative lg:pb-16">
-
         {% comment %} Delivery dates {% endcomment %}
         <article class="bg-white shadow-checkoutSections rounded-xl py-10 px-5 2xl:px-12 lg:w-2/3">
             <h2 class="text-mobile-heading-block lg:text-desktop-heading-block font-bold">Datos de entrega</h2>
@@ -22,7 +21,6 @@
                 </div>
             </div>
         </article>
-
         {% comment %} Address block {% endcomment %}
         <article class="mt-5 bg-white shadow-checkoutSections rounded-xl py-10 px-5 2xl:px-12 lg:w-2/3">
             <h2 class="text-gray-figma-1000 mb-10 font-bold text-mobile-heading-block">Dirección de entrega</h2>
@@ -112,10 +110,10 @@
         <article class="mt-5 bg-white shadow-checkoutSections rounded-xl py-10 px-5 2xl:px-12 lg:w-2/3">
             <h2 class="text-mobile-heading-block lg:text-desktop-heading-block font-bold">Añade tu propina</h2>
             <div class="mt-12 flex items-center flex-wrap gap-4">
-                <button class="block border-[1px] border-gray-figma-900 rounded-md px-4 py-2 text-mobile-paragraph-standard lg:text-desktop-paragraph-large">5%</button>
-                <button class="block border-[1px] border-gray-figma-900 rounded-md px-4 py-2 text-mobile-paragraph-standard lg:text-desktop-paragraph-large">8%</button>
-                <button class="block border-[1px] border-gray-figma-900 rounded-md px-4 py-2 text-mobile-paragraph-standard lg:text-desktop-paragraph-large">10%</button>
-                <button class="block border-[1px] border-gray-figma-900 rounded-md px-4 py-2 text-mobile-paragraph-standard lg:text-desktop-paragraph-large">Otro</button>
+                <button onclick='tipping("5", this)' class="tipBtn block border-[1px] border-gray-figma-900 rounded-md px-4 py-2 text-mobile-paragraph-standard lg:text-desktop-paragraph-large">5%</button>
+                <button onclick='tipping("8", this)' class="tipBtn block border-[1px] border-gray-figma-900 rounded-md px-4 py-2 text-mobile-paragraph-standard lg:text-desktop-paragraph-large">8%</button>
+                <button onclick='tipping("10", this)' class="tipBtn block border-[1px] border-gray-figma-900 rounded-md px-4 py-2 text-mobile-paragraph-standard lg:text-desktop-paragraph-large">10%</button>
+                <button onclick='tipping("otro", this)' class="tipBtn block border-[1px] border-gray-figma-900 rounded-md px-4 py-2 text-mobile-paragraph-standard lg:text-desktop-paragraph-large">Otro</button>
             </div>
         </article>
         {% comment %} Summary {% endcomment %}
@@ -134,14 +132,18 @@
                     <p>Costo de envío</p>
                     <p class="shippingCost">Calculando...</p>
                 </div>
+                <div class="summaryTipBlock mt-5 items-center justify-between hidden">
+                    <p>Propina</p>
+                    <p class="summaryTip">Calculando...</p>
+                </div>
                 <div class="mt-5 flex items-center justify-between">
                     <em class="not-italic font-bold">Total</em>
                     <em class="not-italic font-bold orderTotal">Calculando...</em>
                 </div>
             </div>
             <div class="flex items-center justify-between">
-                <button class="block text-primary">Detalle</button>
-                <button class="block text-primary">Nuestros costos</button>
+                <button class="block text-primary" onclick='openCheckoutPopup("detail")'>Detalle</button>
+                <button class="block text-primary" onclick='openCheckoutPopup("ourCosts")'>Nuestros costos</button>
             </div>
             {% comment %} Complete button desktop version {% endcomment %}
             <div class="mt-5 mb-10 hidden lg:block">
@@ -157,6 +159,9 @@
             </button>
         </article>
     </section>
+    {% include 'products/ourCosts.html' %}
+    {% include 'products/detail.html' %}
+    {% include 'products/tipping.html' %}
 {% endblock %}
 
 {% block vendors %}
