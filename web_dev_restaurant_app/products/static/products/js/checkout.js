@@ -1,7 +1,20 @@
+
 // TODO: CAMBIAR TODAS LAS KEY QUEMADAS CON VARIABLES DE ENTORNO
 
 // How to calculate order summary  
 // 1. Definitions
+plate = {
+    name: '',
+    amount: '',
+    description: '',
+    individual_price: '',
+    total_price: '',
+    side_dish_1: '',
+    side_dish_2: '',
+    side_dish_3: '',
+    side_dish_4: '',
+}
+let orderArray = [];
 const KEY = '57e826694a4fc7b42aa4797ac13fbe28';
 products = [];
 paymentType = "online";
@@ -241,7 +254,97 @@ const addressTooltip = () => {
         infoSvg.classList.remove('flex');
     }
 }
-// 9.2 Tip function
+// 9.2 Last whim functionalities (counting & triggering)
+const counter = (countType, counterObj) => {
+    let counting = document.querySelector('#' + counterObj);
+    let finalCount = parseInt(counting.innerHTML); 
+    if(countType == 'increase'){
+        finalCount = finalCount + 1;
+    }
+    else if(countType == 'decrease' && finalCount > 0)
+    {
+        finalCount = finalCount - 1;
+    }
+    counting.innerHTML = finalCount;
+}
+const lastWhimAdd = () => {
+    plates = document.querySelectorAll('.lastWhimItemCounting');
+    plates.forEach(plate => {
+        if (parseInt(plate.innerHTML) > 0) {
+            fetch(`/catalogo/${plate.getAttribute('data-label')}/get-data`)
+            .then(response => response.json())
+            .then(data => {
+                const nestedData  = JSON.parse(data.data);
+                const plateInfo = nestedData[0].fields;
+                const amount = parseInt(plate.innerHTML);
+                order = mappingPlateValues(plateInfo, amount);
+                encryptArrayLocalStorage = consultData();
+                if (encryptArrayLocalStorage == null) {
+                    orderArray.push(order)
+                    encryptData = encryptData(orderArray, KEY)
+                    savingDataResult = savingData('info', encryptData);
+                    if (savingDataResult) {
+                        location.href = "/catalogo/finalizar-compra" + "?lastWhim=true";
+                    }
+                    else{
+                        window.alert('Ups, parece que hubo un problema, por favor vuelve a intentarlo mas tarde')
+                    }
+                }
+                else
+                {
+                    descryptedLocalStorageArray = decryptDataLastWhim(encryptArrayLocalStorage, KEY);
+                    descryptedLocalStorageArray.push(order);
+                    encryptData = encryptData(descryptedLocalStorageArray, KEY)
+                    savingDataResult = savingData('info', encryptData);
+                    if (savingDataResult) {
+                        location.href = "/catalogo/finalizar-compra" + "?lastWhim=true";
+                    }
+                    else{
+                        window.alert('Ups, parece que hubo un problema, por favor vuelve a intentarlo mas tarde')
+                    }
+                }
+            })
+            .catch(error => console.error('Ups, parece que hubo un error guardando tu plato'));
+        }
+    });
+}
+// Utilities: functions developed to assists main function "lastWhimAdd" to save user selections into local storage
+function mappingPlateValues(plateInfo, amount) {
+    plate = {
+        name: plateInfo.dish_name,
+        amount: amount,
+        description: plateInfo.dish_description,
+        individual_price: 0,
+        total_price: 0,
+        side_dish_1: plateInfo.dish_side_1,
+        side_dish_2: plateInfo.dish_side_2,
+        side_dish_3: plateInfo.dish_side_3,
+        side_dish_4: plateInfo.dish_side_4,
+    }
+    if (plateInfo.dish_discounted_price > 1 && plateInfo.dish_discounted_price < plateInfo.dish_regular_price) {
+        plate.individual_price = plateInfo.dish_discounted_price
+    }
+    else{
+        plate.individual_price = plateInfo.dish_regular_price
+    }
+    plate.total_price = plate.individual_price * plate.amount
+    return plate
+}
+function encryptData(order, key) {
+    return CryptoJS.AES.encrypt(JSON.stringify(order), key).toString();
+}
+function decryptDataLastWhim(encryptOrder, key) {
+    var bytes = CryptoJS.AES.decrypt(encryptOrder, key);
+    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+}
+function consultData() {
+    return localStorage.getItem('info');
+}
+function savingData(plate, encryptOrder) {
+    localStorage.setItem(plate, encryptOrder);
+    return true;
+}
+// 9.3 Tip function
 const tipping = (percentage, domObj) => {
     let tipBtns = document.querySelectorAll(".tipBtn");
     let productsPrice = calculateTotal(products);
@@ -289,7 +392,7 @@ const tipping = (percentage, domObj) => {
         })
     }
 }
-// 9.3 Popup logic handling
+// 9.4 Popup logic handling
 const openCheckoutPopup = (popupType) => {
     let popup;
     popup__background = document.querySelector('.popup__background');
@@ -303,6 +406,10 @@ const openCheckoutPopup = (popupType) => {
     else if(popupType == 'tippingDialog')
     {
         popup = document.querySelector('.tippingDialog');
+    }
+    else if(popupType == 'dialogLastWhim')
+    {
+        popup = document.querySelector('.dialogLastWhim');
     }
     if (popup__background.classList.contains('hidden') && popup.classList.contains('popupClosed')) {
         popup.classList.remove('popupClosed');
@@ -325,9 +432,18 @@ const closeCheckoutPopup = (popupType) => {
     {
         popup = document.querySelector('.tippingDialog');
     }
+    else if(popupType == 'dialogLastWhim')
+    {
+        popup = document.querySelector('.dialogLastWhim');
+    }
     if (!popup__background.classList.contains('hidden') && !popup.classList.contains('popupClosed')) {
         popup.classList.add('popupClosed');
         popup__background.classList.add('hidden');
         popup__background.style.height = 0 + 'px';
     }
+}
+function lastWhim(request) {
+    setTimeout(()=>{
+        openCheckoutPopup('dialogLastWhim');
+    }, 5000)
 }

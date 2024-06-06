@@ -166,6 +166,7 @@
     {% include 'products/ourCosts.html' %}
     {% include 'products/detail.html' %}
     {% include 'products/tipping.html' %}
+    {% include 'products/lastWhim.html' %}
 {% endblock %}
 
 {% block vendors %}
@@ -176,6 +177,10 @@
     {% load static %}
     <script src="{% static '/products/js/checkout.js' %}"></script>
     <script>
+        const currentURL = new URL(location.href);
+        if('{{is_get_request}}' == 'True' && currentURL.searchParams.get("lastWhim") != 'true'){
+            lastWhim(true)
+        }
         if( '{{success}}' ==  'True' && '{{is_get_request}}' == 'False' && '{{code}}' != 'Cupón inválido')
         {
             document.addEventListener('DOMContentLoaded', function() {

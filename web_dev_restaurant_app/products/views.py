@@ -16,6 +16,7 @@ def checkout(request):
     if request.method == 'POST':
         form = RedeemCuponForm(request.POST)
         if form.is_valid():
+            last_whim_items = None
             code = form.cleaned_data['cupon_value']
             try:
                 coupon = discount_coupon.objects.get(discount_coupon_code=code, discount_coupon_enablement=True)
@@ -35,12 +36,13 @@ def checkout(request):
             coupon = 'does not exists'
     else:
         form = RedeemCuponForm()
+        last_whim_items = dishes.objects.filter(dish_category__exact=3) | dishes.objects.filter(dish_category__exact=4)
         message = ''
         success = None
         is_get_request = True
         code = 'Cupón inválido'
         coupon = 'does not exists'
-    return render(request, "products/checkout.html", {'form': form, 'message': message, 'success': success, 'is_get_request': is_get_request, 'code': code, 'coupon': coupon})
+    return render(request, "products/checkout.html", {'form': form, 'message': message, 'success': success, 'is_get_request': is_get_request, 'code': code, 'coupon': coupon, 'last_whim_items': last_whim_items})
 
 def confirmation_cash(request):
     if request.method == 'POST':
