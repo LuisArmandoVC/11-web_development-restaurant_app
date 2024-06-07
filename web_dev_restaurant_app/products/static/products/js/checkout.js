@@ -31,7 +31,6 @@ function decryptData() {
         let localStorageValue = localStorage.getItem('info');
         let bytes = CryptoJS.AES.decrypt(localStorageValue, KEY);
         products = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-        
     } catch (error) {
         console.error('Looks like you got 0 products in shopping car.')
         products.length = 0;
@@ -102,6 +101,9 @@ function mappingDOM(total, serviceFee, shippingCost, tip, discount) {
     document.querySelector('.orderTotal').innerHTML =  `$${total + serviceFee + shippingCost + tipDefault - discountDefault}`;
     document.querySelector('.totalDetail').innerHTML =  `${total + serviceFee + shippingCost + tipDefault - discountDefault}`;
     document.querySelector('.preTotalDetail').innerHTML =  `${total + serviceFee + shippingCost + tipDefault - discountDefault}`;
+    const finalTotal = total + serviceFee + shippingCost + tipDefault - discountDefault;
+    encryptFinalTotal = encryptData(finalTotal, KEY);
+    savingDataResult = savingData('checkout', encryptFinalTotal);
 }
 // 6. Apply submit button logic based on payment method selected by user
 function listenPaymentMethod() {
@@ -148,6 +150,54 @@ document.addEventListener("DOMContentLoaded", checkoutFunction());
 
 
 const clickingPayment = () => {
+    const encryptedPurchaseAmount = localStorage.getItem('checkout');
+    let purchaseAmount = 0;
+    try {
+        const bytes = CryptoJS.AES.decrypt(encryptedPurchaseAmount, KEY);
+        purchaseAmount = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    } catch (error) {
+        purchaseAmount = 1000000;
+    }
+    if(purchaseAmount == 1000000 || purchaseAmount == 0)
+    {
+        return location.href = '/checkout-error';
+    }
+    //If purchase amount is not affected or got a proper value, then lets retrieve delivery dates & delivery address
+    // Initial input validation
+    let inputsValidation = checkInputs();
+    if (inputsValidation) {
+        const fullname = document.querySelector('#fullname').value;
+        const email = document.querySelector('#email').value;
+        const phonenumber = document.querySelector('#phonenumber').value;
+        const extraAddressInfo = document.querySelector('#extraAddressInfo').value;
+        const instructions = document.querySelector('#instructions').value;
+        purchaserInfo = {
+            fullname: fullname ? fullname : 'no hay información del nombre del usuario',
+            email: email ? email : 'no hay información del nombre del correo electronico del usuario',
+            phonenumber: phonenumber ? phonenumber : 'no hay información del número de telefono del usuario',
+            extraAddressInfo: extraAddressInfo ? extraAddressInfo : 'no hay información de la información complementaria de la dirección del usuario',
+            instructions: instructions ? instructions : 'no hay instrucciones de entrega',
+        }
+    }
+    else
+    {
+        if(document.querySelector('.error-text') != undefined){
+            document.querySelector('.error-text').remove();
+        }
+        const errorMessageElement = document.createElement("div");
+        errorMessageElement.classList.add("error-text")
+        errorMessageElement.innerHTML = 
+        `
+            <p class="error-text_element mb-5">Parece que faltó completar algunos de los siguientes campos: </p>
+            <p class="error-text_element">Nombre y apellido</p>
+            <p class="error-text_element">Correo electrónico</p>
+            <p class="error-text_element">Celular</p>
+            <p class="error-text_element">Información complementaria</p>
+        `
+
+        const summaryDesktop = document.querySelector('#summaryDesktop');
+        summaryDesktop.appendChild(errorMessageElement);
+    }
 
     if (paymentType == 'cash') {
         fetch('/catalogo/confirmacion-c', {
@@ -155,7 +205,8 @@ const clickingPayment = () => {
             // redirect: 'manual',
             body: JSON.stringify({
                 "products": products,
-                "purchaseAmount": calculateTotal(products) + 4000
+                "purchaseAmount": purchaseAmount,
+                "purchaserInfo": purchaserInfo,
             }),
             headers: {
                 'Content-Type': 'application/json',
@@ -164,31 +215,47 @@ const clickingPayment = () => {
         }).then(
             function(response) {
                 if (response.status == 200 ) {
+                    localStorage.removeItem('checkout');
+                    localStorage.removeItem('info');
                     window.location.href = response.url;
+                }
+                else
+                {
+                    location.href = '/checkout-error';
                 }
             }
         )
     }
-    else
-    {
-        let checkout = new WidgetCheckout({
-            currency: 'COP',
-            amountInCents: (calculateTotal(products)+4000)*100,
-            reference: 'AD002901221',
-            publicKey: 'pub_test_EIhIc63dgvz2lfsuTHPYc2nrvQ1w99yS',
-            signature: {
-                integrity : 'AD0029012211900000COPtest_integrity_7rD2EF8lMk9jtW8hJHViyzOLNjNf4Vqd'
-            },
-            redirectUrl: 'https://transaction-redirect.wompi.co/check', 
-        })
-        checkout.open(function (result) {
-            var transaction = result.transaction;
-            console.log("Transaction ID: ", transaction.id);
-            console.log("Transaction object: ", transaction);
-        });
+    // else
+    // {
+    //     let checkout = new WidgetCheckout({
+    //         currency: 'COP',
+    //         amountInCents: (purchaseAmount)*100,
+    //         reference: 'AD002901221',
+    //         publicKey: 'pub_test_EIhIc63dgvz2lfsuTHPYc2nrvQ1w99yS',
+    //         signature: {
+    //             integrity : 'AD0029012211900000COPtest_integrity_7rD2EF8lMk9jtW8hJHViyzOLNjNf4Vqd'
+    //         },
+    //         redirectUrl: 'https://transaction-redirect.wompi.co/check', 
+    //     })
+    //     checkout.open(function (result) {
+    //         var transaction = result.transaction;
+    //         console.log("Transaction ID: ", transaction.id);
+    //         console.log("Transaction object: ", transaction);
+    //     });
+    // }
+
+
+}
+
+function checkInputs() {
+    const fullname = document.querySelector('#fullname').value;
+    const email = document.querySelector('#email').value;
+    const phonenumber = document.querySelector('#phonenumber').value;
+    const extraAddressInfo = document.querySelector('#extraAddressInfo').value;
+    if (!(fullname == '') && !(email == '') && !(phonenumber == '') && !(extraAddressInfo == '')) {
+        return true;
     }
-
-
 }
 
 // 7. Modify discount coupon value if backend throws success
@@ -219,11 +286,12 @@ function discount(coupon, isActive, value, maxValue, type, createdAt) {
 document.addEventListener("DOMContentLoaded", () => {
     let subtotalProducts = document.querySelector('#subtotalProducts');
     products.forEach(product => {
+        let productAmount = product.amount;
         let productName = product.name;
         let productPrice = product.individual_price;
         subtotalProducts.innerHTML += `
             <div class="mt-5 flex items-start justify-between">
-                <p>${ productName }</p>
+                <p>(${ productAmount }) - ${ productName }</p>
                 <div class="flex items-center">
                     <span>$</span><p>${ productPrice }</p>
                 </div>
@@ -293,7 +361,15 @@ const lastWhimAdd = () => {
                 else
                 {
                     descryptedLocalStorageArray = decryptDataLastWhim(encryptArrayLocalStorage, KEY);
-                    descryptedLocalStorageArray.push(order);
+                    let duplicateItem = checkDuplicatesInCarShop(order.name, descryptedLocalStorageArray)
+                    if (!(duplicateItem === 'Not duplicate item')) {
+                        descryptedLocalStorageArray[duplicateItem].amount = order.amount + descryptedLocalStorageArray[duplicateItem].amount;
+                        descryptedLocalStorageArray[duplicateItem].total_price = descryptedLocalStorageArray[duplicateItem].amount * descryptedLocalStorageArray[duplicateItem].individual_price;
+                    }
+                    else
+                    {
+                        descryptedLocalStorageArray.push(order);
+                    }
                     encryptData = encryptData(descryptedLocalStorageArray, KEY)
                     savingDataResult = savingData('info', encryptData);
                     if (savingDataResult) {
@@ -329,6 +405,10 @@ function mappingPlateValues(plateInfo, amount) {
     }
     plate.total_price = plate.individual_price * plate.amount
     return plate
+}
+function checkDuplicatesInCarShop(identifier, decryptedArray) {
+    const duplicateItem = decryptedArray.find(duplicateItem => duplicateItem.name === identifier);
+    return duplicateItem ? decryptedArray.indexOf(duplicateItem) : 'Not duplicate item';
 }
 function encryptData(order, key) {
     return CryptoJS.AES.encrypt(JSON.stringify(order), key).toString();

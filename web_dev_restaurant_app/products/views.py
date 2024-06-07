@@ -50,8 +50,12 @@ def confirmation_cash(request):
             data = json.loads(request.body)
             products = data.get('products', [])
             purchase_amount = data.get('purchaseAmount', 0)
+            purchaser_info = data.get('purchaserInfo', {})
             if(products is not None and purchase_amount > 0):
-                message = render_to_string('core/mail_body.html', { 'products': products })
+                print(purchaser_info)
+                print(purchase_amount)
+
+                message = render_to_string('core/mail_body.html', { 'products': products, 'purchase_amount': purchase_amount, 'purchaser_info': purchaser_info })
                 emailMessage = EmailMessage(
                     "Juan sabrosuras: tienes un nuevo contacto",
                     message,

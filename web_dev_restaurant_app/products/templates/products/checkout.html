@@ -8,16 +8,16 @@
             <h2 class="text-mobile-heading-block lg:text-desktop-heading-block font-bold">Datos de entrega</h2>
             <div class="relative flex flex-col lg:flex-row lg:gap-2 xl:gap-x-3 2xl:gap-x-5 screen-1720:gap-x-7 3xl:gap-x-8 flex-wrap">
                 <div class="relative mt-10 lg:w-full lg:order-1">
-                    <label for="email" class="absolute top-0 z-2 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Nombre y apellido</label>
-                    <input type="text" class="form__input-JuanSabrosuras">
+                    <label for="fullname" class="absolute top-0 z-2 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Nombre y apellido</label>
+                    <input type="text" class="form__input-JuanSabrosuras" name="fullname" id="fullname">
                 </div>
                 <div class="relative mt-10 lg:w-[49%] 2xl:w-[48%] lg:order-2">
                     <label for="email" class="absolute top-0 z-2 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Correo electrónico</label>
-                    <input type="text" class="form__input-JuanSabrosuras">
+                    <input type="text" class="form__input-JuanSabrosuras" name="email" id="email">
                 </div>
                 <div class="relative mt-10 lg:w-[49%] 2xl:w-[48%] lg:order-3">
-                    <label for="email" class="absolute top-0 z-2 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Celular</label>
-                    <input type="text" class="form__input-JuanSabrosuras">
+                    <label for="phonenumber" class="absolute top-0 z-2 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Celular</label>
+                    <input type="text" class="form__input-JuanSabrosuras" name="phonenumber" id="phonenumber">
                 </div>
             </div>
         </article>
@@ -42,12 +42,12 @@
             </div>
             <div class="flex flex-col lg:flex-row lg:gap-2 xl:gap-x-3 2xl:gap-x-5 screen-1720:gap-x-7 3xl:gap-x-8 flex-wrap">
                 <div class="relative mt-10 lg:w-[49%] 2xl:w-[48%] lg:order-1">
-                    <label for="email" class="absolute text-mobile-paragraph-standard lg:text-desktop-paragraph-standard top-0 z-2 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Información complementaria</label>
-                    <input type="text" class="form__input-JuanSabrosuras text-mobile-paragraph-standard lg:text-desktop-paragraph-standard" placeholder="Torre, apartamento">
+                    <label for="extraAddressInfo" class="absolute text-mobile-paragraph-standard lg:text-desktop-paragraph-standard top-0 z-2 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Información complementaria</label>
+                    <input type="text" name="extraAddressInfo" id="extraAddressInfo" class="form__input-JuanSabrosuras text-mobile-paragraph-standard lg:text-desktop-paragraph-standard" placeholder="Torre, apartamento">
                 </div>
                 <div class="relative mt-10 lg:w-[49%] 2xl:w-[48%] lg:order-2">
-                    <label for="email" class="absolute text-mobile-paragraph-standard lg:text-desktop-paragraph-standard top-0 z-2 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Instrucciones de entrega (opcional)</label>
-                    <input type="text" class="form__input-JuanSabrosuras text-mobile-paragraph-standard lg:text-desktop-paragraph-standard" placeholder="Detalles adicionales">
+                    <label for="instructions" class="absolute text-mobile-paragraph-standard lg:text-desktop-paragraph-standard top-0 z-2 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Instrucciones de entrega (opcional)</label>
+                    <input type="text" name="instructions" id="instructions" class="form__input-JuanSabrosuras text-mobile-paragraph-standard lg:text-desktop-paragraph-standard" placeholder="Detalles adicionales">
                 </div>
             </div>
             
@@ -117,7 +117,7 @@
             </div>
         </article>
         {% comment %} Summary {% endcomment %}
-        <article class="mt-5 lg:mt-0 bg-white shadow-checkoutSections rounded-xl py-10 px-5 lg:w-1/4 2xl:w-1/5 lg:absolute lg:top-0 lg:right-0 lg:mr-16 xl:mr-figmaMargins 2xl:mr-[14.06rem]">
+        <article id="summaryDesktop" class="mt-5 lg:mt-0 bg-white shadow-checkoutSections rounded-xl py-10 px-5 lg:w-1/4 2xl:w-1/5 lg:absolute lg:top-0 lg:right-0 lg:mr-16 xl:mr-figmaMargins 2xl:mr-[14.06rem]">
             <h2 class="text-gray-figma-1000 text-mobile-heading-block font-bold">Resumen</h2>
             <div class="my-12">
                 <div class="flex items-center justify-between">
@@ -163,6 +163,9 @@
             </button>
         </article>
     </section>
+    {% comment %} 
+    popup views
+    {% endcomment %}
     {% include 'products/ourCosts.html' %}
     {% include 'products/detail.html' %}
     {% include 'products/tipping.html' %}

@@ -1545,6 +1545,18 @@ body{
   font-family: AvantGarde Bk BT;
 }
 
+.error-text{
+  font-family: Roboto;
+  font-size: 11px;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.error-text_element{
+  margin-top: 0.25rem;
+}
+
 .popup__background{
   background-color: #000;
   opacity: 0.7;
@@ -2459,6 +2471,11 @@ body{
     margin-right: 0px;
   }
 
+  .xl\:mx-10{
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+  }
+
   .xl\:my-0{
     margin-top: 0px;
     margin-bottom: 0px;
@@ -2467,11 +2484,6 @@ body{
   .xl\:my-16{
     margin-top: 4rem;
     margin-bottom: 4rem;
-  }
-
-  .xl\:mx-10{
-    margin-left: 2.5rem;
-    margin-right: 2.5rem;
   }
 
   .xl\:ml-10{
@@ -2508,10 +2520,6 @@ body{
 
   .xl\:mt-5{
     margin-top: 1.25rem;
-  }
-
-  .xl\:ml-5{
-    margin-left: 1.25rem;
   }
 
   .xl\:mt-8{
@@ -2562,24 +2570,12 @@ body{
     width: 60%;
   }
 
-  .xl\:w-\[70\%\]{
-    width: 70%;
-  }
-
   .xl\:w-\[65\%\]{
     width: 65%;
   }
 
-  .xl\:max-w-\[33\%\]{
-    max-width: 33%;
-  }
-
-  .xl\:max-w-\[45\%\]{
-    max-width: 45%;
-  }
-
-  .xl\:max-w-\[65\%\]{
-    max-width: 65%;
+  .xl\:w-\[70\%\]{
+    width: 70%;
   }
 
   .xl\:basis-1\/3{
@@ -2631,16 +2627,16 @@ body{
     gap: 2.75rem;
   }
 
+  .xl\:gap-24{
+    gap: 6rem;
+  }
+
   .xl\:gap-3{
     gap: 0.75rem;
   }
 
   .xl\:gap-5{
     gap: 1.25rem;
-  }
-
-  .xl\:gap-24{
-    gap: 6rem;
   }
 
   .xl\:gap-6{
@@ -2664,6 +2660,11 @@ body{
   .xl\:px-0{
     padding-left: 0px;
     padding-right: 0px;
+  }
+
+  .xl\:px-10{
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
   }
 
   .xl\:px-2{
@@ -2694,11 +2695,6 @@ body{
   .xl\:py-10{
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
-  }
-
-  .xl\:px-10{
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
   }
 
   .xl\:pl-10{

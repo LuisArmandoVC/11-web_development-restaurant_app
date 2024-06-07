@@ -70,7 +70,15 @@ function checkout(e) {
             else
             {
                 descryptedLocalStorageArray = decryptData(encryptArrayLocalStorage, KEY);
-                descryptedLocalStorageArray.push(order);
+                let duplicateItem = checkDuplicatesInCarShop(order.name, descryptedLocalStorageArray)
+                if (!(duplicateItem === 'Not duplicate item')) {
+                    descryptedLocalStorageArray[duplicateItem].amount = order.amount + descryptedLocalStorageArray[duplicateItem].amount;
+                    descryptedLocalStorageArray[duplicateItem].total_price = descryptedLocalStorageArray[duplicateItem].amount * descryptedLocalStorageArray[duplicateItem].individual_price;
+                }
+                else
+                {
+                    descryptedLocalStorageArray.push(order);
+                }
                 encryptData = encryptData(descryptedLocalStorageArray, KEY)
                 savingDataResult = savingData('info', encryptData);
                 if (savingDataResult) {
@@ -104,6 +112,10 @@ function mappingPlateValues(plateInfo) {
     }
     plate.total_price = plate.individual_price * plate.amount
     return plate
+}
+function checkDuplicatesInCarShop(identifier, decryptedArray) {
+    const duplicateItem = decryptedArray.find(duplicateItem => duplicateItem.name === identifier);
+    return duplicateItem ? decryptedArray.indexOf(duplicateItem) : 'Not duplicate item';
 }
 // 4. encrypt
 function encryptData(order, key) {
