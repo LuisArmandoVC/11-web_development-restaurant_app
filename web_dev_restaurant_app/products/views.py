@@ -1,11 +1,13 @@
-from django.shortcuts import redirect, render
-from django.urls import reverse
+from django.shortcuts import render
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.core.serializers import serialize
 from django.http import JsonResponse
 from django.db.models import Q,F
 import json
+import datetime
+import pytz
+import uuid
 
 
 from .models import dishes, discount_coupon
@@ -44,6 +46,62 @@ def checkout(request):
         coupon = 'does not exists'
     return render(request, "products/checkout.html", {'form': form, 'message': message, 'success': success, 'is_get_request': is_get_request, 'code': code, 'coupon': coupon, 'last_whim_items': last_whim_items})
 
+def confirmation_online(request):
+    if request.method == 'POST':
+        try:
+            # Step 1: creating reference
+            colombia_timezone = pytz.timezone('America/Bogota')
+            colombia_time = datetime.datetime.now(colombia_timezone)
+            formatted_time = colombia_time.strftime('%Y_%m_%d-%H-%M-%S')
+            unique_id = uuid.uuid4()
+            reference = f"{formatted_time}_{unique_id}"
+            # Step 2: using public key 
+            WOMPI_PUBLIC_KEY = "pub_test_EIhIc63dgvz2lfsuTHPYc2nrvQ1w99yS"
+            # Step 3: define integrity
+            WOMPI_SECRET_INTEGRITY = "test_integrity_7rD2EF8lMk9jtW8hJHViyzOLNjNf4Vqd"
+            # Step 4: Retrieve transaction amount
+            data = json.loads(request.body)
+            purchase_amount = data.get('purchaseAmount', 0)
+            products = data.get('products', [])
+            purchaser_info = data.get('purchaserInfo', {})
+            # Step 5: Define expiration date
+            expiration_date = colombia_time + datetime.timedelta(minutes=5)
+            utc_expiration_date = expiration_date.astimezone(pytz.utc)
+            formatted_utc_expiration_date = utc_expiration_date.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
+            # Step 6: building string to be hash
+            secret_hash = reference+str((purchase_amount*100))+"COP"+str(formatted_utc_expiration_date)+WOMPI_SECRET_INTEGRITY
+            # Step 7: encrypt secret_hash
+            import hashlib
+            m = hashlib.sha256()
+            m.update(bytes(secret_hash, encoding='utf8'))
+            m.digest()
+            data = {
+                'currency': 'COP',
+                'amountInCents': purchase_amount*100,
+                'reference': reference, 
+                'publicKey': WOMPI_PUBLIC_KEY,
+                'expirationTime': formatted_utc_expiration_date, 
+                'signature': m.hexdigest(),
+            }
+            # Step 8: send confirmation email 
+            if(products is not None and purchase_amount > 0):
+                message = render_to_string('core/mail_body.html', { 'products': products, 'purchase_amount': purchase_amount, 'purchaser_info': purchaser_info })
+                emailMessage = EmailMessage(
+                    "Juan sabrosuras: tienes un nuevo contacto",
+                    message,
+                    "noreply@juansabrosuras.com",
+                    ["ordenes@juansabrosuras.com", purchaser_info["email"]],
+                )
+                emailMessage.content_subtype = "html"
+                try:
+                    emailMessage.send()
+                except Exception:
+                    import traceback
+                    traceback.print_exc()
+        except json.JSONDecodeError:
+                    return JsonResponse({'error': 'Los datos no están en formato JSON'}, status=400)
+    return JsonResponse({'data': data})
+
 def confirmation_cash(request):
     if request.method == 'POST':
         try:
@@ -52,15 +110,12 @@ def confirmation_cash(request):
             purchase_amount = data.get('purchaseAmount', 0)
             purchaser_info = data.get('purchaserInfo', {})
             if(products is not None and purchase_amount > 0):
-                print(purchaser_info)
-                print(purchase_amount)
-
                 message = render_to_string('core/mail_body.html', { 'products': products, 'purchase_amount': purchase_amount, 'purchaser_info': purchaser_info })
                 emailMessage = EmailMessage(
                     "Juan sabrosuras: tienes un nuevo contacto",
                     message,
                     "noreply@juansabrosuras.com",
-                    ["luisarmandoveliz826@gmail.com"],
+                    ["ordenes@juansabrosuras.com", purchaser_info["email"]],
                 )
                 emailMessage.content_subtype = "html"
                 try:

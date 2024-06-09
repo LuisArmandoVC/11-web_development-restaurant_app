@@ -194,9 +194,9 @@ const clickingPayment = () => {
             <p class="error-text_element">Celular</p>
             <p class="error-text_element">Información complementaria</p>
         `
-
         const summaryDesktop = document.querySelector('#summaryDesktop');
         summaryDesktop.appendChild(errorMessageElement);
+        return console.error('Faltan datos personales para completar el pedido')
     }
 
     if (paymentType == 'cash') {
@@ -226,24 +226,55 @@ const clickingPayment = () => {
             }
         )
     }
-    // else
-    // {
-    //     let checkout = new WidgetCheckout({
-    //         currency: 'COP',
-    //         amountInCents: (purchaseAmount)*100,
-    //         reference: 'AD002901221',
-    //         publicKey: 'pub_test_EIhIc63dgvz2lfsuTHPYc2nrvQ1w99yS',
-    //         signature: {
-    //             integrity : 'AD0029012211900000COPtest_integrity_7rD2EF8lMk9jtW8hJHViyzOLNjNf4Vqd'
-    //         },
-    //         redirectUrl: 'https://transaction-redirect.wompi.co/check', 
-    //     })
-    //     checkout.open(function (result) {
-    //         var transaction = result.transaction;
-    //         console.log("Transaction ID: ", transaction.id);
-    //         console.log("Transaction object: ", transaction);
-    //     });
-    // }
+    else
+    {
+        (async () => {
+            const rawResponse = await fetch('/catalogo/confirmacion-o', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "X-CSRFToken": getCookie('csrftoken')
+                },
+                body: JSON.stringify({
+                    "products": products,
+                    "purchaseAmount": purchaseAmount,
+                    "purchaserInfo": purchaserInfo,
+                }),
+            });
+            if(rawResponse.status == 200){
+                const content = await rawResponse.json();
+                let host = new URL(location.href);
+                let checkout = new WidgetCheckout({
+                    currency: content.data.currency,
+                    amountInCents: content.data.amountInCents,
+                    reference: content.data.reference,
+                    publicKey: content.data.publicKey,
+                    signature: {
+                        integrity : content.data.signature
+                        },
+                        redirectUrl: `${host}/catalogo/confirmacion-c`, 
+                        expirationTime: content.data.expirationTime,
+                        customerData: {
+                            email: email.value,
+                            fullName: fullname.value,
+                            phoneNumber: phonenumber.value,
+                            phoneNumberPrefix: '+57',
+                            }
+                })
+                checkout.open(function (result) {
+                    var transaction = result.transaction;
+                    console.log("Transaction ID: ", transaction.id);
+                    console.log("Transaction object: ", transaction);
+                    });
+                localStorage.removeItem('checkout');
+                localStorage.removeItem('info');
+            }
+            else
+            {
+                location.href = '/checkout-error';
+            }
+        })();
+    }
 
 
 }
