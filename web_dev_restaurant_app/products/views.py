@@ -157,3 +157,6 @@ def get_serialized_data(request, dish_slug):
     dish = dishes.objects.get(dish_slug=dish_slug)
     serialized_dish = serialize('json', [dish], fields=["dish_name", "dish_description", "dish_discounted_price", "dish_regular_price", "dish_side_1", "dish_side_2", "dish_side_3", "dish_side_4", "dish_image_preview"])
     return JsonResponse({'data': serialized_dish})
+
+def error_transaction(request):
+    return render(request, "products/error_transaction.html")

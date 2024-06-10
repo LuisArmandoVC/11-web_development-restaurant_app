@@ -162,7 +162,7 @@ const clickingPayment = () => {
     }
     if(purchaseAmount == 1000000 || purchaseAmount == 0)
     {
-        return location.href = '/checkout-error';
+        return location.href = '/catalogo/checkout-error';
     }
     //If purchase amount is not affected or got a proper value, then lets retrieve delivery dates & delivery address
     // Initial input validation
@@ -226,7 +226,7 @@ const clickingPayment = () => {
                 }
                 else
                 {
-                    location.href = '/checkout-error';
+                    location.href = '/catalogo/checkout-error';
                 }
             }
         )
@@ -276,7 +276,7 @@ const clickingPayment = () => {
             }
             else
             {
-                location.href = '/checkout-error';
+                location.href = '/catalogo/checkout-error';
             }
         })();
     }
