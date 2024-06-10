@@ -176,6 +176,12 @@ body{
     background-color: #FD7400;
     display: none;
 }
+
+/* Blog/posts view pages */
+.richText p img {
+    @apply mx-auto
+}
+
 /* Checkout view page */
 .tipBtn_active{
     background-color: rgba(255, 222, 194, 1);

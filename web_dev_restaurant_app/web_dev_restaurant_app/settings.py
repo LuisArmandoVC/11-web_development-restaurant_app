@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'blog.apps.BlogConfig',
     'products.apps.ProductsConfig',
+    'legal.apps.LegalConfig',
     #widgets
     'ckeditor',
     'ckeditor_uploader',
@@ -161,6 +162,7 @@ CKEDITOR_CONFIGS = {
             ['RemoveFormat', 'Source'],
             ['Image', 'Flash', 'Table', 'HorizontalRule'],
             ['TextColor', 'BGColor'],
+            ['FontSize']
         ]
     }
 }

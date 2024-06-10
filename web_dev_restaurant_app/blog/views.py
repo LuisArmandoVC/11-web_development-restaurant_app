@@ -25,4 +25,5 @@ def blog(request):
 
 def post(request, slug):
     post = Post.objects.get(slug=slug)
-    return render(request, "blog/post.html", {'post': post})
+    latest_posts = Post.objects.all()[:2]
+    return render(request, "blog/post.html", {'post': post, 'latest_posts': latest_posts})

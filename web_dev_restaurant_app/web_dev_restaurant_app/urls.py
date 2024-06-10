@@ -27,6 +27,9 @@ urlpatterns = [
 
     #Catalog app
     path('catalogo/', include('products.urls')),
+        
+    #Legal app
+    path('legal/', include('legal.urls')),
 
     #Admin path
     path('admin/', admin.site.urls),

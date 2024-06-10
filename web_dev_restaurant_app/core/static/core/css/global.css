@@ -681,6 +681,11 @@ video {
   margin-bottom: 4rem;
 }
 
+.my-2{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .my-3{
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
@@ -1432,6 +1437,10 @@ video {
   font-style: normal;
 }
 
+.leading-8{
+  line-height: 2rem;
+}
+
 .tracking-\[1\.25px\]{
   letter-spacing: 1.25px;
 }
@@ -1800,6 +1809,13 @@ body{
   border-radius: 50%;
   background-color: #FD7400;
   display: none;
+}
+
+/* Blog/posts view pages */
+
+.richText p img{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Checkout view page */
@@ -2231,6 +2247,11 @@ body{
     margin-right: auto;
   }
 
+  .lg\:my-14{
+    margin-top: 3.5rem;
+    margin-bottom: 3.5rem;
+  }
+
   .lg\:mb-0{
     margin-bottom: 0px;
   }
@@ -2386,6 +2407,11 @@ body{
   .lg\:px-0{
     padding-left: 0px;
     padding-right: 0px;
+  }
+
+  .lg\:py-10{
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
   }
 
   .lg\:py-16{
@@ -2599,6 +2625,10 @@ body{
     width: 70%;
   }
 
+  .xl\:w-full{
+    width: 100%;
+  }
+
   .xl\:max-w-\[550px\]{
     max-width: 550px;
   }
@@ -2656,6 +2686,10 @@ body{
     gap: 2.75rem;
   }
 
+  .xl\:gap-16{
+    gap: 4rem;
+  }
+
   .xl\:gap-24{
     gap: 6rem;
   }
@@ -2679,10 +2713,6 @@ body{
 
   .xl\:overflow-hidden{
     overflow: hidden;
-  }
-
-  .xl\:bg-gray-figma-1200{
-    background-color: #9292921A;
   }
 
   .xl\:object-contain{
@@ -2732,6 +2762,10 @@ body{
 
   .xl\:py-10{
     padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .xl\:pb-10{
     padding-bottom: 2.5rem;
   }
 
@@ -2929,10 +2963,6 @@ body{
 }
 
 @media (min-width: 1920px){
-  .\33xl\:top-\[2\%\]{
-    top: 2%;
-  }
-
   .\33xl\:top-\[7\%\]{
     top: 7%;
   }
