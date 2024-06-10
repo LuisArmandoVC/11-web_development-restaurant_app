@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.db.models import Q,F
 import json
 import datetime
+from datetime import time
 import pytz
 import uuid
 
@@ -15,6 +16,14 @@ from .forms import RedeemCuponForm
 
 # Create your views here.
 def checkout(request):
+    colombia_timezone = pytz.timezone('America/Bogota')
+    colombia_time = datetime.datetime.now(colombia_timezone)
+    start_working_hour = time(9, 0)  # 9:00 AM
+    end_working_hour = time(20, 0)  # 8:00 PM
+    if colombia_time.weekday() == 6 or not (start_working_hour <= colombia_time.time() <= end_working_hour):
+        working_hours = False
+    else:
+        working_hours = True
     if request.method == 'POST':
         form = RedeemCuponForm(request.POST)
         if form.is_valid():
@@ -44,7 +53,7 @@ def checkout(request):
         is_get_request = True
         code = 'Cupón inválido'
         coupon = 'does not exists'
-    return render(request, "products/checkout.html", {'form': form, 'message': message, 'success': success, 'is_get_request': is_get_request, 'code': code, 'coupon': coupon, 'last_whim_items': last_whim_items})
+    return render(request, "products/checkout.html", {'form': form, 'message': message, 'success': success, 'is_get_request': is_get_request, 'code': code, 'coupon': coupon, 'last_whim_items': last_whim_items, 'working_hours': working_hours})
 
 def confirmation_online(request):
     if request.method == 'POST':
@@ -65,7 +74,7 @@ def confirmation_online(request):
             products = data.get('products', [])
             purchaser_info = data.get('purchaserInfo', {})
             # Step 5: Define expiration date
-            expiration_date = colombia_time + datetime.timedelta(minutes=5)
+            expiration_date = colombia_time + datetime.timedelta(minutes=15)
             utc_expiration_date = expiration_date.astimezone(pytz.utc)
             formatted_utc_expiration_date = utc_expiration_date.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
             # Step 6: building string to be hash
@@ -87,7 +96,7 @@ def confirmation_online(request):
             if(products is not None and purchase_amount > 0):
                 message = render_to_string('core/mail_body.html', { 'products': products, 'purchase_amount': purchase_amount, 'purchaser_info': purchaser_info })
                 emailMessage = EmailMessage(
-                    "Juan sabrosuras: tienes un nuevo contacto",
+                    f'Juan sabrosuras: nueva orden de {purchaser_info["fullname"]}',
                     message,
                     "noreply@juansabrosuras.com",
                     ["ordenes@juansabrosuras.com", purchaser_info["email"]],
@@ -107,12 +116,13 @@ def confirmation_cash(request):
         try:
             data = json.loads(request.body)
             products = data.get('products', [])
+            print(products)
             purchase_amount = data.get('purchaseAmount', 0)
             purchaser_info = data.get('purchaserInfo', {})
             if(products is not None and purchase_amount > 0):
                 message = render_to_string('core/mail_body.html', { 'products': products, 'purchase_amount': purchase_amount, 'purchaser_info': purchaser_info })
                 emailMessage = EmailMessage(
-                    "Juan sabrosuras: tienes un nuevo contacto",
+                    f'Juan sabrosuras: nueva orden de {purchaser_info["fullname"]}',
                     message,
                     "noreply@juansabrosuras.com",
                     ["ordenes@juansabrosuras.com", purchaser_info["email"]],
@@ -145,5 +155,5 @@ def dish(request, dish_slug):
 
 def get_serialized_data(request, dish_slug):
     dish = dishes.objects.get(dish_slug=dish_slug)
-    serialized_dish = serialize('json', [dish], fields=["dish_name", "dish_description", "dish_discounted_price", "dish_regular_price", "dish_side_1", "dish_side_2", "dish_side_3", "dish_side_4"])
+    serialized_dish = serialize('json', [dish], fields=["dish_name", "dish_description", "dish_discounted_price", "dish_regular_price", "dish_side_1", "dish_side_2", "dish_side_3", "dish_side_4", "dish_image_preview"])
     return JsonResponse({'data': serialized_dish})

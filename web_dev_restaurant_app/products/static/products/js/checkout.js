@@ -13,6 +13,8 @@ plate = {
     side_dish_2: '',
     side_dish_3: '',
     side_dish_4: '',
+    dish_image_preview: ''
+
 }
 let orderArray = [];
 const KEY = '57e826694a4fc7b42aa4797ac13fbe28';
@@ -169,12 +171,15 @@ const clickingPayment = () => {
         const fullname = document.querySelector('#fullname').value;
         const email = document.querySelector('#email').value;
         const phonenumber = document.querySelector('#phonenumber').value;
+        const address = document.querySelector('#address').value;
         const extraAddressInfo = document.querySelector('#extraAddressInfo').value;
         const instructions = document.querySelector('#instructions').value;
+        
         purchaserInfo = {
             fullname: fullname ? fullname : 'no hay información del nombre del usuario',
             email: email ? email : 'no hay información del nombre del correo electronico del usuario',
             phonenumber: phonenumber ? phonenumber : 'no hay información del número de telefono del usuario',
+            address: address ? address : 'no hay información proporcionada',
             extraAddressInfo: extraAddressInfo ? extraAddressInfo : 'no hay información de la información complementaria de la dirección del usuario',
             instructions: instructions ? instructions : 'no hay instrucciones de entrega',
         }
@@ -252,14 +257,14 @@ const clickingPayment = () => {
                     signature: {
                         integrity : content.data.signature
                         },
-                        redirectUrl: `${host}/catalogo/confirmacion-c`, 
-                        expirationTime: content.data.expirationTime,
-                        customerData: {
-                            email: email.value,
-                            fullName: fullname.value,
-                            phoneNumber: phonenumber.value,
-                            phoneNumberPrefix: '+57',
-                            }
+                    redirectUrl: `${host}/catalogo/confirmacion-c`, 
+                    expirationTime: content.data.expirationTime,
+                    customerData: {
+                        email: email.value,
+                        fullName: fullname.value,
+                        phoneNumber: phonenumber.value,
+                        phoneNumberPrefix: '+57',
+                    }
                 })
                 checkout.open(function (result) {
                     var transaction = result.transaction;
@@ -427,6 +432,7 @@ function mappingPlateValues(plateInfo, amount) {
         side_dish_2: plateInfo.dish_side_2,
         side_dish_3: plateInfo.dish_side_3,
         side_dish_4: plateInfo.dish_side_4,
+        dish_image_preview: plateInfo.dish_image_preview
     }
     if (plateInfo.dish_discounted_price > 1 && plateInfo.dish_discounted_price < plateInfo.dish_regular_price) {
         plate.individual_price = plateInfo.dish_discounted_price
@@ -455,6 +461,9 @@ function savingData(plate, encryptOrder) {
     localStorage.setItem(plate, encryptOrder);
     return true;
 }
+// Utilities: end of utility functions block
+
+
 // 9.3 Tip function
 const tipping = (percentage, domObj) => {
     let tipBtns = document.querySelectorAll(".tipBtn");
@@ -503,7 +512,7 @@ const tipping = (percentage, domObj) => {
         })
     }
 }
-// 9.4 Popup logic handling
+// 9.4 Popup logic handling (close and open)
 const openCheckoutPopup = (popupType) => {
     let popup;
     popup__background = document.querySelector('.popup__background');
@@ -553,6 +562,7 @@ const closeCheckoutPopup = (popupType) => {
         popup__background.style.height = 0 + 'px';
     }
 }
+// 9.5 popup function triggered by time
 function lastWhim(request) {
     setTimeout(()=>{
         openCheckoutPopup('dialogLastWhim');

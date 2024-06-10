@@ -44,6 +44,7 @@ plate = {
     side_dish_2: '',
     side_dish_3: '',
     side_dish_4: '',
+    dish_image_preview: '',
 }
 let orderArray = [];
 // 2. Retrieve data from django & send data to localstorage 
@@ -103,6 +104,7 @@ function mappingPlateValues(plateInfo) {
         side_dish_2: plateInfo.dish_side_2,
         side_dish_3: plateInfo.dish_side_3,
         side_dish_4: plateInfo.dish_side_4,
+        dish_image_preview: plateInfo.dish_image_preview
     }
     if (plateInfo.dish_discounted_price > 1 && plateInfo.dish_discounted_price < plateInfo.dish_regular_price) {
         plate.individual_price = plateInfo.dish_discounted_price

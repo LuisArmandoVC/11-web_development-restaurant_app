@@ -151,14 +151,14 @@
             </div>
             {% comment %} Complete button desktop version {% endcomment %}
             <div class="mt-5 mb-10 hidden lg:block">
-                <button class="w-full btn-cta" onclick="clickingPayment()">
+                <button id="completeOrderBtn" class="w-full btn-cta" onclick="clickingPayment()">
                     Termina tu pedido
                 </button>
             </div>
         </article>
         {% comment %} Complete button mobile version {% endcomment %}
         <article class="mt-5 mb-8 sticky bottom-0 lg:hidden">
-            <button class="w-full btn-cta mb-2" onclick="clickingPayment()">
+            <button id="completeOrderBtnMobile" class="w-full btn-cta mb-2" onclick="clickingPayment()">
                 Termina tu pedido
             </button>
         </article>
@@ -180,6 +180,18 @@
     {% load static %}
     <script src="{% static '/products/js/checkout.js' %}"></script>
     <script>
+        if('{{ working_hours }}' == 'False'){
+            let completeOrderBtn = document.querySelector('#completeOrderBtn');
+            let completeOrderBtnMobile = document.querySelector('#completeOrderBtnMobile');
+            let pageTitle = document.querySelector('h1');
+
+            completeOrderBtn.classList.add('btn-not-allowed');
+            completeOrderBtn.disabled = true;
+            completeOrderBtnMobile.classList.add('btn-not-allowed');
+            completeOrderBtnMobile.disabled = true;
+
+            pageTitle.innerHTML = "Ups, parece que estamos descansando en este momento. Puedes terminar tu pedido de Lunes a Sabado de 9AM a 8PM"
+        }
         const currentURL = new URL(location.href);
         if('{{is_get_request}}' == 'True' && currentURL.searchParams.get("lastWhim") != 'true'){
             lastWhim(true)
