@@ -1,3 +1,18 @@
+// read user location
+document.addEventListener('DOMContentLoaded', checkUserLocation());
+
+function checkUserLocation() {
+    let userLocation = localStorage.getItem('userLocation');
+    if (!userLocation) {
+        let goCheckout = document.querySelector('#goCheckout');
+        let infoAddress = document.querySelector('.infoAddress');
+        goCheckout.classList.add('btn-not-allowed');
+        goCheckout.classList.add('anchorDisabled');
+        infoAddress.classList.add('flex');        
+        infoAddress.classList.remove('hidden');        
+    }
+}
+
 // trigger side dish
 // Arrow function that modify DOM depending if user expands side dish option or not
 // DOM modification will affect the SVG arrow by making it downside if accordion element is not expanded. If its expanded then SVG arrow will be up

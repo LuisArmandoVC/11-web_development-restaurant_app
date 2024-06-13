@@ -80,7 +80,8 @@ module.exports = {
         'figmaShadows': '5px 7px 31.6px 0px rgba(0, 0, 0, 0.25)',
         'whiteShadowCTAs': '-2px 7px 20.3px 0px rgba(255, 255, 255, 0.50)',
         'primaryShadowForm': '-2px 7px 20.3px 0px rgba(96, 91, 255, 0.50)',
-        'videoCTA': '0px 5px 38px 0px rgba(96, 91, 255, 0.50)'
+        'videoCTA': '0px 5px 38px 0px rgba(96, 91, 255, 0.50)',
+        'shoppingCarShadow': '0px 1px 10px 0px #00000040'
       },
       spacing: {
         'figmaMargins' : '7.62rem'

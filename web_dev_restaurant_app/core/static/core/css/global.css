@@ -612,6 +612,10 @@ video {
   position: static;
 }
 
+.fixed{
+  position: fixed;
+}
+
 .absolute{
   position: absolute;
 }
@@ -630,6 +634,10 @@ video {
 
 .left-0{
   left: 0px;
+}
+
+.right-0{
+  right: 0px;
 }
 
 .top-0{
@@ -844,6 +852,10 @@ video {
   display: block;
 }
 
+.inline-block{
+  display: inline-block;
+}
+
 .flex{
   display: flex;
 }
@@ -968,6 +980,10 @@ video {
   max-width: 31.46rem;
 }
 
+.max-w-\[360px\]{
+  max-width: 360px;
+}
+
 .max-w-\[60\%\]{
   max-width: 60%;
 }
@@ -987,6 +1003,11 @@ video {
 
 .translate-x-2{
   --tw-translate-x: 0.5rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-y-\[10\.5rem\]{
+  --tw-translate-y: 10.5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1024,6 +1045,10 @@ video {
 
 .items-center{
   align-items: center;
+}
+
+.justify-end{
+  justify-content: flex-end;
 }
 
 .justify-center{
@@ -1247,6 +1272,10 @@ video {
   padding: 0.25rem;
 }
 
+.p-2{
+  padding: 0.5rem;
+}
+
 .p-5{
   padding: 1.25rem;
 }
@@ -1343,8 +1372,16 @@ video {
   padding-left: 1.25rem;
 }
 
+.pl-9{
+  padding-left: 2.25rem;
+}
+
 .pr-2{
   padding-right: 0.5rem;
+}
+
+.pr-9{
+  padding-right: 2.25rem;
 }
 
 .pt-10{
@@ -1639,6 +1676,10 @@ body{
   opacity: 0.7;
 }
 
+.anchorDisabled{
+  pointer-events: none;
+}
+
 .pac-container {
   z-index: 99999 !important;
 }
@@ -1809,6 +1850,70 @@ body{
   border-radius: 50%;
   background-color: #FD7400;
   display: none;
+}
+
+/* shopping car styles */
+
+.shopping_car-shadows{
+  margin-bottom: 10px;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  --tw-shadow: 0px 1px 10px 0px #00000040;
+  --tw-shadow-colored: 0px 1px 10px 0px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shopping_car-price{
+  gap: 88px;
+}
+
+@media (min-width: 1440px){
+  .shopping_car-price{
+    gap: 130px;
+  }
+}
+
+.animated-shopping_car{
+  height: 100dvh;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s ease-in-out;
+  transform: translateY(100%);
+}
+
+@media (max-width: 768px) {
+  .animated-shopping_car {
+    transform: translateY(100%);
+    animation: slide-up 0.5s forwards;
+  }
+
+  @keyframes slide-up {
+    from {
+      transform: translateY(100%);
+    }
+
+    to {
+      transform: translateY(0);
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .animated-shopping_car {
+    transform: translateX(100%);
+    /* Posición inicial fuera de la vista */
+    animation: slide-left 0.5s forwards;
+  }
+
+  @keyframes slide-left {
+    from {
+      transform: translateX(100%);
+    }
+
+    to {
+      transform: translateX(0);
+    }
+  }
 }
 
 /* Blog/posts view pages */
@@ -2139,6 +2244,11 @@ body{
 
   .md\:basis-\[48\%\]{
     flex-basis: 48%;
+  }
+
+  .md\:translate-y-\[5\.5rem\]{
+    --tw-translate-y: 5.5rem;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
   .md\:flex-wrap{
@@ -2650,6 +2760,11 @@ body{
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
+  .xl\:-translate-y-\[0\.5rem\]{
+    --tw-translate-y: -0.5rem;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
   .xl\:flex-row{
     flex-direction: row;
   }
@@ -2833,6 +2948,10 @@ body{
     width: 48%;
   }
 
+  .\32xl\:max-w-\[530px\]{
+    max-width: 530px;
+  }
+
   .\32xl\:justify-end{
     justify-content: flex-end;
   }
@@ -2849,6 +2968,11 @@ body{
   .\32xl\:object-contain{
     -o-object-fit: contain;
        object-fit: contain;
+  }
+
+  .\32xl\:px-10{
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
   }
 
   .\32xl\:px-12{

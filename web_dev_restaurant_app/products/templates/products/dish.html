@@ -75,6 +75,9 @@
             {% endif %}
         </article>
         <article class="sticky bottom-0 xl:static xl:w-2/3">
+            <div class="infoAddress hidden justify-end  items-center text-white text-[10px] font-roboto translate-y-[10.5rem] md:translate-y-[5.5rem] xl:-translate-y-[0.5rem]">
+                <p class="bg-black p-2 rounded">Ingresa tu dirección para realizar tu pedido</p>                                      
+            </div>
             <div class="bg-white py-10 xl:py-0 xl:flex xl:gap-11 xl:justify-end">
                 <div class="flex items-center justify-center gap-11 xl:w-1/4">
                     <div onclick="counter('decrease')">
@@ -91,7 +94,7 @@
                 </div>
                 <div class="md:flex md:gap-5">
                     <a onclick="checkout(event)" class="mt-8 xl:mt-0 font-roboto md:w-1/2 block border-[1px] border-primary text-primary text-center py-2 xl:px-6  rounded-3xl" href="{% url 'catalog' %}">Agregar y seguir comprando</a>               
-                    <a onclick="checkout(event)" class="mt-8 xl:mt-0 font-roboto md:w-1/2 block bg-primary text-white text-center py-2 xl:px-6 screen-1720:px-10 rounded-3xl" href="{% url 'checkout' %}">Agregar e ir a pagar <br class="hidden xl:block">
+                    <a onclick="checkout(event)" id="goCheckout" class="mt-8 xl:mt-0 font-roboto md:w-1/2 block bg-primary text-white text-center py-2 xl:px-6 screen-1720:px-10 rounded-3xl" href="{% url 'checkout' %}">Agregar e ir a pagar <br class="hidden xl:block">
                         {% if dish.dish_discounted_price is not 0 and dish.dish_discounted_price < dish.dish_regular_price %}
                             ${{ dish.dish_discounted_price }}
                         {% else %}

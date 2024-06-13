@@ -36,6 +36,8 @@ function productsLength(products) {
 const headerShoppingCar = () => {
     decryptData();
     productsLength(products)
+    insertShoppingCarItems();
+    insertShoppingCarTotalAmount();
 }
 document.addEventListener("DOMContentLoaded", headerShoppingCar());
 
@@ -310,12 +312,102 @@ document.addEventListener('DOMContentLoaded', checkUserLocation());
 function checkUserLocation() {
     const headerLocation = document.querySelectorAll('.headerLocation');
     let userLocation = localStorage.getItem('userLocation');
-    const userLocationJSON = JSON.parse(userLocation);
-    
-    for (let i = 0; i < headerLocation.length; i++) {
-        headerLocation[i].textContent = userLocationJSON.name;
+    if (userLocation) {
+        const userLocationJSON = JSON.parse(userLocation);
+        
+        for (let i = 0; i < headerLocation.length; i++) {
+            headerLocation[i].textContent = userLocationJSON.name;
+        }
     }
 }
+
+// 4. Shopping car
+// 4.1 Reading products and inyecting info in shopping car DOM. This fuction will be call in step 2.4 as part of global (main thread) call 
+function insertShoppingCarItems() {
+    let currentURL = new URL(location.href);
+    let host = currentURL.origin;
+    let shoppingCarItems = document.querySelector('#shoppingCarItems');
+    products.forEach(product => {
+        shoppingCarItems.innerHTML += `
+        <div class="flex items-center shopping_car-shadows">
+            <img style="width: 76px; height: 76px;" src="${host}/media/${product.dish_image_preview}" alt="${product.name}" />
+            <div>
+                <div>
+                    <p class="font-bold text-mobile-paragraph-standard lg:text-desktop-paragraph-standard">${ product.name }</p>
+                    <p class="mt-3 text-mobile-paragraph-standard lg:text-desktop-paragraph-standard">${ product.description }</p>
+                </div>
+                <div class="flex items-center gap-3 mt-4 shopping_car-price">
+                    <p class="text-primary font-bold text-mobile-paragraph-standard lg:text-desktop-paragraph-standard">$${ product.individual_price }</p>
+                    <div class="flex items-center justify-center gap-3">
+                        <div onclick="counterShoppingCar('decrease', '${product.name.replace(/\s+/g, '_')}', '${product.name}')">
+                            <svg class="cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 6H21M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6M10 11V17M14 11V17" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>                                        
+                        </div>
+                        <p id="${product.name.replace(/\s+/g, '_')}" class="" data-label="${product.name }">${ product.amount }</p>
+                        <div onclick="counterShoppingCar('increase', '${product.name.replace(/\s+/g, '_')}', '${product.name}')">
+                            <svg class="cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12H19M12 5V19" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+    });
+}
+// 4.2 Inserting total amount in DOM
+function insertShoppingCarTotalAmount() {
+    let shoppingCarTotalAmount = document.querySelector('#shopping_car--total');
+    let purchaseAmount = 0;
+    try {
+        products.forEach(product => {
+            purchaseAmount += product.total_price
+        });
+    } catch (error) {
+        purchaseAmount = 0;
+    }
+    shoppingCarTotalAmount.innerHTML = purchaseAmount;
+}
+// 4.3 
+const counterShoppingCar = (countType, counterObj, objName) => {
+    decryptData()
+    let counting = document.querySelector('#' + counterObj);
+    let finalCount = parseInt(counting.innerHTML); 
+    if(countType == 'increase'){
+        finalCount = finalCount + 1;
+        const itemModified = products.find(itemModified => itemModified.name === objName);
+        itemModified.amount = itemModified.amount + 1;
+        itemModified.total_price = itemModified.amount * itemModified.individual_price;
+        modifyProductsArray = CryptoJS.AES.encrypt(JSON.stringify(products), KEY_SHOPPING).toString();
+        localStorage.setItem("info", modifyProductsArray);
+        insertShoppingCarTotalAmount();
+    }
+    else if(countType == 'decrease' && finalCount > 1)
+    {
+        finalCount = finalCount - 1;
+        const itemModified = products.find(itemModified => itemModified.name === objName);
+        itemModified.amount = itemModified.amount - 1;
+        itemModified.total_price = itemModified.amount * itemModified.individual_price;
+        modifyProductsArray = CryptoJS.AES.encrypt(JSON.stringify(products), KEY_SHOPPING).toString();
+        localStorage.setItem("info", modifyProductsArray);
+        insertShoppingCarTotalAmount();
+    }
+    else if(countType == 'decrease' && finalCount == 1)
+    {
+        const itemModified = products.find(itemModified => itemModified.name === objName);
+        let index = products.indexOf(itemModified);
+        products.splice(index, 1);
+        modifyProductsArray = CryptoJS.AES.encrypt(JSON.stringify(products), KEY_SHOPPING).toString();
+        localStorage.setItem("info", modifyProductsArray);
+        document.querySelector('#shoppingCarItems').innerHTML = "";
+        insertShoppingCarItems();
+        insertShoppingCarTotalAmount();
+    }
+    counting.innerHTML = finalCount;
+}
+
 
 
 
