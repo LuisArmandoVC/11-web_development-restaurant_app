@@ -402,12 +402,71 @@ const counterShoppingCar = (countType, counterObj, objName) => {
         modifyProductsArray = CryptoJS.AES.encrypt(JSON.stringify(products), KEY_SHOPPING).toString();
         localStorage.setItem("info", modifyProductsArray);
         document.querySelector('#shoppingCarItems').innerHTML = "";
+        productsLength(products);
         insertShoppingCarItems();
         insertShoppingCarTotalAmount();
     }
     counting.innerHTML = finalCount;
 }
+// 4.4 Open or close car shopping 
+const carShoppingToggle = () => {
+    let carShoppingState = document.querySelector('.animated-shopping_car');
+    // carShoppingState.classList.toggle('show');
 
+    if (carShoppingState.classList.contains('show')) {
+        carShoppingState.classList.remove('show');
+        carShoppingState.classList.add('hide');
+        
+        carShoppingState.addEventListener('animationend', function() {
+            carShoppingState.classList.remove('hide');
+            carShoppingState.style.visibility = 'hidden';
+        }, { once: true });
+    } else {
+        carShoppingState.style.visibility = 'visible';
+        carShoppingState.classList.add('show');
+    }
+}
+// 4.5 clearShoppingCarPopup
+const clearShoppingCarPopup = () => {
+    let shopping_carArticle = document.querySelector('#shopping_carArticle');
+    let deleteConfirmation = document.querySelector('#deleteConfirmation');
+    shopping_carArticle.classList.toggle('shopping_car-hidden_content');
+    if (deleteConfirmation.classList.contains('hidden')) {
+        deleteConfirmation.classList.remove('hidden');
+        deleteConfirmation.classList.add('flex');
+    }
+}
+// 4.6 Clear shopping car 
+const clearShoppingCar = () => {
+    localStorage.removeItem('info');
+    localStorage.removeItem('checkout');
+    let shoppingCarItems = document.querySelector('#shoppingCarItems');
+    let shoppingCarTotalAmount = document.querySelector('#shopping_car--total');
+    const shoppingCarNotificationDesktop = document.querySelector('#shoppingCarNotificationDesktop');
+    const shoppingCarNotificationMobile = document.querySelector('#shoppingCarNotificationMobile');
+    shoppingCarItems.innerHTML = "";
+    shoppingCarTotalAmount.innerHTML = 0;
+    shoppingCarNotificationMobile.innerHTML = 0;
+    shoppingCarNotificationDesktop.innerHTML = 0;
+
+    let shopping_carArticle = document.querySelector('#shopping_carArticle');
+    let deleteConfirmation = document.querySelector('#deleteConfirmation');
+    shopping_carArticle.classList.toggle('shopping_car-hidden_content');
+    if (deleteConfirmation.classList.contains('flex')) {
+        deleteConfirmation.classList.remove('flex');
+        deleteConfirmation.classList.add('hidden');
+    }
+}
+// 4.7 cancel empty action 
+const cancelShoppingCarCleaning = () => {
+    let shopping_carArticle = document.querySelector('#shopping_carArticle');
+    let deleteConfirmation = document.querySelector('#deleteConfirmation');
+    shopping_carArticle.classList.toggle('shopping_car-hidden_content');
+    if (deleteConfirmation.classList.contains('flex')) {
+        deleteConfirmation.classList.remove('flex');
+        deleteConfirmation.classList.add('hidden');
+    }
+}
 
 
 

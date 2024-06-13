@@ -1,8 +1,8 @@
-<aside class="max-w-[360px] 2xl:max-w-[530px] fixed top-0 right-0 z-20 bg-white animated-shopping_car">
-    <article class="py-10 overflow-hidden">
+<aside class="max-w-[530px] fixed top-0 right-0 z-20 bg-white animated-shopping_car">
+    <article id="shopping_carArticle" class="py-10 overflow-hidden relative">
         <div class="px-5 flex items-center justify-between">
             <h3 class="font-bold text-mobile-heading-block lg:text-desktop-heading-block">Tu canasta</h3>
-            <svg class="cursor-pointer" onclick='closeCheckoutPopup("detail")' width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="cursor-pointer" onclick='carShoppingToggle()' width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15 29C22.732 29 29 22.732 29 15C29 7.26801 22.732 1 15 1C7.26801 1 1 7.26801 1 15C1 22.732 7.26801 29 15 29Z" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M19.1998 10.8008L10.7998 19.2008M10.7998 10.8008L19.1998 19.2008" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -25,6 +25,21 @@
                     <span class="pr-9">Subtotal: $<span id="shopping_car--total">0</span></span>
                 </a>
             </button>
+            <button onclick="clearShoppingCarPopup()" class="w-full flex mt-8 items-center justify-center gap-3">
+                <svg width="20" height="23" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 5.5H19M17 5.5V19.5C17 20.5 16 21.5 15 21.5H5C4 21.5 3 20.5 3 19.5V5.5M6 5.5V3.5C6 2.5 7 1.5 8 1.5H12C13 1.5 14 2.5 14 3.5V5.5M8 10.5V16.5M12 10.5V16.5" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p>Vaciar</p>
+            </button>
+        </section>
+        <section class="absolute top-0 h-screen w-full justify-center items-center hidden" id="deleteConfirmation">
+            <div class="max-w-[339px] xl:max-w-[440px] bg-white px-5 rounded-3xl">
+                <p class="text-gray-figma-1000 mt-10">¿Estás seguro que deseas eliminar todos los productos de la canasta?</p>
+                <div class="mb-10 mt-8">
+                    <button class="inline-block w-full btn-cta" onclick="clearShoppingCar()">Si</button>
+                    <button class="inline-block mt-5 w-full border-primary border-[1px] rounded-[6.25rem] py-3 px-4 font-roboto text-primary" onclick="cancelShoppingCarCleaning()">Cancelar</button>
+                </div>
+            </div>
         </section>
     </article>
 </aside>
