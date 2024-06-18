@@ -71,14 +71,17 @@
             </div>
             <div class="mt-20 md:mt-0 md:basis-1/2 3xl:basis-4/5">
                 <p class="text-mobile-heading-large lg:text-desktop-heading-large text-white font-normal">Quiero ofertas exclusivas</p>
-                <form action="" class="mt-5 flex flex-col 3xl:flex-row 3xl:gap-10">
+                <form action="" class="mt-5 flex flex-col 3xl:flex-row 3xl:gap-10" method="POST">
+                    {% csrf_token %}
                     <div class="relative mt-5 basis-1/2">
-                        <label for="newsletter_name" class="absolute top-0 z-10 px-2 text-sm text-white bg-specialBg md:bg-[#fea018] 3xl:bg-[#ff9612] -translate-y-[10px] translate-x-2">Nombre</label>
-                        <input type="text" id="newsletter_name" name="newsletter_name" class="w-full border-2 border-white bg-inherit text-white rounded py-4 px-2 outline-0">
+                        <label for="name" class="absolute top-0 z-10 px-2 text-sm text-white bg-specialBg md:bg-[#fea018] 3xl:bg-[#ff9612] -translate-y-[10px] translate-x-2">Nombre</label>
+                        {{ newsletter_form.name }}
+                        {{ newsletter_form.name.errors }}
                     </div>
                     <div class="relative mt-5 basis-1/2">
-                        <label for="newsletter_email" class="absolute top-0 z-10 px-2 text-sm text-white bg-specialBg md:bg-[#ff9914] 3xl:bg-[#ff9612] -translate-y-[10px] translate-x-2">Correo electronico</label>
-                        <input type="email" id="newsletter_email" name="newsletter_email" class="w-full border-2 border-white bg-inherit text-white rounded py-4 px-2 outline-0">
+                        <label for="email" class="absolute top-0 z-10 px-2 text-sm text-white bg-specialBg md:bg-[#ff9914] 3xl:bg-[#ff9612] -translate-y-[10px] translate-x-2">Correo electronico</label>
+                        {{ newsletter_form.email }}
+                        {{ newsletter_form.email.errors }}
                     </div>
                     <button type="submit" class="w-full 3xl:w-1/3 mt-5 py-4 bg-primary rounded-full shadow-whiteShadowCTAs text-white font-bold">+ Suscríbete</button>
                 </form>

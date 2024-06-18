@@ -135,10 +135,20 @@ function lookForLocation(btnArg) {
         {
             confirmAddressBtn.classList.add('btn-not-allowed');
             confirmAddressBtn.disabled = true;
+            let outDeliveryZone = document.querySelector('#outDeliveryZone');
+            const errorMessageoutDeliveryZone = document.createElement("div");
+            errorMessageoutDeliveryZone.classList.add("error-text");
+            errorMessageoutDeliveryZone.innerHTML = 
+            `
+                <p class="error-text_element mt-5">Ups! Parece que no tenemos cobertura en esta dirección. No te preocupes, agrega otra dirección mientras trabajamos duro para cubrir tu área!</p>
+            `
+            outDeliveryZone.appendChild(errorMessageoutDeliveryZone);
         }
         else if (inside && confirmAddressBtn.classList.contains('btn-not-allowed')) {
             confirmAddressBtn.classList.remove('btn-not-allowed');
             confirmAddressBtn.disabled = false;
+            let outDeliveryZone = document.querySelector('#outDeliveryZone');
+            outDeliveryZone.innerHTML="";
         }
     }, 350)
 }

@@ -660,6 +660,10 @@ video {
   z-index: 20;
 }
 
+.z-\[15\]{
+  z-index: 15;
+}
+
 .float-right{
   float: right;
 }
@@ -1711,6 +1715,22 @@ body{
   font-family: Roboto;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.btn-cta-opt2{
+  width: 100%;
+  border-radius: 0.25rem;
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
+  background-color: inherit;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  outline-width: 0px;
 }
 
 .shopping-notification{
@@ -2772,20 +2792,12 @@ body{
     width: 100%;
   }
 
-  .xl\:max-w-\[550px\]{
-    max-width: 550px;
-  }
-
-  .xl\:max-w-\[400px\]{
-    max-width: 400px;
-  }
-
-  .xl\:max-w-\[420px\]{
-    max-width: 420px;
-  }
-
   .xl\:max-w-\[440px\]{
     max-width: 440px;
+  }
+
+  .xl\:max-w-\[550px\]{
+    max-width: 550px;
   }
 
   .xl\:basis-1\/3{

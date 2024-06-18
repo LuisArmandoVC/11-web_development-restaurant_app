@@ -80,6 +80,9 @@ body{
 .btn-cta{
     @apply rounded-[6.25rem] bg-primary text-white py-3 px-4 font-roboto
 }
+.btn-cta-opt2{
+    @apply w-full border-2 border-white bg-inherit text-white rounded py-4 px-2 outline-0
+}
 .shopping-notification{
     @apply absolute -top-4 -right-4 w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center
 }

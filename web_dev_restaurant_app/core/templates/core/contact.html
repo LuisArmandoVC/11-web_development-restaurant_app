@@ -4,14 +4,14 @@
 
 {% block content %}
     <section class="container relative py-10">
-        <img class="w-full h-full object-cover absolute top-0 z-0" src="/media/contact/52d1fb1a937b8908cb3971ef869d7bde.jpg" alt="Imagen de referencia de servicio al cliente - background del contenido">
-        <div class="h-full w-full absolute top-0 contact-custom__gradient z-0"></div>
+        <img class="w-full h-full object-cover absolute top-0 left-0 z-0" src="/media/contact/52d1fb1a937b8908cb3971ef869d7bde.jpg" alt="Imagen de referencia de servicio al cliente - background del contenido">
+        <div class="h-full w-full absolute top-0 left-0 contact-custom__gradient z-0"></div>
         <article class="text-center relative z-10">
             <p class="uppercase text-primary text-mobile-heading-small lg:text-desktop-heading-small font-bold">Queremos saber mas de ti</p>
             <h1 class="font-bold text-mobile-heading-large lg:text-desktop-heading-large mt-5">Contáctanos</h1>
         </article>
 
-        <form class="max-w-[600px] mx-auto" action="" method="POST">
+        <form class="max-w-[600px] mx-auto relative z-[15]" action="" method="POST">
             {% csrf_token %}
             <div class="relative mt-10">
                 <label for="name" class="absolute top-0 z-10 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Nombres </label>
@@ -24,12 +24,12 @@
                 {{ form.last_name.errors }}
             </div>
             <div class="relative mt-10">
-                <label for="email" class="absolute top-0 z-10 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Correo electronico registrado </label>
+                <label for="email" class="absolute top-0 z-10 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Correo electrónico </label>
                 {{ form.email }}
                 {{ form.email.errors }}
             </div>
             <div class="relative mt-10">
-                <label for="phone_number" class="absolute top-0 z-10 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Numero telefonico registrado </label>
+                <label for="phone_number" class="absolute top-0 z-10 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Número de teléfono </label>
                 {{ form.phone_number }}
                 {{ form.phone_number.errors }}
             </div>
