@@ -1151,10 +1151,6 @@ video {
   border-radius: 0.75rem;
 }
 
-.border-2{
-  border-width: 2px;
-}
-
 .border-\[0\.5px\]{
   border-width: 0.5px;
 }
@@ -1244,10 +1240,6 @@ video {
 .bg-gray-figma-1100{
   --tw-bg-opacity: 1;
   background-color: rgb(238 238 238 / var(--tw-bg-opacity));
-}
-
-.bg-inherit{
-  background-color: inherit;
 }
 
 .bg-orange-200{
