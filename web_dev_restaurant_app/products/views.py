@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.core.serializers import serialize
 from django.http import JsonResponse
 from django.db.models import Q,F
+from core import forms 
 import json
 import datetime
 from datetime import time
@@ -16,6 +18,7 @@ from .forms import RedeemCuponForm
 
 # Create your views here.
 def checkout(request):
+    newsletter_form = forms.Newsletter()
     colombia_timezone = pytz.timezone('America/Bogota')
     colombia_time = datetime.datetime.now(colombia_timezone)
     start_working_hour = time(9, 0)  # 9:00 AM
@@ -26,6 +29,7 @@ def checkout(request):
         working_hours = True
     if request.method == 'POST':
         form = RedeemCuponForm(request.POST)
+        newsletter_form = forms.Newsletter(data=request.POST)
         if form.is_valid():
             last_whim_items = None
             code = form.cleaned_data['cupon_value']
@@ -39,6 +43,22 @@ def checkout(request):
                 success = False
                 is_get_request = False
                 coupon = 'does not exists'
+        elif newsletter_form.is_valid():
+            name = request.POST.get('name', 'el usuario no completo su nombre')
+            email = request.POST.get('email', 'el usuario no completo su correo electronico')
+            emailMessage = EmailMessage(
+                f"[Juan sabrosuras newsletter] - formulario de suscripcion completado por {name}",
+                f"{name} se ha comunicado con nosotros.\n\n Sus datos son:\n Nombre: {name}\n Correo electronico: {email} \n\n esta interesado en nuestra suscripcion",
+                "noreply@juansabrosuras.com",
+                ["contacto@juansabrosuras.com"]
+            )
+            try:
+                emailMessage.send()
+            except Exception:
+                import traceback
+                traceback.print_exc()
+                return redirect(reverse('home')+"?fail")
+            return redirect(reverse('home')+"?ok")
         else:
             message = "Formulario no válido."
             success = False
@@ -53,7 +73,7 @@ def checkout(request):
         is_get_request = True
         code = 'Cupón inválido'
         coupon = 'does not exists'
-    return render(request, "products/checkout.html", {'form': form, 'message': message, 'success': success, 'is_get_request': is_get_request, 'code': code, 'coupon': coupon, 'last_whim_items': last_whim_items, 'working_hours': working_hours})
+    return render(request, "products/checkout.html", {'form': form, 'message': message, 'success': success, 'is_get_request': is_get_request, 'code': code, 'coupon': coupon, 'last_whim_items': last_whim_items, 'working_hours': working_hours, 'newsletter_form': newsletter_form})
 
 def confirmation_online(request):
     if request.method == 'POST':
@@ -140,18 +160,75 @@ def confirmation_cash(request):
     return render(request, "products/confirmation_cash.html")
 
 def catalog(request):
+    newsletter_form = forms.Newsletter()
     dishes_products = dishes.objects.all()
-    return render(request, "products/catalog.html", {'dishes_products': dishes_products})
+    if request.method == 'POST':
+        newsletter_form = forms.Newsletter(data=request.POST)
+        if newsletter_form.is_valid():
+            name = request.POST.get('name', 'el usuario no completo su nombre')
+            email = request.POST.get('email', 'el usuario no completo su correo electronico')
+            emailMessage = EmailMessage(
+                f"[Juan sabrosuras newsletter] - formulario de suscripcion completado por {name}",
+                f"{name} se ha comunicado con nosotros.\n\n Sus datos son:\n Nombre: {name}\n Correo electronico: {email} \n\n esta interesado en nuestra suscripcion",
+                "noreply@juansabrosuras.com",
+                ["contacto@juansabrosuras.com"]
+            )
+            try:
+                emailMessage.send()
+            except Exception:
+                import traceback
+                traceback.print_exc()
+                return redirect(reverse('home')+"?fail")
+            return redirect(reverse('home')+"?ok")
+    return render(request, "products/catalog.html", {'dishes_products': dishes_products, 'newsletter_form': newsletter_form})
 
 def offers(request):
+    newsletter_form = forms.Newsletter()
     dishes_products = dishes.objects.filter(
         Q(dish_discounted_price__gt=0) & Q(dish_discounted_price__lt=F('dish_regular_price'))
     )
-    return render(request, "products/offers.html", {'dishes_products': dishes_products})
+    if request.method == 'POST':
+        newsletter_form = forms.Newsletter(data=request.POST)
+        if newsletter_form.is_valid():
+            name = request.POST.get('name', 'el usuario no completo su nombre')
+            email = request.POST.get('email', 'el usuario no completo su correo electronico')
+            emailMessage = EmailMessage(
+                f"[Juan sabrosuras newsletter] - formulario de suscripcion completado por {name}",
+                f"{name} se ha comunicado con nosotros.\n\n Sus datos son:\n Nombre: {name}\n Correo electronico: {email} \n\n esta interesado en nuestra suscripcion",
+                "noreply@juansabrosuras.com",
+                ["contacto@juansabrosuras.com"]
+            )
+            try:
+                emailMessage.send()
+            except Exception:
+                import traceback
+                traceback.print_exc()
+                return redirect(reverse('home')+"?fail")
+            return redirect(reverse('home')+"?ok")
+    return render(request, "products/offers.html", {'dishes_products': dishes_products, 'newsletter_form':newsletter_form})
 
 def dish(request, dish_slug):
+    newsletter_form = forms.Newsletter()
     dish = dishes.objects.get(dish_slug=dish_slug)
-    return render(request, "products/dish.html", {'dish': dish})
+    if request.method == 'POST':
+        newsletter_form = forms.Newsletter(data=request.POST)
+        if newsletter_form.is_valid():
+            name = request.POST.get('name', 'el usuario no completo su nombre')
+            email = request.POST.get('email', 'el usuario no completo su correo electronico')
+            emailMessage = EmailMessage(
+                f"[Juan sabrosuras newsletter] - formulario de suscripcion completado por {name}",
+                f"{name} se ha comunicado con nosotros.\n\n Sus datos son:\n Nombre: {name}\n Correo electronico: {email} \n\n esta interesado en nuestra suscripcion",
+                "noreply@juansabrosuras.com",
+                ["contacto@juansabrosuras.com"]
+            )
+            try:
+                emailMessage.send()
+            except Exception:
+                import traceback
+                traceback.print_exc()
+                return redirect(reverse('home')+"?fail")
+            return redirect(reverse('home')+"?ok")
+    return render(request, "products/dish.html", {'dish': dish , 'newsletter_form': newsletter_form})
 
 def get_serialized_data(request, dish_slug):
     dish = dishes.objects.get(dish_slug=dish_slug)
@@ -159,4 +236,23 @@ def get_serialized_data(request, dish_slug):
     return JsonResponse({'data': serialized_dish})
 
 def error_transaction(request):
-    return render(request, "products/error_transaction.html")
+    newsletter_form = forms.Newsletter()
+    if request.method == 'POST':
+        newsletter_form = forms.Newsletter(data=request.POST)
+        if newsletter_form.is_valid():
+            name = request.POST.get('name', 'el usuario no completo su nombre')
+            email = request.POST.get('email', 'el usuario no completo su correo electronico')
+            emailMessage = EmailMessage(
+                f"[Juan sabrosuras newsletter] - formulario de suscripcion completado por {name}",
+                f"{name} se ha comunicado con nosotros.\n\n Sus datos son:\n Nombre: {name}\n Correo electronico: {email} \n\n esta interesado en nuestra suscripcion",
+                "noreply@juansabrosuras.com",
+                ["contacto@juansabrosuras.com"]
+            )
+            try:
+                emailMessage.send()
+            except Exception:
+                import traceback
+                traceback.print_exc()
+                return redirect(reverse('home')+"?fail")
+            return redirect(reverse('home')+"?ok")
+    return render(request, "products/error_transaction.html", {'newsletter_form': newsletter_form})

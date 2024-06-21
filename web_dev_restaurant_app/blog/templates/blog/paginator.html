@@ -33,7 +33,7 @@
     </li>    
     {% endif %}
     {% if page < 6 or page == posts.number %}
-    <li class="rounded-full border-solid border-[1px] border-gray-figma-500 py-3 px-5 {% if page == posts.number %}active-post{% endif %}">
+    <li onclick="location.href='?pagina={{ page }}'" class="cursor-pointer rounded-full border-solid border-[1px] border-gray-figma-500 py-3 px-5 {% if page == posts.number %}active-post{% endif %}">
         <a class="text-gray-figma-500 text-subtitulo font-bold" href="?pagina={{ page }}">{{ page }}</a>
     </li>
     {% endif %}

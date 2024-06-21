@@ -1404,6 +1404,10 @@ video {
   padding-top: 2rem;
 }
 
+.pr-3{
+  padding-right: 0.75rem;
+}
+
 .text-left{
   text-align: left;
 }
@@ -2199,6 +2203,10 @@ body{
 
   .sm\:min-h-\[300px\]{
     min-height: 300px;
+  }
+
+  .sm\:min-h-\[270px\]{
+    min-height: 270px;
   }
 
   .sm\:w-\[800px\]{
@@ -3056,6 +3064,10 @@ body{
     display: none;
   }
 
+  .screen-1720\:min-h-\[235px\]{
+    min-height: 235px;
+  }
+
   .screen-1720\:w-\[55\%\]{
     width: 55%;
   }
@@ -3128,6 +3140,20 @@ body{
 
   .screen-1720\:pl-0{
     padding-left: 0px;
+  }
+
+  .screen-1720\:text-desktop-heading-large{
+    font-size: 38px;
+  }
+
+  .screen-1720\:text-desktop-heading-medium{
+    font-size: 28px;
+  }
+
+  .screen-1720\:text-desktop-heading-small{
+    font-size: 20px;
+    letter-spacing: 0.07em;
+    font-weight: 700;
   }
 }
 

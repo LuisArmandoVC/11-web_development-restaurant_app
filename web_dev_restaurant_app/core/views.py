@@ -23,7 +23,6 @@ def home(request):
         if newsletter_form.is_valid():
             name = request.POST.get('name', 'el usuario no completo su nombre')
             email = request.POST.get('email', 'el usuario no completo su correo electronico')
-           #Sending email and redirecting 
             emailMessage = EmailMessage(
                 f"[Juan sabrosuras newsletter] - formulario de suscripcion completado por {name}",
                 f"{name} se ha comunicado con nosotros.\n\n Sus datos son:\n Nombre: {name}\n Correo electronico: {email} \n\n esta interesado en nuestra suscripcion",
@@ -40,12 +39,33 @@ def home(request):
     return render(request, "core/home.html", {'review_section_content': review_section_content, 'reviews': reviews, 'hero_banner_content': hero_banner_content, 'hero_banner_amount': hero_banner_amount, 'dishes': specialDishes, 'newsletter_form': newsletter_form})
 
 def about(request):
-    return render(request, "core/about.html")
+    newsletter_form = Newsletter()
+    if request.method == "POST":
+        newsletter_form = Newsletter(data=request.POST)
+        if newsletter_form.is_valid():
+            name = request.POST.get('name', 'el usuario no completo su nombre')
+            email = request.POST.get('email', 'el usuario no completo su correo electronico') 
+            emailMessage = EmailMessage(
+                f"[Juan sabrosuras newsletter] - formulario de suscripcion completado por {name}",
+                f"{name} se ha comunicado con nosotros.\n\n Sus datos son:\n Nombre: {name}\n Correo electronico: {email} \n\n esta interesado en nuestra suscripcion",
+                "noreply@juansabrosuras.com",
+                ["contacto@juansabrosuras.com"]
+            )
+            try:
+                emailMessage.send()
+            except Exception:
+                import traceback
+                traceback.print_exc()
+                return redirect(reverse('home')+"?fail")
+            return redirect(reverse('home')+"?ok")
+    return render(request, "core/about.html", {'newsletter_form': newsletter_form})
 
 def contact(request):
     contact_form = ContactForm()
+    newsletter_form = Newsletter()
     if request.method == "POST":
         contact_form = ContactForm(data=request.POST)
+        newsletter_form = Newsletter(data=request.POST)
         if contact_form.is_valid():
             name = request.POST.get('name', 'el usuario no completo su nombre')
             last_name = request.POST.get('last_name', 'el usuario no completo su apellido')
@@ -66,5 +86,20 @@ def contact(request):
                 traceback.print_exc()
                 return redirect(reverse('contact')+"?fail")
             return redirect(reverse('contact')+"?ok")
-
-    return render(request, "core/contact.html", {'form': contact_form})
+        elif newsletter_form.is_valid():
+            name = request.POST.get('name', 'el usuario no completo su nombre')
+            email = request.POST.get('email', 'el usuario no completo su correo electronico') 
+            emailMessage = EmailMessage(
+                f"[Juan sabrosuras newsletter] - formulario de suscripcion completado por {name}",
+                f"{name} se ha comunicado con nosotros.\n\n Sus datos son:\n Nombre: {name}\n Correo electronico: {email} \n\n esta interesado en nuestra suscripcion",
+                "noreply@juansabrosuras.com",
+                ["contacto@juansabrosuras.com"]
+            )
+            try:
+                emailMessage.send()
+            except Exception:
+                import traceback
+                traceback.print_exc()
+                return redirect(reverse('home')+"?fail")
+            return redirect(reverse('home')+"?ok")
+    return render(request, "core/contact.html", {'form': contact_form, 'newsletter_form': newsletter_form})
