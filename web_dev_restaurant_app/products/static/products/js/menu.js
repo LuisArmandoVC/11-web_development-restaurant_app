@@ -29,10 +29,12 @@ initialCategory.addEventListener('click', () => {
     });
 });
 document.addEventListener('DOMContentLoaded', () => {
-    const currentURL = new URL(location.href);
-    const addedConfirmation = currentURL.searchParams.get('added');
-    console.log(addedConfirmation);
-    if (addedConfirmation == 'true') {
-        carShoppingToggle();
-    }
+    setTimeout( ()=>{
+        const currentURL = new URL(location.href);
+        const addedConfirmation = currentURL.searchParams.get('added');
+        console.log(addedConfirmation);
+        if (addedConfirmation == 'true') {
+            carShoppingToggle();
+        }
+    }, 1000 )
 })
