@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <div class="md:flex md:gap-5">
-                    <a onclick="checkout(event)" class="mt-8 xl:mt-0 font-roboto md:w-1/2 block border-[1px] border-primary text-primary text-center py-2 xl:px-6  rounded-3xl" href="{% url 'catalog' %}">Agregar y seguir comprando</a>               
+                    <a onclick="checkout(event)" class="mt-8 xl:mt-0 font-roboto md:w-1/2 block border-[1px] border-primary text-primary text-center py-2 xl:px-6  rounded-3xl" href="{% url 'catalog' %}?added=true">Agregar y seguir comprando</a>               
                     <a onclick="checkout(event)" id="goCheckout" class="mt-8 xl:mt-0 font-roboto md:w-1/2 block bg-primary text-white text-center py-2 xl:px-6 screen-1720:px-10 rounded-3xl" href="{% url 'checkout' %}">Agregar e ir a pagar <br class="hidden xl:block">
                         {% if dish.dish_discounted_price is not 0 and dish.dish_discounted_price < dish.dish_regular_price %}
                             ${{ dish.dish_discounted_price }}

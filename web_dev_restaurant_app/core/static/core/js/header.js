@@ -420,12 +420,13 @@ const counterShoppingCar = (countType, counterObj, objName) => {
 }
 // 4.4 Open or close car shopping 
 const carShoppingToggle = () => {
+    let popup__background = document.querySelector('.popup__background');
     let carShoppingState = document.querySelector('.animated-shopping_car');
-    // carShoppingState.classList.toggle('show');
 
     if (carShoppingState.classList.contains('show')) {
         carShoppingState.classList.remove('show');
         carShoppingState.classList.add('hide');
+        popup__background.classList.add('hidden');
         
         carShoppingState.addEventListener('animationend', function() {
             carShoppingState.classList.remove('hide');
@@ -434,6 +435,7 @@ const carShoppingToggle = () => {
     } else {
         carShoppingState.style.visibility = 'visible';
         carShoppingState.classList.add('show');
+        popup__background.classList.remove('hidden');
     }
 }
 // 4.5 clearShoppingCarPopup
@@ -444,6 +446,7 @@ const clearShoppingCarPopup = () => {
     if (deleteConfirmation.classList.contains('hidden')) {
         deleteConfirmation.classList.remove('hidden');
         deleteConfirmation.classList.add('flex');
+        deleteConfirmation.style.backgroundColor = "rgba(0,0,0,0.75)"
     }
 }
 // 4.6 Clear shopping car 
