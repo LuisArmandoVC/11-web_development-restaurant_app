@@ -23,12 +23,12 @@
             <h1 class="text-mobile-heading-small lg:text-desktop-heading-small text-secondary font-bold uppercase tracking-[1.25px]">NUESTRO MENÚ</h1>
             <h3 class="text-mobile-heading-large lg:text-desktop-heading-large lg:font-bold mt-5 lg:mt-0">Platos Destacados</h3>
         </article>
-        <article class="overflow-hidden overflow-x-scroll md:overflow-x-hidden">
+        <article id="categoryContainer" class="overflow-hidden overflow-x-auto md:overflow-x-hidden">
             <div class="text-mobile-heading-block w-[500px] xs:w-[600px] sm:w-[800px] md:w-auto mt-16 flex lg:justify-between flex-nowrap">
                 <button class="cursor-pointer w-1/2 md:w-3/12 border-b-2 focus:border-b-2 border-secondary text-secondary font-bold focus:text-secondary focus:border-secondary" id="initialCategory">Todos</button>
-                <button class="cursor-pointer w-1/2 md:w-3/12 border-b-[1px] focus:border-b-2 border-black font-bold focus:text-secondary focus:border-secondary" onclick="platesManipulationDOM('Especiales')"> Especiales</button>
-                <button class="cursor-pointer w-1/2 md:w-3/12 border-b-[1px] focus:border-b-2 border-black font-bold focus:text-secondary focus:border-secondary" onclick="platesManipulationDOM('Corrientazos')">Corrientazos</button>
-                <button class="cursor-pointer w-1/2 md:w-3/12 border-b-[1px] focus:border-b-2 border-black font-bold focus:text-secondary focus:border-secondary" onclick="platesManipulationDOM('Postres')">Postres</button>
+                <button class="cursor-pointer w-1/2 md:w-3/12 border-b-[1px] focus:border-b-2 border-black font-bold focus:text-secondary focus:border-secondary" onclick="platesManipulationDOM('Especiales', this)"> Especiales</button>
+                <button class="cursor-pointer w-1/2 md:w-3/12 border-b-[1px] focus:border-b-2 border-black font-bold focus:text-secondary focus:border-secondary" onclick="platesManipulationDOM('Corrientazos', this)">Corrientazos</button>
+                <button class="cursor-pointer w-1/2 md:w-3/12 border-b-[1px] focus:border-b-2 border-black font-bold focus:text-secondary focus:border-secondary" onclick="platesManipulationDOM('Postres', this)">Postres</button>
                 <button class="cursor-pointer w-1/2 md:w-3/12 border-b-[1px] focus:border-b-2 border-black font-bold focus:text-secondary focus:border-secondary" onclick="platesManipulationDOM('Bebidas')">Bebidas</button>
             </div>
         </article>

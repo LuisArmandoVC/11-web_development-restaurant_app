@@ -31,7 +31,7 @@
                     <path d="M16 8.5C16 12.6421 12.6421 16 8.5 16C4.35786 16 1 12.6421 1 8.5C1 4.35786 4.35786 1 8.5 1C12.6421 1 16 4.35786 16 8.5Z" stroke="#FFAD1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M8.5 11.8996V8.49961M8.5 5.09961H8.5085" stroke="#FFAD1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <div class="infoAddress hidden bg-black text-white text-[10px] font-roboto gap-2 items-center absolute top-0 p-1 rounded sm:right-0 md:right-5 xl:right-auto xl:left-1/3  sm:-top-10">
+                <div class="infoAddress hidden bg-black text-white text-[10px] font-roboto gap-2 items-center absolute top-0 p-1 rounded screen-360:top-[-125%] screen-360:right-0 md:right-5 xl:right-auto xl:left-1/3  sm:-top-10">
                     <p>Edita la dirección usando el ícono</p>                  
                     <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12.6 6.55C12.6 10.9 6.8 15.25 6.8 15.25C6.8 15.25 1 10.9 1 6.55C1 5.01174 1.61107 3.53649 2.69878 2.44878C3.78649 1.36107 5.26174 0.75 6.8 0.75C8.33826 0.75 9.81351 1.36107 10.9012 2.44878C11.9889 3.53649 12.6 5.01174 12.6 6.55Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
@@ -46,7 +46,7 @@
                     <input type="text" name="extraAddressInfo" id="extraAddressInfo" class="form__input-JuanSabrosuras text-mobile-paragraph-standard lg:text-desktop-paragraph-standard" placeholder="Torre, apartamento">
                 </div>
                 <div class="relative mt-10 lg:w-[49%] 2xl:w-[48%] lg:order-2">
-                    <label for="instructions" class="absolute text-mobile-paragraph-standard lg:text-desktop-paragraph-standard top-0 z-2 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2 after:content-['*'] after:text-red-500">Instrucciones de entrega (opcional)</label>
+                    <label for="instructions" class="absolute text-mobile-paragraph-standard lg:text-desktop-paragraph-standard top-0 z-2 px-2 text-sm text-gray-figma-300 bg-white -translate-y-[10px] translate-x-2">Instrucciones de entrega (opcional)</label>
                     <input type="text" name="instructions" id="instructions" class="form__input-JuanSabrosuras text-mobile-paragraph-standard lg:text-desktop-paragraph-standard" placeholder="Detalles adicionales">
                 </div>
             </div>
@@ -65,7 +65,7 @@
             <div class="xl:flex xl:items-center xl:justify-around">
                 <p class="text-gray-figma-1000 text-mobile-paragraph-large xl:w-1/3">Métodos disponibles:</p>
                 <div class="mt-5 xl:mt-0 flex justify-between items-center border-[0.5px] border-gray-figma-900 rounded-xl py-4 px-3 xl:w-1/3">
-                    <svg width="36" height="35" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg onclick="checkPaymentMethod('online')" width="36" height="35" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M29.6666 7.29169H6.33329C4.72246 7.29169 3.41663 8.59752 3.41663 10.2084V24.7917C3.41663 26.4025 4.72246 27.7084 6.33329 27.7084H29.6666C31.2775 27.7084 32.5833 26.4025 32.5833 24.7917V10.2084C32.5833 8.59752 31.2775 7.29169 29.6666 7.29169Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M3.41663 14.5834H32.5833" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>                       
@@ -73,7 +73,7 @@
                     <input type="radio" id="online_payment" name="payment_type" value="online_payment" checked>
                 </div>
                 <div class="mt-5 xl:mt-0 flex justify-between items-center border-[0.5px] border-gray-figma-900 rounded-xl py-4 px-3 xl:w-1/3 xl:ml-2 screen-1720:ml-8">
-                    <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg onclick="checkPaymentMethod('cash')" width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18.5 36C28.165 36 36 28.165 36 18.5C36 8.83502 28.165 1 18.5 1C8.83502 1 1 8.83502 1 18.5C1 28.165 8.83502 36 18.5 36Z" stroke="#2B9943" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M25.5 11.5H15C14.0717 11.5 13.1815 11.8687 12.5251 12.5251C11.8687 13.1815 11.5 14.0717 11.5 15C11.5 15.9283 11.8687 16.8185 12.5251 17.4749C13.1815 18.1313 14.0717 18.5 15 18.5H22C22.9283 18.5 23.8185 18.8687 24.4749 19.5251C25.1313 20.1815 25.5 21.0717 25.5 22C25.5 22.9283 25.1313 23.8185 24.4749 24.4749C23.8185 25.1313 22.9283 25.5 22 25.5H11.5M18.5 29V8" stroke="#2B9943" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>

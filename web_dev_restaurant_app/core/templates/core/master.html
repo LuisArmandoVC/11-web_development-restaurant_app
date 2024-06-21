@@ -42,23 +42,18 @@
     {% include 'core/footer.html' %}
     <div class="dialog popup popupClosed">
         <div class="popup__window">
-
-            {% comment %} 
-                Close popup form button
-            {% endcomment %}
-            <div class="float-right">
-                <svg class="cursor-pointer" onclick="closePopup()" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15 29C22.732 29 29 22.732 29 15C29 7.26801 22.732 1 15 1C7.26801 1 1 7.26801 1 15C1 22.732 7.26801 29 15 29Z" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19.1998 10.8L10.7998 19.2M10.7998 10.8L19.1998 19.2" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-
             {% comment %} 
                 Initial stage popup location
                 User will introduce either autocomplete input or will use geolocation google service
             {% endcomment %}
             <section aria-label="Stage 1 - location popup" id="stage__1">
-                <h6 class="mt-14 text-center text-mobile-heading-block lg:text-desktop-heading-block font-bold">Agrega o escoge una dirección</h6>
+                <div class="float-right">
+                    <svg class="cursor-pointer" onclick="closePopup()" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 29C22.732 29 29 22.732 29 15C29 7.26801 22.732 1 15 1C7.26801 1 1 7.26801 1 15C1 22.732 7.26801 29 15 29Z" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M19.1998 10.8L10.7998 19.2M10.7998 10.8L19.1998 19.2" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h6 class="mt-4 text-center text-mobile-heading-block lg:text-desktop-heading-block font-bold">Agrega o escoge una dirección</h6>
                 <p class="mt-10 text-center text-mobile-paragraph-large lg:text-desktop-paragraph-large">Comida casera, entregas rápidas y precios increíbles</p>
                 <div class="rounded-3xl px-4 py-4 mt-20 w-full flex items-center justify-between bg-gray-figma-1100">
                     <svg class="mr-5" width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -84,7 +79,7 @@
                 app will print a map with user coords. User should confirm location
             {% endcomment %}
             <section class="hidden" aria-label="Stage 2 - location" id="stage__2">
-                <div onclick='goBack()' class="w-full mt-14 flex items-center gap-5 cursor-pointer">
+                <div onclick='goBack()' class="w-full mt-4 flex items-center gap-5 cursor-pointer">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10.0002 18.1666L1.8335 9.99998M1.8335 9.99998L10.0002 1.83331M1.8335 9.99998H18.1668" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>                        
@@ -109,7 +104,7 @@
             {% endcomment %}
 
             <section class="hidden" aria-label="Stage 3 - confirm address" id="stage__3">
-                <div onclick="goBackSt3()" class="flex gap-3 items-center cursor-pointer">
+                <div onclick="goBackSt3()" class="flex gap-3 mt-4 items-center cursor-pointer">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.99968 18.1666L1.83301 9.99998M1.83301 9.99998L9.99968 1.83331M1.83301 9.99998H18.1663" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>

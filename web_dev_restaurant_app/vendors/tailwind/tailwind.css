@@ -38,6 +38,9 @@ body{
     position: static !important;
     display: none !important;
 }
+.dialogLastWhim{
+    height: 90dvh !important;
+}
 .popup__window-lastWhim{
     list-style-type: none;
     border-radius: 20px;
@@ -62,8 +65,14 @@ body{
         width: 90%;
     }
 }
+.bottomShadow{
+    -webkit-box-shadow: 0px 4px 9px 1px rgba(0,0,0,0.36);
+    -moz-box-shadow: 0px 4px 9px 1px rgba(0,0,0,0.36);
+    box-shadow: 0px 4px 9px 1px rgba(0,0,0,0.36);
+}
 .btn-not-allowed{
-    @apply cursor-not-allowed opacity-70;
+    cursor: not-allowed;
+    background-color: rgba(253, 116, 0, 0.6) !important;
 }
 .anchorDisabled{
     pointer-events: none;

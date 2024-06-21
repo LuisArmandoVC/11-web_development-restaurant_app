@@ -1,8 +1,7 @@
 const initialCategory = document.querySelector('#initialCategory');
 const allPlates = document.querySelectorAll('[data-category]');
 
-platesManipulationDOM = (category) => {
-    // console.log(category);
+platesManipulationDOM = (category, element) => {
     if (initialCategory.classList.contains('text-secondary')) {
         initialCategory.classList.remove('text-secondary');
 
@@ -11,6 +10,18 @@ platesManipulationDOM = (category) => {
 
         initialCategory.classList.remove('border-b-2');
         initialCategory.classList.add('border-b-[1px]');
+    }
+    if (category == 'Corrientazos' || category == 'Postres' || category == 'Especiales') {
+        container = document.querySelector('#categoryContainer');
+        const corrientazosWidth = element.offsetWidth;
+        const containerWidth = container.offsetWidth;
+        const elementLeft = element.offsetLeft;
+        const containerScrollLeft = container.scrollLeft;
+        const scrollLeft = elementLeft - containerWidth / 2 + corrientazosWidth / 2;
+        container.scrollTo({
+            left: scrollLeft,
+            behavior: 'smooth'
+        });
     }
     allPlates.forEach(plate => {
         if (category == plate.getAttribute('data-category')) {

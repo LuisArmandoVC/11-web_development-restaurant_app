@@ -284,10 +284,10 @@ function goBackSt3() {
 // 3.11 Add user location to local storage
 // Description: once everything is set up, we save user location information in local storage and close popup
 function completeAddressProcess(){
-    details = document.querySelector('#addressDescription').value;
+    // details = document.querySelector('#addressDescription').value;
     userLocation = {
         'name': placeName,
-        'addressDetails': details,
+        'addressDetails': 'no details yet',
         'lat': placeLat,
         'lng': placeLng,
         'inside': inside

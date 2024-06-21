@@ -344,6 +344,15 @@ document.addEventListener("DOMContentLoaded", () => {
     `
 });
 // 9. Click functions 
+const checkPaymentMethod = (paymentType) => {
+    if (paymentType == "online") {
+        document.querySelector('#online_payment').checked = true;
+    }
+    else if(paymentType == "cash")
+    {
+        document.querySelector('#cash').checked = true;
+    }
+}
 // 9.1 Display tooltip if user want to change address in checkout page
 const addressTooltip = () => {
     let infoSvg = document.querySelector('.infoAddress');
