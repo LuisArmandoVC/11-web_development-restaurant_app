@@ -32,7 +32,7 @@ urlpatterns = [
     path('legal/', include('legal.urls')),
 
     #Admin path
-    path('admin/', admin.site.urls),
+    path('backoffice-juan-sabrosuras-22-06-2024-(300684)/', admin.site.urls),
 
     #CkEditor images upload
     path('ckeditor', include('ckeditor_uploader.urls'))

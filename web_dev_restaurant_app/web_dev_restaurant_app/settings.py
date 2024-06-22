@@ -138,10 +138,10 @@ if DEBUG:
         os.path.join(BASE_DIR, 'static')
     ]
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+    STATIC_ROOT = '/home/juansabr/public_html/static'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = '/home/juansabr/public_html/media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -174,6 +174,7 @@ CKEDITOR_CONFIGS = {
 }
 
 #Production checklist
+PREPEND_WWW = True
 
 # security.W004 & security.W005
 SECURE_HSTS_SECONDS = 31536000
