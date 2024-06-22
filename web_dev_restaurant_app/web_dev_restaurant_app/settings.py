@@ -28,8 +28,8 @@ SECRET_KEY = 'django-insecure-jr_oi%i457glstr2ovrmoao(z11#6@d$bfxg=ztkccw%$f$cj^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+SECURE_SSL_REDIRECT = False
 
 # Application definition
 
