@@ -173,12 +173,13 @@
 {% endblock %}
 
 {% block vendors %}
+    <link rel="dns-prefetch" href="https://checkout.wompi.co/" />
     <script type="text/javascript" src="https://checkout.wompi.co/widget.js"></script>
 {% endblock  %}
 
 {% block scripts %}
     {% load static %}
-    <script src="{% static '/products/js/checkout.js' %}"></script>
+    <script src="{% static '/products/js/checkout.min.js' %}"></script>
     <script>
         if('{{ working_hours }}' == 'False'){
             let completeOrderBtn = document.querySelector('#completeOrderBtn');

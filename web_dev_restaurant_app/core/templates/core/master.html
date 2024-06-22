@@ -5,26 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juan sabrosuras</title>
 
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com/" />
+    <link rel="dns-prefetch" href="https://fonts.cdnfonts.com/" />
+    <link rel="dns-prefetch" href="https://maps.googleapis.com" />
+
     {% load static %}
-    <link rel="preload" href="{% static '/core/js/header.js' %}" as="script">
+    <link rel="prefetch" href="{% static '/core/js/header.min.js' %}" as="script">
     <link rel="preload" href="{% static '/core/css/global.css' %}" as="style">
     <link rel="stylesheet" href="{% static '/core/css/global.css' %}">
 
 
-    <link rel="preload" href="{% static '/vendors/hamburgerMenu/hamburgers.css' %}" as="style">
-    <link rel="stylesheet" href="{% static '/vendors/hamburgerMenu/hamburgers.css' %}">
+    <link rel="prefetch" href="{% static '/core/vendors/hamburgerMenu/hamburgers.css' %}" as="style">
+    <link rel="stylesheet" href="{% static '/core/vendors/hamburgerMenu/hamburgers.css' %}">
 
 
 
-    <link rel="preload" href="{% static 'vendors/swiperjs/swiper-bundle.min.css' %}" as="style">
-    <link rel="stylesheet" href="{% static 'vendors/swiperjs/swiper-bundle.min.css' %}">
-    <link rel="preload" href="{% static '/vendors/swiperjs/swiper-bundle.min.js' %}" as="script">
-    <link rel="preload" href="{% static '/vendors/cryptojs/crypto-js.min.js' %}" as="script">
+    <link rel="preload" href="{% static '/core/vendors/swiperjs/swiper-bundle.min.css' %}" as="style">
+    <link rel="stylesheet" href="{% static '/core/vendors/swiperjs/swiper-bundle.min.css' %}">
+    <link rel="preload" href="{% static '/core/vendors/swiperjs/swiper-bundle.min.js' %}" as="script">
+    <link rel="preload" href="{% static '/core/vendors/cryptojs/crypto-js.min.js' %}" as="script">
 
 
-    <script src="{% static '/vendors/swiperjs/swiper-bundle.min.js' %}"></script>
-    <script src="{% static '/vendors/cryptojs/crypto-js.min.js' %}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm7duhLPL5kqqtkOHH1qWEmaX0oU9a2NQ&libraries=places&callback=initAutocomplete" async defer></script>
+    <script src="{% static '/core/vendors/swiperjs/swiper-bundle.min.js' %}"></script>
+    <script src="{% static '/core/vendors/cryptojs/crypto-js.min.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm7duhLPL5kqqtkOHH1qWEmaX0oU9a2NQ&libraries=places&callback=initAutocomplete" async></script>
 
 
     {% block vendors %}
@@ -127,7 +131,7 @@
         </div>
     </div>
     {% load static %}
-    <script src="{% static '/core/js/header.js' %}"></script>
+    <script src="{% static '/core/js/header.min.js' %}"></script>
     {% block scripts %}
     {% endblock  %}
 </body>

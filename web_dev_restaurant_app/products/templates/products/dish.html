@@ -1,9 +1,5 @@
 {% extends 'core/master.html' %}
 
-{% comment %} {% block vendors %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-{% endblock %} {% endcomment %}
-
 {% block content %}
     <section class="container relative xl:flex xl:my-16 xl:items-center xl:justify-end xl:flex-wrap">
         <img width="305" height="278" class="w-[305px] lg:w-[610px] h-[278px] lg:h-[556px] object-cover 2xl:object-contain mx-auto xl:w-1/2" src="{{ dish.dish_image_preview.url }}" alt=" {{ dish.dish_name }}">
@@ -110,7 +106,6 @@
 
 
 {% block scripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     {% load static %}
-    <script src="{% static '/products/js/detailProduct.js' %}"></script>
+    <script src="{% static '/products/js/detailProduct.min.js' %}"></script>
 {% endblock  %}
