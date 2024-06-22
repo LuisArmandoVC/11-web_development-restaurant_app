@@ -17,6 +17,7 @@ plate = {
 
 }
 let orderArray = [];
+let transaction;
 const KEY = '57e826694a4fc7b42aa4797ac13fbe28';
 products = [];
 paymentType = "online";
@@ -257,7 +258,7 @@ const clickingPayment = () => {
                     signature: {
                         integrity : content.data.signature
                         },
-                    redirectUrl: `${host}/catalogo/confirmacion-c`, 
+                    // redirectUrl: `${host}/catalogo/confirmacion-c`, 
                     expirationTime: content.data.expirationTime,
                     customerData: {
                         email: email.value,
@@ -266,13 +267,18 @@ const clickingPayment = () => {
                         phoneNumberPrefix: '+57',
                     }
                 })
-                checkout.open(function (result) {
-                    var transaction = result.transaction;
-                    console.log("Transaction ID: ", transaction.id);
-                    console.log("Transaction object: ", transaction);
+                checkout.open(await function (result) {
+                    transaction = result.transaction;
+                    localStorage.removeItem('checkout');
+                    localStorage.removeItem('info');
+                    if (transaction.status == "APPROVED") {
+                            location.href = '/catalogo/confirmacion-c';
+                    }
+                    else
+                    {
+                        location.href = '/catalogo/checkout-error';
+                    }
                     });
-                localStorage.removeItem('checkout');
-                localStorage.removeItem('info');
             }
             else
             {
@@ -280,8 +286,22 @@ const clickingPayment = () => {
             }
         })();
     }
+    // checkTransaction();
+}
 
-
+const checkTransaction = () => {
+    if (transaction) {
+        fetch(`https://sandbox.wompi.co/v1/transactions/${transaction.id}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => console.error('Ups, parece que hubo un error procesando tu pago'));
+    }
+    else
+    {
+        location.href = '/catalogo/checkout-error';
+    }
 }
 
 function checkInputs() {

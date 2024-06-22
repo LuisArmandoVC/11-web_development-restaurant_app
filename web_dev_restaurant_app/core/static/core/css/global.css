@@ -558,6 +558,12 @@ video {
   }
 }
 
+@media (min-width: 420px){
+  .container{
+    max-width: 420px;
+  }
+}
+
 @media (min-width: 480px){
   .container{
     max-width: 480px;
@@ -2101,10 +2107,6 @@ body{
     right: 0px;
   }
 
-  .screen-360\:top-\[10\%\]{
-    top: 10%;
-  }
-
   .screen-360\:top-\[-125\%\]{
     top: -125%;
   }
@@ -2127,10 +2129,6 @@ body{
 @media (min-width: 480px){
   .sm\:-top-10{
     top: -2.5rem;
-  }
-
-  .sm\:right-0{
-    right: 0px;
   }
 
   .sm\:ml-8{
@@ -2829,6 +2827,10 @@ body{
 
   .xl\:overflow-hidden{
     overflow: hidden;
+  }
+
+  .xl\:border-t-0{
+    border-top-width: 0px;
   }
 
   .xl\:object-contain{
