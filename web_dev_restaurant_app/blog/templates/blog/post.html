@@ -1,0 +1,75 @@
+{% extends 'core/master.html' %}
+{% block content %}
+    <section class="container">
+        <div class="xl:flex xl:gap-16">
+            <article class="xl:w-2/3">
+                <h1 class="my-8 lg:my-14 font-bold text-mobile-heading-large lg:text-desktop-heading-large">{{ post.title }}</h1>
+                <div class="richText leading-8">
+                    {{ post.content | safe }}
+                </div>
+                <div class="flex flex-wrap mt-8">
+                    {% for category in post.categories.all %}
+                        {% if not forloop.last  %}
+                            <h3 class="text-notificacion bg-gray-200 text-gray-figma-400 py-2 px-2 rounded-xl mr-2 mb-2">{{ category|capfirst  }}</h3>
+                        {% else %}
+                            <h3 class="text-notificacion bg-gray-200 text-gray-figma-400 py-2 px-2 rounded-xl mb-2">{{ category|capfirst  }}</h3>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div>
+                    <h4 class="my-2">{{ post.published|date:"SHORT_DATE_FORMAT" }}</h4>
+                </div>
+            </article>
+            <article class="mt-16">
+                <h2 class="text-mobile-heading-small lg:text-desktop-heading-small">Publicaciones más recientes</h2>
+                <div class="lg:flex lg:gap-5 lg:py-10 xl:py-0 xl:pb-10 xl:block">
+                    {% for post in latest_posts %}
+                        {% if forloop.last %}
+                        <article class="shadow-blog_post-shadow my-8 md:basis-[47%] xl:w-full rounded-lg overflow-hidden">
+                            <img class="w-full h-[180px] sm:h-[350px] md:h-[250px]  object-cover" src="{{post.image.url}}" alt="Post de blog Juan Sabrosuras - titulo: {{ post.title }}">
+                            <div class="pt-16 pb-8 px-8">
+                                <h2 class="text-mobile-heading-medium lg:text-desktop-heading-medium font-bold md:min-h-[70px] lg:h-[80px] 2xl:h-[120px]">{{ post.title|capfirst }}</h2>
+                                {% if  post.description %}
+                                    <p class="text-mobile-paragraph-large lg:text-desktop-paragraph-large my-[30px] md:text-justify md:h-[100px] 2xl:h-[150px]">{{ post.description|capfirst|truncatewords:25 }}</p>
+                                {% endif %}
+                                <a class="block text-center w-full btn-cta" href="{% url "post" post.slug %}">Leer mas</a>
+                                <div class="flex flex-wrap mt-8">
+                                    {% for category in post.categories.all %}
+                                        {% if not forloop.last  %}
+                                            <h3 class="text-notificacion bg-gray-200 text-gray-figma-400 py-2 px-2 rounded-xl mr-2 mb-2">{{ category|capfirst  }}</h3>
+                                        {% else %}
+                                            <h3 class="text-notificacion bg-gray-200 text-gray-figma-400 py-2 px-2 rounded-xl mb-2">{{ category|capfirst  }}</h3>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <h4 class="mt-2">{{ post.published|date:"SHORT_DATE_FORMAT" }}</h4>
+                            </div>
+                        </article>
+                        {% else %}
+                        <article class="shadow-blog_post-shadow mt-8 md:basis-[47%] xl:w-full rounded-lg overflow-hidden">
+                            <img class="w-full h-[180px] sm:h-[350px] md:h-[250px]  object-cover" src="{{post.image.url}}" alt="Post de blog Juan Sabrosuras - titulo: {{ post.title }}">
+                            <div class="pt-16 pb-8 px-8">
+                                <h2 class="text-mobile-heading-medium lg:text-desktop-heading-medium font-bold md:min-h-[70px] lg:h-[80px] 2xl:h-[120px]">{{ post.title|capfirst }}</h2>
+                                {% if  post.description %}
+                                    <p class="text-mobile-paragraph-large lg:text-desktop-paragraph-large my-[30px] md:text-justify md:h-[100px] 2xl:h-[150px]">{{ post.description|capfirst|truncatewords:25 }}</p>
+                                {% endif %}
+                                <a class="block text-center w-full btn-cta" href="{% url "post" post.slug %}">Leer mas</a>
+                                <div class="flex flex-wrap mt-8">
+                                    {% for category in post.categories.all %}
+                                        {% if not forloop.last  %}
+                                            <h3 class="text-notificacion bg-gray-200 text-gray-figma-400 py-2 px-2 rounded-xl mr-2 mb-2">{{ category|capfirst  }}</h3>
+                                        {% else %}
+                                            <h3 class="text-notificacion bg-gray-200 text-gray-figma-400 py-2 px-2 rounded-xl mb-2">{{ category|capfirst  }}</h3>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <h4 class="mt-2">{{ post.published|date:"SHORT_DATE_FORMAT" }}</h4>
+                            </div>
+                        </article>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </article>
+        </div>
+    </section>
+{% endblock %}

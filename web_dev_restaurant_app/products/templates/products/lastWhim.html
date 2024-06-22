@@ -1,0 +1,68 @@
+<section class="dialogLastWhim popupClosed popup">
+    <div class="popup__window-lastWhim">
+        <article>
+            <div class="flex items-center justify-between px-5 xl:px-10 mt-5">
+                <h3 class="font-bold text-mobile-heading-block lg:text-desktop-heading-block">¿Un último antojo?</h3>
+                <svg class="cursor-pointer" onclick='closeCheckoutPopup("dialogLastWhim")' width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 29C22.732 29 29 22.732 29 15C29 7.26801 22.732 1 15 1C7.26801 1 1 7.26801 1 15C1 22.732 7.26801 29 15 29Z" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19.1998 10.8008L10.7998 19.2008M10.7998 10.8008L19.1998 19.2008" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <p class="mt-3 px-5 xl:px-10 text-mobile-paragraph-standard lg:text-desktop-paragraph-standard max-w-[60%]">Completa tu pedido con estás deliciosas opciones</p>
+            <div class="overflow-y-scroll lastWhim-items mt-4 max-h-[500px]">
+                {% if last_whim_items is not None  %}
+                    {% for dish in last_whim_items %}
+                        <li class="rounded-[40px] shadow-figmaShadows mx-5 xl:mx-10 px-5 xl:px-10 my-8 py-5 xl:max-h-[200px] xl:flex xl:items-center xl:gap-10">
+                            <img class="mx-auto xl:mx-0 aspect-square object-cover xl:object-contain xl:order-2" width="196" height="176" src="{{ dish.dish_image_preview.url }}" alt="imagen de previsualizacion: {{ dish.dish_name }}">
+                            <div class="mt-5 xl:mt-0 xl:w-[65%] xl:order-1">
+                                <h4 class="text-black text-mobile-heading-block xl:text-desktop-heading-block font-bold">{{ dish.dish_name }}</h4>
+                                <p class="my-4 xl:my-0 xl:mt-5 text-mobile-paragraph-large xl:text-desktop-paragraph-large font-bold text-gray-figma-900">{{ dish.dish_description }}</p>
+                                <div class="xl:flex xl:items-center xl:gap-24 xl:mt-8">
+                                    <div>
+                                        {% if dish.dish_discounted_price is not 0 and dish.dish_discounted_price < dish.dish_regular_price %}
+                                        <em class="not-italic font-bold xs:text-mobile-heading-block xl:text-desktop-heading-block text-primary">${{ dish.dish_discounted_price }}</em>  <s class="ml-6 xs:ml-0 screen-360:ml-7 xs:text-mobile-heading-block xl:text-desktop-heading-block">${{ dish.dish_regular_price }}</s>
+                                        <div class="flex items-center gap-3 mt-7"> 
+                                            <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_1411_3331)">
+                                                <path d="M21.8752 13.1252L13.1252 21.8752M13.1252 13.1252H13.1397M21.8752 21.8752H21.8897M5.61474 12.571C5.40189 11.6122 5.43457 10.6152 5.70976 9.67234C5.98496 8.72953 6.49375 7.87146 7.18897 7.17769C7.88418 6.48393 8.74332 5.97693 9.68671 5.70372C10.6301 5.4305 11.6272 5.3999 12.5856 5.61477C13.1131 4.78979 13.8397 4.11087 14.6986 3.6406C15.5575 3.17033 16.521 2.92383 17.5002 2.92383C18.4794 2.92383 19.4428 3.17033 20.3017 3.6406C21.1606 4.11087 21.8872 4.78979 22.4147 5.61477C23.3746 5.39897 24.3734 5.42943 25.3183 5.70331C26.2632 5.97719 27.1235 6.4856 27.8191 7.18124C28.5147 7.87688 29.0232 8.73716 29.297 9.68206C29.5709 10.627 29.6014 11.6258 29.3856 12.5856C30.2106 13.1131 30.8895 13.8398 31.3597 14.6987C31.83 15.5575 32.0765 16.521 32.0765 17.5002C32.0765 18.4794 31.83 19.4428 31.3597 20.3017C30.8895 21.1606 30.2106 21.8873 29.3856 22.4148C29.6004 23.3731 29.5698 24.3702 29.2966 25.3136C29.0234 26.257 28.5164 27.1162 27.8226 27.8114C27.1289 28.5066 26.2708 29.0154 25.328 29.2906C24.3852 29.5658 23.3881 29.5985 22.4293 29.3856C21.9025 30.2137 21.1753 30.8956 20.3149 31.3679C19.4546 31.8403 18.4889 32.088 17.5074 32.088C16.526 32.088 15.5603 31.8403 14.7 31.3679C13.8396 30.8956 13.1124 30.2137 12.5856 29.3856C11.6272 29.6005 10.6301 29.5699 9.68671 29.2966C8.74332 29.0234 7.88418 28.5164 7.18897 27.8227C6.49375 27.1289 5.98496 26.2708 5.70976 25.328C5.43457 24.3852 5.40189 23.3882 5.61474 22.4293C4.78343 21.9032 4.09868 21.1754 3.62419 20.3136C3.1497 19.4518 2.90088 18.484 2.90088 17.5002C2.90088 16.5164 3.1497 15.5486 3.62419 14.6867C4.09868 13.8249 4.78343 13.0971 5.61474 12.571Z" stroke="#AC010F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </g>
+                                                <defs>
+                                                <clipPath id="clip0_1411_3331">
+                                                <rect width="35" height="35" fill="white"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>                                    
+                                            <p class="text-secondary font-bold text-mobile-heading-block xl:text-desktop-heading-block">
+                                                {{ dish.discount|floatformat:"0" }} %
+                                            </p>
+                                        </div>
+                                        {% else %}
+                                        <em class="not-italic font-bold xs:text-mobile-heading-block xl:text-desktop-heading-block text-primary">${{ dish.dish_regular_price }}</em>
+                                        {% endif %}
+                                    </div>
+                                    <div class="mt-8 xl:mt-0 flex items-center justify-center gap-11 xl:w-1/4">
+                                        <div onclick="counter('decrease', '{{ dish.dish_name|cut:" " }}' )">
+                                            <svg class="cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3 6H21M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6M10 11V17M14 11V17" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>                                        
+                                        </div>
+                                        <p class="lastWhimItemCounting" id="{{ dish.dish_name|cut:" " }}" data-label="{{dish.dish_name|slugify }}">0</p>
+                                        <div class="cursor-pointer" onclick="counter('increase', '{{ dish.dish_name|cut:" " }}')">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5 12H19M12 5V19" stroke="#FD7400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="mt-6 px-5 xl:px-10 xl:flex xl:items-center xl:gap-6">
+                <button class="w-full block text-primary outline-0 border-[1px] border-primary rounded-[6.25rem] py-3 px-4 font-roboto" onclick='closeCheckoutPopup("dialogLastWhim")'>En otro momento</button>
+                <button class="mt-5 xl:mt-0 btn-cta w-full block" onclick="lastWhimAdd()">Agregar a mi pedido</button>
+            </div>
+        </article>
+    </div>
+</section>

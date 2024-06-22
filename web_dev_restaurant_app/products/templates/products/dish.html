@@ -1,0 +1,116 @@
+{% extends 'core/master.html' %}
+
+{% comment %} {% block vendors %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+{% endblock %} {% endcomment %}
+
+{% block content %}
+    <section class="container relative xl:flex xl:my-16 xl:items-center xl:justify-end xl:flex-wrap">
+        <img width="305" height="278" class="w-[305px] lg:w-[610px] h-[278px] lg:h-[556px] object-cover 2xl:object-contain mx-auto xl:w-1/2" src="{{ dish.dish_image_preview.url }}" alt=" {{ dish.dish_name }}">
+        <article class="xl:w-1/2 xl:px-20">
+            <h1 onclick="plateName()" class="plateName mt-10 text-left text-mobile-heading-block lg:text-desktop-heading-block font-bold">{{ dish.dish_name }}</h1>
+            <p class="mt-5 mb-7 text-left text-mobile-paragraph-large lg:text-desktop-paragraph-large text-gray-figma-900">{{ dish.dish_description }}</p>
+            {% if dish.dish_discounted_price is not 0 and dish.dish_discounted_price < dish.dish_regular_price %}
+                <em class="not-italic font-bold xs:text-mobile-heading-block lg:text-desktop-heading-block text-primary">${{ dish.dish_discounted_price }}</em>
+            {% else %}
+                <em class="not-italic font-bold xs:text-mobile-heading-block lg:text-desktop-heading-block text-primary">${{ dish.dish_regular_price }}</em>
+            {% endif %}
+
+            {% if dish.dish_side_1 is not None and dish.dish_side_1 != "nada" %}
+                <div class="my-16 xl:my-0 xl:mt-14">
+                    <button onclick="triggerSideDish()" class="mb-4 w-full flex justify-between items-center" id="#sideDishBtn">
+                        <p class="text-left text-mobile-heading-block lg:text-desktop-heading-block font-bold">Acompañamientos principales</p>
+                        <svg class="sideDishArrow" width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 15L12 9L6 15" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <label class=" font-roboto bg-secondary text-white px-4 py-1 rounded">Obligatorio</label>
+
+                    <div class="dish__side">
+                        {% comment %} condicion de acompanamiento 1 {% endcomment %}
+                        {% if dish.dish_side_1 is not None and dish.dish_side_1 != "nada"  %}
+                            <div class="mt-9 flex justify-between items-center sideDishRadio">
+                                <label class="text-mobile-paragraph-large lg:text-desktop-paragraph-large" for="side1">{{ dish.dish_side_1 }}</label>
+                                <label for="side1" class="radio-btn__side-dish">
+                                    <input type="radio" name="side1" id="side1" checked>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        {% endif %}
+        
+                        {% comment %} condicion de acompanamiento 2 {% endcomment %}
+                        {% if dish.dish_side_2 is not None and dish.dish_side_2 != "nada" %}
+                            <div class="mt-9 flex justify-between items-center sideDishRadio">
+                                <label class="text-mobile-paragraph-large lg:text-desktop-paragraph-large" for="side2">{{ dish.dish_side_2 }}</label>
+                                <label for="side2" class="radio-btn__side-dish">
+                                    <input type="radio" name="side2" id="side2" checked>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        {% endif %}
+        
+                        {% comment %} condicion de acompanamiento 3 {% endcomment %}
+                        {% if dish.dish_side_3 is not None and dish.dish_side_3 != "nada" %}
+                            <div class="mt-9 flex justify-between items-center sideDishRadio">
+                                <label class="text-mobile-paragraph-large lg:text-desktop-paragraph-large" for="side3">{{ dish.dish_side_3 }}</label>
+                                <label for="side3" class="radio-btn__side-dish">
+                                    <input type="radio" name="side3" id="side3" checked>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        {% endif %}
+        
+                        {% comment %} condicion de acompanamiento 4 {% endcomment %}
+                        {% if dish.dish_side_4 is not None and dish.dish_side_4 != "nada" %}
+                            <div class="mt-9 flex justify-between items-center sideDishRadio">
+                                <label class="text-mobile-paragraph-large lg:text-desktop-paragraph-large" for="side4">{{ dish.dish_side_4 }}</label>
+                                <label for="side4" class="radio-btn__side-dish">
+                                    <input type="radio" name="side4" id="side4" checked>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </article>
+        <article class="sticky bottom-0 xl:static xl:w-2/3 border-t-2 xl:border-t-0">
+            <div class="infoAddress hidden justify-end  items-center text-white text-[10px] font-roboto translate-y-[10.5rem] md:translate-y-[5.5rem] xl:-translate-y-[0.5rem]">
+                <p class="bg-black p-2 rounded">Ingresa tu dirección para realizar tu pedido</p>                                      
+            </div>
+            <div class="bg-white py-10 xl:py-0 xl:flex xl:gap-11 xl:justify-end">
+                <div class="flex items-center justify-center gap-11 xl:w-1/4">
+                    <div onclick="counter('decrease')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 6H21M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6M10 11V17M14 11V17" stroke="#FFAD1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <p id="counting">1</p>
+                    <div onclick="counter('increase')">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 8H15M8 1V15" stroke="#FFAD1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="md:flex md:gap-5">
+                    <a onclick="checkout(event)" class="mt-8 xl:mt-0 font-roboto md:w-1/2 block border-[1px] border-primary text-primary text-center py-2 xl:px-6  rounded-3xl" href="{% url 'catalog' %}?added=true">Agregar y seguir comprando</a>               
+                    <a onclick="checkout(event)" id="goCheckout" class="mt-8 xl:mt-0 font-roboto md:w-1/2 block bg-primary text-white text-center py-2 xl:px-6 screen-1720:px-10 rounded-3xl" href="{% url 'checkout' %}">Agregar e ir a pagar <br class="hidden xl:block">
+                        {% if dish.dish_discounted_price is not 0 and dish.dish_discounted_price < dish.dish_regular_price %}
+                            ${{ dish.dish_discounted_price }}
+                        {% else %}
+                            ${{ dish.dish_regular_price }}
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </article>
+    </section>
+{% endblock %}
+
+
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    {% load static %}
+    <script src="{% static '/products/js/detailProduct.js' %}"></script>
+{% endblock  %}

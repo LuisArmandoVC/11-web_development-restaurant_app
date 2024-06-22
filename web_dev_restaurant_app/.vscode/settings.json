@@ -1,5 +1,8 @@
 {
     "python.pythonPath": "C:\\Users\\USUARIO\\.virtualenvs\\11_web_development-restaurant_app-PKdFOscL\\Scripts\\python.exe",
+    "emmet.includeLanguages": {
+        "django-html": "html"
+    },
     "python.linting.enabled": true,  
     "python.linting.pylintPath": "pylint",
     "python.linting.pylintEnabled": false,

@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juan Sabrosuras</title>
+    <style>
+        section{
+            font-family: AvantGarde Bk BT, Tahoma, sans-serif;
+            max-width: 768px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .addressInfo{
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        .product-wrapper{
+            display:-webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            justify-items: center !important;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h1>{{ purchaser_info.fullname }}, hemos recibido tu orden</h1>
+        <p>Muchas gracias por elegirnos. En este momento, acabamos de recibir tu orden, nos comunicaremos tan pronto tu pedido este listo para salir! <br/>Mientras tanto, puedes echarle un ojo al resumen de tu orden</p>
+        <div>
+            <strong>Datos del comprador: </strong>
+            <div>
+                <p class="addressInfo">{{ purchaser_info.fullname }}</p>
+                <p class="addressInfo">{{ purchaser_info.email }}</p>
+                <p class="addressInfo">+57 {{ purchaser_info.phonenumber }}</p>
+            </div>
+        </div>
+        <div style="margin-top: 20px;">
+            <strong>Direccion de envio: </strong>
+            <div>
+                <p class="addressInfo">{{ purchaser_info.address }} - {{ purchaser_info.extraAddressInfo }}</p>
+                <p class="addressInfo">{{ purchaser_info.instructions }}</p>
+            </div>
+        </div>
+        <div style="margin-top: 20px;">
+            <strong>Tu orden es: </strong>
+            {% for product in products %}
+                <div class="product-wrapper">
+                    <div style="width: 80%;">
+                        <p class="addressInfo" style="margin-top: 10px;">({{ product.amount }}) - {{ product.name }}</p>
+                        <p class="addressInfo">{{ product.description }}</p>
+                        {% if product.side_dish_1 and product.side_dish_1 != "ninguno" and product.side_dish_1 != "nada" %} <p class="addressInfo">Acompañamiento 1: {{ product.side_dish_1 }}</p>{% endif %}
+                        {% if product.side_dish_2 and product.side_dish_2 != "ninguno" and product.side_dish_2 != "nada" %} <p class="addressInfo">Acompañamiento 2: {{ product.side_dish_2 }}</p>{% endif %}
+                        {% if product.side_dish_3 and product.side_dish_3 != "ninguno" and product.side_dish_3 != "nada" %} <p class="addressInfo">Acompañamiento 3: {{ product.side_dish_3 }}</p>{% endif %}
+                        {% if product.side_dish_4 and product.side_dish_4 != "ninguno" and product.side_dish_4 != "nada" %} <p class="addressInfo">Acompañamiento 4: {{ product.side_dish_4 }}</p>{% endif %}
+                    </div>
+                    <div>
+                        <p style="color: #FD7400;"><strong>COP {{ product.total_price }}</strong></p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div style="margin-top: 20px;">
+            <div class="product-wrapper">
+                <div style="width: 80%;">
+                    <p class="addressInfo" style="vertical-align: middle;"><strong>TOTAL</strong></p>
+                </div>
+                <div>
+                    <p style="color: #FD7400;"><strong>COP {{ purchase_amount }}</strong></p>
+                </div>
+            </div>
+            <div><p style="font-size: 10px;">El precio mostrado en total incluye las tarifas de uso de servicio, envio y propina si usted decidio incluirla</p></div>
+        </div>
+    </section>
+</body>
+</html>
+

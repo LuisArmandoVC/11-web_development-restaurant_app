@@ -1,6 +1,252 @@
 {% extends 'core/master.html' %}
 
 
+
 {% block content %}
-    <h1>Hola mundo desde plantilla home.html!!!</h1>
+    {% comment %}
+        Section: Hero banner
+        Version: 0.0.2
+        Update date: 26/03/2024
+        Model: hero_banner
+        Content administrator relation: this section is fed by Contenido del main banner swiper 
+        Description: Hero banner (main banner) swiper. Allowed to display dinamically the following items - image, title, description & CTAs 
+        Creation info: Luis Veliz - 11/01/2024
+        Pending: Upload a youtube video then insert within iframe
+    {% endcomment %}
+    <section class="max-w-[1920px] mx-auto">
+        <article class="swiper heroBannerSwiper">
+            <div class="swiper-wrapper">
+                {% for hero_banner in hero_banner_content %}
+                    <div class="swiper-slide">
+                        <div class="relative h-[650px] lg:h-[622px]">
+                            <div class="h-full w-full absolute top-0 hero_banner-custom__gradient"></div>
+                            <div class="px-5 sm:px-8 md:px-16 xl:px-figmaMargins screen-1720:px-[14.06rem]  absolute top-0 w-full lg:w-[60%] screen-1720:w-[55%] h-full flex flex-col justify-center items-center lg:items-start text-white">
+                                <h1 class="text-mobile-heading-large lg:text-desktop-heading-large text-center lg:text-left font-bold">{{ hero_banner.hero_banner_title }} en <span class="text-secondary lg:text-tertiary">Bogotá</span></h1>
+                                <p class="my-10 text-mobile-heading-medium lg:text-desktop-heading-medium text-center lg:text-left">{{ hero_banner.hero_banner_description }}</p>
+                                
+                                <a class="block text-center w-full max-w-[600px] lg:max-w-[200px] border-[1px] rounded-[100px] text-[18px] py-2" href="{% url 'catalog' %}">+ Pide aquí</a>
+                                <button class="lg:max-w-[200px] my-10 text-[18px] flex justify-center items-center gap-5 showModal" onclick='callPopup( {{ forloop.counter }} )'>Como pedir
+                                    <div class="bg-white w-10 h-10 rounded-full flex justify-center items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="000" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                            <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+                                        </svg>
+                                    </div>
+                                </button>
+                            </div>
+                            <img class="w-full h-full object-cover block" src="{{ hero_banner.hero_banner_image.url }}" alt="{{ hero_banner.hero_banner_image_alt }}">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if hero_banner_amount > 1 %}
+                <div class="swiper-pagination-heroBanner"></div>
+            {% endif %}
+        </article>
+    </section>
+
+    {% comment %}
+        Section: Relevant menu items
+        Version: 0.0.1
+        Update date: 30/03/2024
+        Model: products/dishes
+        Content administrator relation: catalogo de platos > platos del menu
+        Description: second element in home page, swiper functionality. Element marked as "Es un plato especial?" will be shown  
+        Creation info: Luis Veliz
+        Pending: nothing
+    {% endcomment %}
+
+    <section class="max-w-[1920px] mx-auto bg-gray-figma-100 py-10 lg:py-16">
+        <article class="text-center">
+            <h2 class="text-mobile-heading-small lg:text-desktop-heading-small uppercase text-secondary">NUESTRO MENÚ</h2>
+            <h3 class="text-mobile-heading-large lg:text-desktop-heading-large font-bold mt-5">Platos Destacados</h3>
+        </article>
+        <article class="lg:relative">
+            <div class="swiper specialPlatesSwiper">
+                <menu class="swiper-wrapper ml-5 sm:ml-8 lg:ml-16 xl:ml-figmaMargins 2xl:ml-[14.06rem]">
+                    {% for dish in dishes %}
+                        <div class="swiper-slide lg:max-w-[355px]">
+                            <li class="rounded-[40px] shadow-figmaShadows my-10 p-5">
+                                <a href="{% url 'dish' dish.dish_slug %}">
+                                    <img class="mx-auto aspect-square object-cover xl:object-contain" width="184" height="184" src="{{ dish.dish_image_preview.url }}" loading="lazy" alt="imagen de previsualizacion - vista superior: {{ dish.dish_name }}">
+                                    <div class="swiper-lazy-preloader"></div>
+                                    <div>
+                                        <h4 class="text-mobile-heading-block lg:text-desktop-heading-block font-bold mt-6">{{ dish.dish_name }}</h4>
+                                        <p class="text-mobile-paragraph-large lg:text-desktop-paragraph-large mt-5 h-[150px]">{{ dish.dish_description }}</p>
+                                        {% if dish.dish_discounted_price is not 0 and dish.dish_discounted_price < dish.dish_regular_price %}
+                                        <div class="h-[35px] screen-360:text-mobile-heading-block lg:text-desktop-heading-block">
+                                            <em class="not-italic font-bold text-primary">COP {{ dish.dish_discounted_price }}</em> <s class="ml-2">COP {{ dish.dish_regular_price }}</s>
+                                        </div>
+                                        <div class="flex items-center gap-3"> 
+                                            <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M21.8752 13.125L13.1252 21.875M13.1252 13.125H13.1397M21.8752 21.875H21.8897M5.61474 12.5708C5.40189 11.612 5.43457 10.615 5.70976 9.67216C5.98496 8.72934 6.49375 7.87127 7.18897 7.17751C7.88418 6.48375 8.74332 5.97675 9.68671 5.70353C10.6301 5.43032 11.6272 5.39972 12.5856 5.61458C13.1131 4.78961 13.8397 4.11069 14.6986 3.64042C15.5575 3.17014 16.521 2.92365 17.5002 2.92365C18.4794 2.92365 19.4428 3.17014 20.3017 3.64042C21.1606 4.11069 21.8872 4.78961 22.4147 5.61458C23.3746 5.39878 24.3734 5.42924 25.3183 5.70312C26.2632 5.97701 27.1235 6.48541 27.8191 7.18106C28.5147 7.8767 29.0232 8.73698 29.297 9.68188C29.5709 10.6268 29.6014 11.6256 29.3856 12.5854C30.2106 13.1129 30.8895 13.8396 31.3597 14.6985C31.83 15.5574 32.0765 16.5208 32.0765 17.5C32.0765 18.4792 31.83 19.4426 31.3597 20.3015C30.8895 21.1604 30.2106 21.8871 29.3856 22.4146C29.6004 23.373 29.5698 24.3701 29.2966 25.3134C29.0234 26.2568 28.5164 27.116 27.8226 27.8112C27.1289 28.5064 26.2708 29.0152 25.328 29.2904C24.3852 29.5656 23.3881 29.5983 22.4293 29.3854C21.9025 30.2136 21.1753 30.8954 20.3149 31.3678C19.4546 31.8401 18.4889 32.0878 17.5074 32.0878C16.526 32.0878 15.5603 31.8401 14.7 31.3678C13.8396 30.8954 13.1124 30.2136 12.5856 29.3854C11.6272 29.6003 10.6301 29.5697 9.68671 29.2965C8.74332 29.0232 7.88418 28.5163 7.18897 27.8225C6.49375 27.1287 5.98496 26.2707 5.70976 25.3278C5.43457 24.385 5.40189 23.388 5.61474 22.4292C4.78343 21.9031 4.09868 21.1753 3.62419 20.3134C3.1497 19.4516 2.90088 18.4838 2.90088 17.5C2.90088 16.5162 3.1497 15.5484 3.62419 14.6866C4.09868 13.8247 4.78343 13.0969 5.61474 12.5708Z" stroke="#AC010F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <p class="text-secondary font-bold screen-360:text-mobile-heading-small lg:text-desktop-heading-small">
+                                                {{ dish.discount|floatformat:"0" }}%
+                                            </p>
+                                        </div>
+                                        {% else %}
+                                            <div class="h-[70px] screen-360:text-mobile-heading-block lg:text-desktop-heading-block">
+                                                <em class="not-italic font-bold text-primary">COP {{ dish.dish_regular_price }}</em>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </a>
+                            </li>
+                        </div>
+                    {% endfor %}
+                </menu>
+                <div class="flex justify-center items-center gap-12 lg:absolute lg:bottom-0 lg:right-0 lg:z-10 lg:mr-16 xl:mr-figmaMargins 2xl:mr-[14.06rem]">
+                    <div class="specialPlatesSwiper-button-prev">
+                        <svg class="specialPlates-swiper__prev specialPlates-swiper-arrow-btn" width="67" height="68" viewBox="0 0 67 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="33.5" cy="34.125" r="33.5" fill="currentColor"/>
+                            <path d="M37.7646 26.625L30.0002 34.3895" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M37.7646 42.625L30.0002 34.8605" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="specialPlatesSwiper-button-next">
+                        <svg class="specialPlates-swiper__next specialPlates-swiper-arrow-btn" width="67" height="68" viewBox="0 0 67 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="33.5" cy="34.125" r="33.5" fill="currentColor"/>
+                            <path d="M30 26.625L37.7645 34.3895" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M30 42.625L37.7645 34.8605" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="px-5 mt-10">
+                    <a class="block text-center btn-cta w-full md:w-1/2 lg:w-1/6 md:block md:mx-auto" href="{% url 'catalog' %}">
+                        + Ver más
+                    </a>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    {% comment %}
+        Section: Our services
+        Version: 0.0.2
+        Update date: 26/03/2024
+        Model: not required
+        Content relation: not required
+        Description: elements mixed. Left side static text with CTA while right side is built with a swiper to show all services
+        Creation info: Luis Veliz - 27/12/2023
+        Pending: DONE - 11/01/2024
+    {% endcomment %}
+
+    <section class="lg:py-20 container">
+        <div class="xl:flex screen-1720:gap-28">
+            <article class="xl:basis-1/3 text-center xl:text-left pt-10 lg:pt-0 px-5 screen-1720:px-0 xl:pl-10 screen-1720:pl-0 lg:flex lg:flex-col lg:justify-center">
+                <h2 class="text-mobile-heading-small screen-1720:text-desktop-heading-small uppercase text-secondary">Nuestra historia y servicios</h2>
+                <h3 class="text-mobile-heading-large screen-1720:text-desktop-heading-large font-bold mt-5">Nuestros Servicios</h3>
+                <p class="text-mobile-heading-medium screen-1720:text-desktop-heading-medium mt-10 xl:mt-5">Lorem ipsum, Lorem ipsum, Lorem ipsum, Lorem</p>
+            </article>
+            <article class="xl:basis-8/12 xl:overflow-hidden">
+                <div class="swiper ourServicesSwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="flex flex-col items-center text-center shadow-figmaShadows my-10 py-14 px-7 mx-5 xl:mx-0 xl:ml-10 rounded-[20px]">
+                                <svg width="62" height="43" viewBox="0 0 62 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 36.009H4C2.2 36.009 1 34.8661 1 33.1518V4.58041C1 2.86612 2.2 1.72327 4 1.72327H34C35.8 1.72327 37 2.86612 37 4.58041V36.009M37 10.2947H49L61 21.7233V33.1518C61 34.8661 59.8 36.009 58 36.009H52" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16 41.7233C19.3137 41.7233 22 39.1649 22 36.009C22 32.8531 19.3137 30.2947 16 30.2947C12.6863 30.2947 10 32.8531 10 36.009C10 39.1649 12.6863 41.7233 16 41.7233Z" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M40 36.009H22" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M46 41.7233C49.3137 41.7233 52 39.1649 52 36.009C52 32.8531 49.3137 30.2947 46 30.2947C42.6863 30.2947 40 32.8531 40 36.009C40 39.1649 42.6863 41.7233 46 41.7233Z" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>                                    
+                                <h4 class="text-mobile-heading-small uppercase mt-8 h-20 xl:h-24">DOMICILIO</h4>
+                                <p class="text-mobile-paragraph-large">Lorem ipsum, Lorem ipsum, Lorem ipsum, Lorem ipsum,</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="flex flex-col items-center text-center shadow-figmaShadows my-10 py-14 px-7 mx-5 rounded-[20px]">
+                                <svg width="44" height="45" viewBox="0 0 44 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M40.6667 13.3906H3.33333C2.04467 13.3906 1 14.4353 1 15.7239V20.3905C1 21.6791 2.04467 22.7237 3.33333 22.7237H40.6667C41.9553 22.7237 43 21.6791 43 20.3905V15.7239C43 14.4353 41.9553 13.3906 40.6667 13.3906Z" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21.9998 13.3907V43.7233M21.9998 13.3907C21.1558 9.9127 19.7025 6.9393 17.8296 4.85825C15.9566 2.7772 13.7508 1.68507 11.4998 1.72429C9.95274 1.72429 8.46901 2.33885 7.37505 3.43279C6.28109 4.52672 5.6665 6.01042 5.6665 7.55748C5.6665 9.10454 6.28109 10.5882 7.37505 11.6822C8.46901 12.7761 9.95274 13.3907 11.4998 13.3907M21.9998 13.3907C22.8439 9.9127 24.2971 6.9393 26.1701 4.85825C28.0431 2.7772 30.2489 1.68507 32.4998 1.72429C34.0469 1.72429 35.5307 2.33885 36.6246 3.43279C37.7186 4.52672 38.3332 6.01042 38.3332 7.55748C38.3332 9.10454 37.7186 10.5882 36.6246 11.6822C35.5307 12.7761 34.0469 13.3907 32.4998 13.3907M38.3332 22.7238V39.0567C38.3332 40.2944 37.8415 41.4813 36.9663 42.3565C36.0912 43.2316 34.9042 43.7233 33.6665 43.7233H10.3332C9.09549 43.7233 7.90851 43.2316 7.03334 42.3565C6.15817 41.4813 5.6665 40.2944 5.6665 39.0567V22.7238" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>                     
+                                <h4 class="text-mobile-heading-small uppercase mt-8 h-20 xl:h-24">CÓDIGOS DE DESCUENTO</h4>
+                                <p class="text-mobile-paragraph-large">Lorem ipsum, Lorem ipsum, Lorem ipsum, Lorem ipsum,</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="flex flex-col items-center text-center shadow-figmaShadows my-10 py-14 px-7 mx-5 xl:mx-0 xl:mr-10 rounded-[20px]">
+                                <svg width="50" height="44" viewBox="0 0 50 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17.9502 17.1677L22.6502 21.7233L32.0502 12.6122" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M43.8 1.22327H6.2C3.60426 1.22327 1.5 3.26286 1.5 5.77882V28.5566C1.5 31.0726 3.60426 33.1122 6.2 33.1122H43.8C46.3957 33.1122 48.5 31.0726 48.5 28.5566V5.77882C48.5 3.26286 46.3957 1.22327 43.8 1.22327Z" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M25.0001 33.1122V42.2233M15.6001 42.2233H34.4001" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>                                    
+                                <h4 class="text-mobile-heading-small uppercase mt-8 h-20 xl:h-24">Ordena online</h4>
+                                <p class="text-mobile-paragraph-large">Lorem ipsum, Lorem ipsum, Lorem ipsum, Lorem ipsum,</p>
+                            </div>
+                        </div>
+                    </div>
+            </article>
+        </div>
+        <article class="px-5 xl:px-0">
+            <a class="block text-center btn-cta w-full md:w-1/2 xl:w-1/6 md:block md:mx-auto xl:mx-0 xl:ml-10 screen-1720:ml-0 xl:-translate-y-20 mb-10 lg:mb-0" href="{% url 'about' %}">
+                + Ver más
+            </a>
+        </article>
+    </section>
+
+    {% comment %}
+        Section: Reviews by customers
+        Update date: 26/03/2024
+        Model: user_review
+        Content relation: this section is fed by "comentarios de clientes"
+        Description: cards with feedback information dynamically change through Django admin
+        Creation info: Luis Veliz - 27/12/2023
+        Pending: none - 10/01/2023
+    {% endcomment %}
+
+    <section class="container font-avantGarde bg-gray-figma-100 py-[4.12rem]">
+        <article>
+            <h4 class="text-mobile-heading-small lg:text-desktop-heading-small text-center font-bold text-secondary uppercase">{{ review_section_content.small_title }}</h4>
+            <h2 class="mt-5 text-mobile-heading-large lg:text-desktop-heading-large text-center font-bold">{{ review_section_content.title }}</h2>
+        </article>
+        <div class="swiper reviewSwiper">
+            <div class="swiper-wrapper">
+                {% for review in reviews %}
+                    <div class="swiper-slide">
+                        <article class="relative rounded-3xl max-w-[31.46rem] bg-white py-[3.75rem] mt-40">
+                            <div class="w-full absolute top-[-100px] left-0 flex justify-center">
+                                {% if review.user_image %}
+                                    <img class="rounded-full bg-orange-200" width="130px" height="126px" src="{{ review.user_image.url }}" alt="user image profile">
+                                {% else %}
+                                    <img class="rounded-full bg-orange-200" width="130px" height="126px" src="/media/client_reviews/default_user.png" alt="user image profile - default icon">
+                                {% endif %}
+                            </div>
+                            <div class="mb-12 flex justify-center gap-2">
+                                {% for _ in "xxxxx" %}
+                                    {% if forloop.counter <= review.review %}
+                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_868_1857)">
+                                                <path d="M1.38453 8.26696L3.75787 10.0003L2.85653 12.7916C2.71087 13.2246 2.70903 13.693 2.85127 14.127C2.99352 14.5611 3.27223 14.9375 3.64587 15.2003C4.0131 15.4715 4.45813 15.6168 4.91463 15.6145C5.37114 15.6122 5.81469 15.4625 6.1792 15.1876L8.49987 13.4796L10.8212 15.1856C11.1878 15.4553 11.6304 15.6017 12.0854 15.6039C12.5405 15.6062 12.9845 15.464 13.3537 15.198C13.7229 14.9319 13.9982 14.5557 14.1401 14.1233C14.2819 13.6909 14.283 13.2247 14.1432 12.7916L13.2419 10.0003L15.6152 8.26696C15.9813 7.9993 16.2534 7.6228 16.3928 7.19122C16.5321 6.75965 16.5315 6.29509 16.391 5.86389C16.2505 5.43269 15.9774 5.05691 15.6105 4.79023C15.2437 4.52355 14.802 4.37961 14.3485 4.37896H11.4332L10.5485 1.62163C10.4094 1.1876 10.136 0.808971 9.76785 0.540339C9.39965 0.271706 8.95564 0.126953 8.49987 0.126953C8.04409 0.126953 7.60009 0.271706 7.23189 0.540339C6.86369 0.808971 6.59032 1.1876 6.4512 1.62163L5.56653 4.37896H2.65387C2.20036 4.37961 1.75866 4.52355 1.39185 4.79023C1.02504 5.05691 0.751893 5.43269 0.611413 5.86389C0.470933 6.29509 0.470312 6.75965 0.609636 7.19122C0.748961 7.6228 1.02111 7.9993 1.3872 8.26696H1.38453Z" fill="#FFE605"/>
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_868_1857">
+                                                    <rect width="16" height="16" fill="white" transform="translate(0.5)"/>
+                                                </clipPath>
+                                            </defs>
+                                        </svg> 
+                                    {% else %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <blockquote class="mb-5">
+                                <p class="px-8 min-h-[325px] sm:min-h-[270px] screen-1720:min-h-[235px]">{{ review.comment }}</p>
+                            </blockquote>
+                            <cite class="block text-center not-italic">
+                                <strong>{{ review.user_name }}</strong>
+                            </cite>
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 {% endblock %}
+
+{% block scripts %}
+    {% load static %}
+    <script src="{% static '/core/js/core.js' %}"></script>
+{% endblock  %}
+
+
+
+

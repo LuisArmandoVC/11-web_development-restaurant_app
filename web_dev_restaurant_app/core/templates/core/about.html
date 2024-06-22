@@ -1,7 +1,78 @@
 {% extends 'core/master.html' %}
 
+{% comment %}
+    Section: About us
+    Model: none
+    Content relation: no relation
+    Description: description banner with image and text about company history, mision & vision
+    Creation info: Luis Veliz - 04/01/2024
+    Update: figma adjustment version 0.0.2
+    Pending: Update paragraph information
+{% endcomment %}
 
 {% block content %}
-    <h1>Hola mundo desde about!!!</h1>
+    <section class="pt-10 lg:pt-[3.75rem] lg:max-w-[1920px] lg:mx-auto">
+        <article class="lg:flex">
+            <div class="container xl:py-10">
+                <h1 class="uppercase text-center lg:text-left text-secondary text-mobile-heading-small lg:text-desktop-heading-small">Conoce nuestra historia y nuestros servicios</h1>
+                <h2 class="mt-5 text-center lg:text-left font-bold text-mobile-heading-large lg:text-desktop-heading-large">Nuestros servicios</h2>
+                <p class="mt-10 text-desktop-paragraph-standard lg:text-desktop-paragraph-standard">
+                    Juan Sabrosuras es un emprendimiento familiar, que inició durante tiempos de pandemia en 2019 cuando noté la problematica que enfrentaba mi hijo menor
+                    al momento de iniciar su trabajo desde casa o home office, el cual a pesar de que era maravilloso porque podía compartir más tiempo con nosotros, no le permitía cumplir
+                    con una alimentación balanceada, ya que reunión tras reunión sus horas dentro de su oficina pasaban y pasaban. 
+                    <br/>
+                    <br/>
+                    Esta situación me motivó a ayudarlo en el balance de sus comidas al igual que a todas esas personas que diariamente tienen que enfrentas distintas cargas laborales que demandan
+                    amplias horas de concentración y trabajo, por lo que no pueden cumplir con su alimentación apropiadamente.
+                    <br/>
+                    <br/>
+                    En Juan Sabrosuras creemos en la simplicidad, calidad de los ingredientes y ese sazón casero, que aunque no sea exactamente igual al de tu mamá o abuela, nos esforzamos para hacerte
+                    recordar esos almuerzos en familia repletos de sabor y amor. 
+                    <br/>
+                    <br/>
+                    Nos orgullese ofrecer una alternativa a la comida rápida, presentando opciones saludables y deliciosas que rescatan la esencia de la comida casera.
+                    <br/>
+                    <br/>
+                    Nuestro sello es todo el esfuerzo para ofrecer un menú rotativo, saludable y personalizable dependiendo de tu necesidad. 
+                    <br/>
+                    <br/>
+                    En Juan Sabrosuras encontraras la calidad y el cariño que solo puedes conseguir en casera.
+                    <br/>
+                    <br/>
+                    Gracias por ser parte de nuestra historia culinaria, esperamos que proximamente podamos llevar nuestro sazón a tu mesa. 
+                </p>
+            </div>
+            <img class="mt-10 lg:mt-0 w-full aspect-video" src="/media/about_us/banner_mobile.png" alt="Imagen de banner de seccion sobre nosotros - Juan Sabrosuras">
+        </article>
+        <article class="bg-gray-figma-100 py-10 md:flex lg:justify-center">
+            <div class="flex flex-col items-center text-center shadow-figmaShadows md:my-10 py-14 px-7 mx-5 xl:mx-0 xl:ml-10 rounded-[20px]">
+                <svg width="62" height="43" viewBox="0 0 62 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 36.009H4C2.2 36.009 1 34.8661 1 33.1518V4.58041C1 2.86612 2.2 1.72327 4 1.72327H34C35.8 1.72327 37 2.86612 37 4.58041V36.009M37 10.2947H49L61 21.7233V33.1518C61 34.8661 59.8 36.009 58 36.009H52" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 41.7233C19.3137 41.7233 22 39.1649 22 36.009C22 32.8531 19.3137 30.2947 16 30.2947C12.6863 30.2947 10 32.8531 10 36.009C10 39.1649 12.6863 41.7233 16 41.7233Z" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M40 36.009H22" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M46 41.7233C49.3137 41.7233 52 39.1649 52 36.009C52 32.8531 49.3137 30.2947 46 30.2947C42.6863 30.2947 40 32.8531 40 36.009C40 39.1649 42.6863 41.7233 46 41.7233Z" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h4 class="text-mobile-heading-small lg:text-desktop-heading-small uppercase mt-8 h-20 xl:h-24">DOMICILIO</h4>
+                <p class="text-mobile-paragraph-large lg:text-desktop-paragraph-large">Lorem ipsum, Lorem ipsum, Lorem ipsum, Lorem ipsum,</p>
+            </div>
+            <div class="flex flex-col items-center text-center shadow-figmaShadows my-10 py-14 px-7 mx-5 rounded-[20px]">
+                <svg width="44" height="45" viewBox="0 0 44 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M40.6667 13.3906H3.33333C2.04467 13.3906 1 14.4353 1 15.7239V20.3905C1 21.6791 2.04467 22.7237 3.33333 22.7237H40.6667C41.9553 22.7237 43 21.6791 43 20.3905V15.7239C43 14.4353 41.9553 13.3906 40.6667 13.3906Z" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21.9998 13.3907V43.7233M21.9998 13.3907C21.1558 9.9127 19.7025 6.9393 17.8296 4.85825C15.9566 2.7772 13.7508 1.68507 11.4998 1.72429C9.95274 1.72429 8.46901 2.33885 7.37505 3.43279C6.28109 4.52672 5.6665 6.01042 5.6665 7.55748C5.6665 9.10454 6.28109 10.5882 7.37505 11.6822C8.46901 12.7761 9.95274 13.3907 11.4998 13.3907M21.9998 13.3907C22.8439 9.9127 24.2971 6.9393 26.1701 4.85825C28.0431 2.7772 30.2489 1.68507 32.4998 1.72429C34.0469 1.72429 35.5307 2.33885 36.6246 3.43279C37.7186 4.52672 38.3332 6.01042 38.3332 7.55748C38.3332 9.10454 37.7186 10.5882 36.6246 11.6822C35.5307 12.7761 34.0469 13.3907 32.4998 13.3907M38.3332 22.7238V39.0567C38.3332 40.2944 37.8415 41.4813 36.9663 42.3565C36.0912 43.2316 34.9042 43.7233 33.6665 43.7233H10.3332C9.09549 43.7233 7.90851 43.2316 7.03334 42.3565C6.15817 41.4813 5.6665 40.2944 5.6665 39.0567V22.7238" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>                               
+                <h4 class="text-mobile-heading-small lg:text-desktop-heading-small uppercase mt-8 h-20 md:h-18 xl:h-24">CÓDIGOS DE DESCUENTO</h4>
+                <p class="text-mobile-paragraph-large lg:text-desktop-paragraph-large">Lorem ipsum, Lorem ipsum, Lorem ipsum, Lorem ipsum,</p>
+            </div>
+            <div class="flex flex-col items-center text-center shadow-figmaShadows mt-10 md:mb-10 py-14 px-7 mx-5 xl:mx-0 xl:mr-10 rounded-[20px]">
+                <svg width="50" height="44" viewBox="0 0 50 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.9502 17.1677L22.6502 21.7233L32.0502 12.6122" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M43.8 1.22327H6.2C3.60426 1.22327 1.5 3.26286 1.5 5.77882V28.5566C1.5 31.0726 3.60426 33.1122 6.2 33.1122H43.8C46.3957 33.1122 48.5 31.0726 48.5 28.5566V5.77882C48.5 3.26286 46.3957 1.22327 43.8 1.22327Z" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M25.0001 33.1122V42.2233M15.6001 42.2233H34.4001" stroke="#AC010F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h4 class="text-mobile-heading-small lg:text-desktop-heading-small uppercase mt-8 h-20 xl:h-24">Ordena online</h4>
+                <p class="text-mobile-paragraph-large lg:text-desktop-paragraph-large">Lorem ipsum, Lorem ipsum, Lorem ipsum, Lorem ipsum,</p>
+            </div>
+        </article>
+    </section>
 {% endblock %}
 

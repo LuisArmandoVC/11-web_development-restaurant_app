@@ -1,0 +1,133 @@
+<header class="container bg-white font-avantGarde pt-8 screen-1720:py-8 hidden min-[1024px]:block sticky top-0 z-20">
+    <nav class="flex justify-between items-center">
+        <button>
+            <a href="{% url 'home' %}">
+                <img class="w-[150px] h-[50px]" src="/media/header/juanSabro_header.png" alt="Juan sabrosuras logo">
+            </a>
+        </button>
+        <div>
+            <ul class="flex md:gap-10 screen-3xl:gap-20">
+                <li><a class="text-desktop-paragraph-large {% if request.path == '/' %}text-primary font-bold{% endif %}" href="{% url 'home' %}">Home</a></li>
+                <li> <a class="text-desktop-paragraph-large {% if request.path == '/servicios/' %}text-primary font-bold{% endif %}" href="{% url 'about' %}">Servicios</a></li>
+                <li> <a class="text-desktop-paragraph-large {% if request.path == '/catalogo/ofertas/' %}text-primary font-bold{% endif %}" href="{% url 'offers' %}">Ofertas</a></li>
+                <li> <a class="text-desktop-paragraph-large {% if request.path == '/recetas-y-variedades/' %}text-primary font-bold{% endif %}" href="{% url 'blog' %}">Recetas</a></li>
+                <li> <a class="text-desktop-paragraph-large {% if request.path == '/contacto/' %}text-primary font-bold{% endif %}" href="{% url 'contact' %}">Contáctanos</a></li>
+            </ul>
+        </div>
+        <div class="flex md:gap-6 3xl:gap-12 justify-center items-center screen-1720:basis-1/3">
+            <button onclick="openPopup()" class="text-desktop-paragraph-standard py-3 w-full hidden screen-1720:flex lg:justify-end screen-1720:justify-center items-center gap-2 screen-1720:gap-1">
+                <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.6668 9.83329C18.6668 16.3333 10.0002 22.8333 10.0002 22.8333C10.0002 22.8333 1.3335 16.3333 1.3335 9.83329C1.3335 7.53475 2.24659 5.33035 3.8719 3.70503C5.49722 2.07972 7.70162 1.16663 10.0002 1.16663C12.2987 1.16663 14.5031 2.07972 16.1284 3.70503C17.7537 5.33035 18.6668 7.53475 18.6668 9.83329Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10 13.0833C11.7949 13.0833 13.25 11.6282 13.25 9.83325C13.25 8.03833 11.7949 6.58325 10 6.58325C8.20507 6.58325 6.75 8.03833 6.75 9.83325C6.75 11.6282 8.20507 13.0833 10 13.0833Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p class="headerLocation">
+                    Selecciona tu ciudad
+                </p>
+                <svg width="8" height="6" viewBox="0 0 8 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.75593 5.12713C4.35716 5.58759 3.64284 5.58759 3.24407 5.12713L0.236819 1.65465C-0.324057 1.00701 0.135996 9.13357e-08 0.992749 1.66235e-07L7.00725 6.9204e-07C7.864 7.6694e-07 8.32406 1.00701 7.76318 1.65465L4.75593 5.12713Z" fill="#1E1E1E"/>
+                </svg>
+            </button>
+            {% comment %} 
+            Search icon and functionality will be develop on JuanS phase 2
+            <span class="lg:mt-2">
+                <button onclick="searching()">
+                    <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.9167 21.0833C16.7031 21.0833 20.5833 17.2031 20.5833 12.4167C20.5833 7.6302 16.7031 3.75 11.9167 3.75C7.1302 3.75 3.25 7.6302 3.25 12.4167C3.25 17.2031 7.1302 21.0833 11.9167 21.0833Z" stroke="#030229" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22.75 23.25L18.0917 18.5917" stroke="#030229" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>                    
+                </button>
+            </span> 
+            {% endcomment %}
+            <button class="relative" onclick="carShoppingToggle()">
+                <div class="shopping-notification">
+                    <span id="shoppingCarNotificationDesktop" class="font-bold text-mobile-paragraph-standard lg:text-desktop-paragraph-standard">1</span>
+                </div>
+                <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.01053 22.2209C8.54793 22.2209 8.98358 21.7832 8.98358 21.2434C8.98358 20.7036 8.54793 20.266 8.01053 20.266C7.47313 20.266 7.03748 20.7036 7.03748 21.2434C7.03748 21.7832 7.47313 22.2209 8.01053 22.2209Z" stroke="#030229" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.7139 22.2209C19.2513 22.2209 19.687 21.7832 19.687 21.2434C19.687 20.7036 19.2513 20.266 18.7139 20.266C18.1765 20.266 17.7408 20.7036 17.7408 21.2434C17.7408 21.7832 18.1765 22.2209 18.7139 22.2209Z" stroke="#030229" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2.22083 2.72084H4.16693L6.75526 14.8607C6.85021 15.3053 7.09648 15.7027 7.45168 15.9846C7.80689 16.2665 8.2488 16.4152 8.70136 16.405H18.2178C18.6607 16.4043 19.0902 16.2519 19.4351 15.9729C19.7801 15.6938 20.0201 15.305 20.1153 14.8705L21.7208 7.60806H5.2081" stroke="#030229" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <a class="block text-center btn-cta text-desktop-paragraph-standard screen-1720:basis-1/2" href="{% url 'catalog' %}">+ Pide aquí</a>
+        </div>
+    </nav>
+    <section class="my-3 border-t-[0.56px] border-gray-figma-600 screen-1720:hidden">
+        <button onclick="openPopup()" class="text-notificacion py-3 w-full flex justify-center lg:justify-end items-center gap-2">
+            <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.6668 9.83329C18.6668 16.3333 10.0002 22.8333 10.0002 22.8333C10.0002 22.8333 1.3335 16.3333 1.3335 9.83329C1.3335 7.53475 2.24659 5.33035 3.8719 3.70503C5.49722 2.07972 7.70162 1.16663 10.0002 1.16663C12.2987 1.16663 14.5031 2.07972 16.1284 3.70503C17.7537 5.33035 18.6668 7.53475 18.6668 9.83329Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10 13.0833C11.7949 13.0833 13.25 11.6282 13.25 9.83325C13.25 8.03833 11.7949 6.58325 10 6.58325C8.20507 6.58325 6.75 8.03833 6.75 9.83325C6.75 11.6282 8.20507 13.0833 10 13.0833Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p class="headerLocation">
+                Selecciona tu ciudad
+            </p>
+            <svg width="8" height="6" viewBox="0 0 8 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.75593 5.12713C4.35716 5.58759 3.64284 5.58759 3.24407 5.12713L0.236819 1.65465C-0.324057 1.00701 0.135996 9.13357e-08 0.992749 1.66235e-07L7.00725 6.9204e-07C7.864 7.6694e-07 8.32406 1.00701 7.76318 1.65465L4.75593 5.12713Z" fill="#1E1E1E"/>
+            </svg>
+        </button>
+    </section>
+</header>
+
+<header class="font-avantGarde bg-white block sticky top-0 z-20 lg:hidden" id="navbar_mobile">
+    <nav class="flex justify-between items-center px-4 xs:px-8 pt-5">
+        <button>
+            <a href="{% url "home" %}">
+                <img width="52" height="47" src="/media/header/logo_mobile.png" alt="Juan sabrosuras logo mobile">
+            </a>
+        </button>
+        <section class="flex items-center gap-5">
+            {% comment %} 
+            Search icon and functionality will be develop on JuanS phase 2
+            <button onclick="searching()">
+                <span>
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.91667 18.5833C14.7031 18.5833 18.5833 14.7031 18.5833 9.91667C18.5833 5.1302 14.7031 1.25 9.91667 1.25C5.1302 1.25 1.25 5.1302 1.25 9.91667C1.25 14.7031 5.1302 18.5833 9.91667 18.5833Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20.7501 20.7501L16.0918 16.0918" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button> 
+            {% endcomment %}
+            <button class="relative">
+                <div class="shopping-notification" onclick="carShoppingToggle()">
+                    <span id="shoppingCarNotificationMobile" class="font-bold text-mobile-paragraph-standard lg:text-desktop-paragraph-standard">1</span>
+                </div>
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.01016 20.7205C7.54757 20.7205 7.98322 20.2829 7.98322 19.7431C7.98322 19.2032 7.54757 18.7656 7.01016 18.7656C6.47276 18.7656 6.03711 19.2032 6.03711 19.7431C6.03711 20.2829 6.47276 20.7205 7.01016 20.7205Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.7138 20.7205C18.2512 20.7205 18.6868 20.2829 18.6868 19.7431C18.6868 19.2032 18.2512 18.7656 17.7138 18.7656C17.1764 18.7656 16.7407 19.2032 16.7407 19.7431C16.7407 20.2829 17.1764 20.7205 17.7138 20.7205Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M1.2207 1.2207H3.16681L5.75513 13.3606C5.85008 13.8052 6.09636 14.2026 6.45156 14.4845C6.80676 14.7664 7.24868 14.915 7.70124 14.9049H17.2177C17.6606 14.9042 18.09 14.7517 18.435 14.4727C18.78 14.1937 19.0199 13.8048 19.1152 13.3703L20.7207 6.10792H4.20798" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>                    
+            </button>
+            <button class="hamburger hamburger--squeeze" type="button">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner">
+                    </span>
+                </span>
+            </button>
+        </section>
+    </nav>
+    <section class="my-3 border-t-[0.56px] border-gray-figma-600">
+        <button onclick="openPopup()" class="py-3 w-full bottomShadow flex justify-center items-center gap-2 text-mobile-paragraph-standard">
+            <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.6668 9.83329C18.6668 16.3333 10.0002 22.8333 10.0002 22.8333C10.0002 22.8333 1.3335 16.3333 1.3335 9.83329C1.3335 7.53475 2.24659 5.33035 3.8719 3.70503C5.49722 2.07972 7.70162 1.16663 10.0002 1.16663C12.2987 1.16663 14.5031 2.07972 16.1284 3.70503C17.7537 5.33035 18.6668 7.53475 18.6668 9.83329Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10 13.0833C11.7949 13.0833 13.25 11.6282 13.25 9.83325C13.25 8.03833 11.7949 6.58325 10 6.58325C8.20507 6.58325 6.75 8.03833 6.75 9.83325C6.75 11.6282 8.20507 13.0833 10 13.0833Z" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p class="headerLocation">
+                Selecciona tu ciudad
+            </p>
+            <svg width="8" height="6" viewBox="0 0 8 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.75593 5.12713C4.35716 5.58759 3.64284 5.58759 3.24407 5.12713L0.236819 1.65465C-0.324057 1.00701 0.135996 9.13357e-08 0.992749 1.66235e-07L7.00725 6.9204e-07C7.864 7.6694e-07 8.32406 1.00701 7.76318 1.65465L4.75593 5.12713Z" fill="#1E1E1E"/>
+            </svg>
+        </button>
+    </section>
+    <div class="bg-primary h-0 overflow-hidden transition-height duration-500 ease-in-out" id="menu_content">
+        <ul class="flex flex-col justify-center items-start gap-12 py-10 text-white uppercase text-mobile-heading-small">
+            <li class="w-full border-b-[0.5px] border-white pb-2"><a class="px-5" href="{% url 'home' %}">Home</a></li>
+            <li class="w-full border-b-[0.5px] border-white pb-2"><a class="px-5" href="{% url 'about' %}">Servicios</a></li>
+            <li class="w-full border-b-[0.5px] border-white pb-2"><a class="px-5" href="{% url 'offers' %}">Ofertas</a></li>
+            <li class="w-full border-b-[0.5px] border-white pb-2"><a class="px-5" href="{% url 'blog' %}">Recetas</a></li>
+            <li class="w-full border-b-[0.5px] border-white pb-2"><a class="px-5" href="{% url 'contact' %}">Contáctanos</a></li>
+            <li onclick="location.href='{{ catalog }}'" class="cursor-pointer w-full px-5">
+                <a class="block text-center w-full border-[1px] border-white rounded-[100px] py-3" href="{% url 'catalog' %}">+ Pide aquí</a>
+            </li>
+        </ul>
+    </div>
+</header>

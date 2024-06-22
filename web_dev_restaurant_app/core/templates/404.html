@@ -1,0 +1,54 @@
+{% extends 'core/master.html' %}
+{% block content %}
+    <section class="container relative">
+        <img class="hidden xl:block" width="100%" src="/media/utils/error_unknown.jpg" alt="error or 404 hero banner reference">
+        <article class="screen-1720:bg-gray-figma-1200 xl:absolute xl:top-0 3xl:top-[7%] screen-1720:left-[25%] xl:max-w-[550px] xl:px-[1rem] screen-1720:px-10 screen-1720:p-10">
+            <div class="flex flex-col xl:flex-row xl:gap-6 items-center">
+                <svg width="101" height="100" viewBox="0 0 101 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_1804_6188)">
+                    <path d="M50.5 93.75C38.8968 93.75 27.7688 89.1406 19.5641 80.9359C11.3594 72.7312 6.75 61.6032 6.75 50C6.75 38.3968 11.3594 27.2688 19.5641 19.0641C27.7688 10.8594 38.8968 6.25 50.5 6.25C62.1032 6.25 73.2312 10.8594 81.4359 19.0641C89.6406 27.2688 94.25 38.3968 94.25 50C94.25 61.6032 89.6406 72.7312 81.4359 80.9359C73.2312 89.1406 62.1032 93.75 50.5 93.75ZM50.5 100C63.7608 100 76.4785 94.7322 85.8553 85.3553C95.2322 75.9785 100.5 63.2608 100.5 50C100.5 36.7392 95.2322 24.0215 85.8553 14.6447C76.4785 5.26784 63.7608 0 50.5 0C37.2392 0 24.5215 5.26784 15.1447 14.6447C5.76784 24.0215 0.5 36.7392 0.5 50C0.5 63.2608 5.76784 75.9785 15.1447 85.3553C24.5215 94.7322 37.2392 100 50.5 100Z" fill="#AC010F"/>
+                    <path d="M69.0627 31.0616C69.0181 31.1047 68.9764 31.1506 68.9377 31.1991L47.2314 58.8553L34.1502 45.7678C33.2616 44.9398 32.0863 44.489 30.8719 44.5105C29.6575 44.5319 28.4989 45.0239 27.64 45.8827C26.7812 46.7415 26.2892 47.9002 26.2678 49.1146C26.2464 50.3289 26.6972 51.5042 27.5252 52.3928L44.0627 68.9366C44.5082 69.3813 45.0387 69.7317 45.6226 69.9669C46.2064 70.2021 46.8317 70.3173 47.4611 70.3057C48.0904 70.294 48.711 70.1557 49.2858 69.899C49.8605 69.6423 50.3777 69.2725 50.8064 68.8116L75.7564 37.6241C76.606 36.7324 77.0705 35.5422 77.0495 34.3107C77.0285 33.0793 76.5237 31.9056 75.6443 31.0434C74.7648 30.1812 73.5813 29.6997 72.3497 29.7031C71.1181 29.7065 69.9374 30.1945 69.0627 31.0616Z" fill="#AC010F"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_1804_6188">
+                    <rect width="100" height="100" fill="white" transform="translate(0.5)"/>
+                    </clipPath>
+                    </defs>
+                </svg>
+                <h1 class="mt-6 xl:mt-0 text-mobile-heading-large lg:text-desktop-heading-large font-bold text-secondary">¡Algo pasó!</h1>
+            </div>
+            <div>
+                <p class="mt-6 text-center text-mobile-heading-medium lg:text-desktop-heading-medium xl:text-desktop-heading-block">Parece que estamos presentando un error o la página que buscas no existe.</p>
+            </div>
+            <div class="mt-6">
+                <p>Acá hay algunas páginas que pueden ayudarte</p>
+                <ul class="list-inside list-disc">
+                    <li>
+                        <a href="{% url "home" %}">Inicio</a>
+                    </li>
+                    <li>
+                        <a href="{% url "catalog" %}">Pide aquí</a>
+                    </li>
+                    <li>
+                        <a href="{% url "checkout" %}">Finaliza tu compra</a>
+                    </li>
+                    <li>
+                        <a href="{% url "contact" %}">Reporta un problema</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="my-6">
+                <button id="back" class="btn-cta w-full">Volver</button>
+            </div>
+        </article>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const backBtn = document.querySelector('#back');
+    backBtn.addEventListener('click', () => {
+        history.back()
+    })
+</script>
+{% endblock %}

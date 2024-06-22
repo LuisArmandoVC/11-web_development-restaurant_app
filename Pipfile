@@ -10,6 +10,9 @@ pillow = "*"
 pylint = "*"
 pylint-django = "*"
 pylint-celery = "*"
+django-environ = "*"
+pytz = "*"
+requests = "*"
 
 [dev-packages]
 autopep8 = "*"
